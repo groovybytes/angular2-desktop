@@ -1,0 +1,13 @@
+{
+  "name": "angular2-desktop",
+  "description": "angular2-desktop",
+  "version": "0.0.1",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/groovybytes/angular2-desktop.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  }
+}

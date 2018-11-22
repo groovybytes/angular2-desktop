@@ -1,7 +1,7 @@
 {
   "name": "angular2-desktop",
   "description": "angular2-desktop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/groovybytes/angular2-desktop.git"

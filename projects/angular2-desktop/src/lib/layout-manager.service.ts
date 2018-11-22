@@ -1,15 +1,14 @@
-import {Injectable} from '@angular/core';
-import {AbstractLayout} from './model/AbstractLayout';
-import {WindowInfo} from './model/WindowInfo';
-import {DesktopWindow} from './model/DesktopWindow';
-import {WindowState} from './model/WindowState';
-import {DesktopDto} from './model/DesktopDto';
-import {WindowDto} from './model/WindowDto';
+import {Injectable} from "@angular/core";
+import {DesktopDto} from "../model/daw/dto/DesktopDto";
+import {WindowDto} from "../model/daw/dto/WindowDto";
+import {AbstractLayout} from "./model/AbstractLayout";
+import {WindowInfo} from "./model/WindowInfo";
+import {WindowState} from "./model/WindowState";
+import {DesktopWindow} from "./model/DesktopWindow";
+import * as _ from "lodash";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class Angular2DesktopService {
+@Injectable()
+export class LayoutManagerService {
 
   private layout: AbstractLayout;
   private readonly animationTimeout: number = 1000;
@@ -56,9 +55,9 @@ export class Angular2DesktopService {
   }
 
   createDefaultLayout(): void {
-    this.addWindow('matrix', 0);
-    this.addWindow('sequencer', 1);
-    this.addWindow('plugin', 2);
+    this.addWindow("matrix", 0);
+    this.addWindow("sequencer", 1);
+    this.addWindow("plugin", 2);
 
     this.layout.apply();
   }
@@ -80,9 +79,8 @@ export class Angular2DesktopService {
     this.layout.addWindow(id, order);
     return this.getWindow(id).getInfo();
   }
-
   addWindowWithOrder(order: number): WindowInfo {
-    let id = _.uniqueId('window');
+    let id = _.uniqueId("window");
     this.layout.addWindow(id, order);
     return this.getWindow(id).getInfo();
   }
@@ -90,7 +88,6 @@ export class Angular2DesktopService {
   addHeader(): WindowInfo {
     return this.layout.addHeader().getInfo();
   }
-
   addFooter(): WindowInfo {
     return this.layout.addFooter().getInfo();
   }
@@ -109,12 +106,12 @@ export class Angular2DesktopService {
 
   minimize(id: string): void {
     let window = this.layout.getWindow(id);
-    window.clazz += ' animated slideOutDown';
+    window.clazz += " animated slideOutDown";
     this.layout.bringToFront(id);
     setTimeout(() => {
       window.state.next(WindowState.MINIMIZED);
       this.layout.bringToBack(window.id);
-    }, this.animationTimeout);
+    }, this.animationTimeout)
   }
 
   maximize(id: string): void {
@@ -122,7 +119,8 @@ export class Angular2DesktopService {
     this.layout.bringToFront(id);
     window.state.next(WindowState.MAXIMIZED);
 
-    if (window.state.getValue() === WindowState.MINIMIZED) window.clazz += ' animated slideInUp';
+    if (window.state.getValue() === WindowState.MINIMIZED) window.clazz += " animated slideInUp";
   }
+
 
 }

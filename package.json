@@ -4,16 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "build-lib": "ng build angular2-desktop",
-    "copy-license": "copy .\\LICENSE .\\dist\\ng-example-library",
-    "copy-readme": "copy .\\README.md .\\dist\\ng-example-library",
-    "copy-files": "npm run copy-license && npm run copy-readme",
+    "copy-readme": "copy .\\README.md .\\dist\\angular2-desktop",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pack": "cd dist/angular2-desktop && npm pack",
-    "package": "npm run build-lib && npm run copy-files && npm run pack"
+    "build": "npm run build-lib && npm run copy-readme && npm run pack",
+    "publish":"npm publish ./dist/angular2-desktop/angular2-desktop-0.0.2.tgz --access public"
   },
   "private": true,
   "dependencies": {

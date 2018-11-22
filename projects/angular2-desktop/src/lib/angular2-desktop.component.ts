@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, ElementRef, OnInit, QueryList} from '@angular/core';
+import {LayoutManagerService} from './layout-manager.service';
 
 @Component({
   selector: 'gb-angular2-desktop',
-  template: `
-    <p>
-      angular2-desktop works!
-    </p>
-  `,
-  styles: []
+  templateUrl: './angular2-desktop.component.html',
+  styleUrls: ['./angular2-dekstop.component.scss']
 })
-export class Angular2DesktopComponent implements OnInit {
+export class Angular2DesktopComponent implements OnInit, AfterContentInit {
 
-  constructor() { }
+  @ContentChildren('window')
+  windows: QueryList<ElementRef>;
+
+
+  constructor(private layoutManager: LayoutManagerService) {
+  }
 
   ngOnInit() {
   }
 
+
+  ngAfterContentInit(): void {
+    console.log(this.windows);
+  }
 }

@@ -1,6 +1,11 @@
 @import "../angular2-desktop.component.variables";
 
-
+table{
+  width:100vw;
+  td{
+    width:200px;
+  }
+}
 
 :host{
   position: absolute;

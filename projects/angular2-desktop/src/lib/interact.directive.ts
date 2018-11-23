@@ -1,17 +1,20 @@
-import {Directive, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
-import * as $ from "jquery";
+import * as $ from 'jquery';
+import {Subscription} from 'rxjs';
+import {WindowState} from './model/WindowState';
 
 declare var interact;
 
 @Directive({
   selector: '[interact]'
 })
-export class InteractDirective implements OnInit {
+export class InteractDirective implements OnInit, OnDestroy {
 
   @Input() parent: string = 'parent';
-  @Input() enabled: boolean = true;
   @Input() window: DesktopWindow;
+
+  private stateSubscription: Subscription;
 
 
   constructor(private element: ElementRef,
@@ -21,6 +24,7 @@ export class InteractDirective implements OnInit {
 
   ngOnInit(): void {
 
+    this.stateSubscription = this.window.state.subscribe(state => this.onStateUpdated(state));
     this.element.nativeElement.style.webkitTransform =
       this.element.nativeElement.style.transform =
         'translate(' + this.window.x + 'px, ' + this.window.y + 'px)';
@@ -49,7 +53,7 @@ export class InteractDirective implements OnInit {
 
 
         // call this function on every dragmove event
-        onmove: dragMoveListener,
+        onmove: (event) => this.onMove(event),
         // call this function on every dragend event
         onend: function (event) {
         }
@@ -61,7 +65,7 @@ export class InteractDirective implements OnInit {
           outer: this.parent,
           endOnly: false,
         },
-        enabled: this.enabled,
+        enabled: true,
         inertia: false,
         restrictSize: {
           min: {width: 10},
@@ -75,28 +79,7 @@ export class InteractDirective implements OnInit {
           ]
         }
       })
-      .on('resizemove', (event) => {
-
-        let target = event.target,
-          x = (parseFloat(target.getAttribute('data-x')) || 0),
-          y = (parseFloat(target.getAttribute('data-y')) || 0);
-
-        // update the element's style
-        target.style.width = event.rect.width + 'px';
-        target.style.height = event.rect.height + 'px';
-        this.window.width = event.rect.width;
-        this.window.height = event.rect.height;
-
-        // translate when resizing from top or left edges
-        x += event.deltaRect.left;
-        y += event.deltaRect.top;
-
-        target.style.webkitTransform = target.style.transform =
-          'translate(' + x + 'px,' + y + 'px)';
-
-        target.setAttribute('data-x', x);
-        target.setAttribute('data-y', y);
-      })
+      .on('resizemove', (event) => this.onResizeMove(event))
       .on('resizeend', (event) => {
         $(event.target).css('z-index', '1');
         // this.resizeEnd.emit(event.target);
@@ -106,33 +89,80 @@ export class InteractDirective implements OnInit {
         //this.resizeStart.emit();
       });
 
-    let self = this;
 
-    function dragMoveListener(event) {
-      let target = event.target,
-        // keep the dragged position in the data-x/data-y attributes
-        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
-        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+  }
 
-      console.log(event.dx);
-      // translate the element
-      target.style.webkitTransform =
-        target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
+  private onMove(event): void {
+    let target = event.target,
+      // keep the dragged position in the data-x/data-y attributes
+      x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+      y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
 
-      // update the posiion attributes
-      target.setAttribute('data-x', x);
-      target.setAttribute('data-y', y);
+    this.updatePosition(x, y, true);
+  }
 
-      self.window.x = x;
-      self.window.y = y;
-      /*  self.positionXChanged.emit(x);
-        self.positionYChanged.emit(y);*/
+  private onResizeMove(event): void {
+    let target = event.target,
+      x = (parseFloat(target.getAttribute('data-x')) || 0),
+      y = (parseFloat(target.getAttribute('data-y')) || 0);
 
+    // update the element's style
+    target.style.width = event.rect.width + 'px';
+    target.style.height = event.rect.height + 'px';
+    this.window.width = event.rect.width;
+    this.window.height = event.rect.height;
+
+    // translate when resizing from top or left edges
+    x += event.deltaRect.left;
+    y += event.deltaRect.top;
+
+    target.style.webkitTransform = target.style.transform =
+      'translate(' + x + 'px,' + y + 'px)';
+
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+  private onStateUpdated(state: WindowState): void {
+    if (state === WindowState.MAXIMIZED) {
+
+      this.disable();
+    } else {
+      this.enable();
     }
 
-    // this is used later in the resizing and gesture demos
-    window['dragMoveListener'] = dragMoveListener;
+  }
+
+  private disable() {
+    interact(this.element.nativeElement)
+      .draggable({enabled: false});
+    this.updatePosition(0, 0, false);
+  }
+
+  private updatePosition(x: number, y: number, updateWindow: boolean): void {
+    this.element.nativeElement.style.webkitTransform =
+      this.element.nativeElement.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    this.element.nativeElement.setAttribute('data-x', x);
+    this.element.nativeElement.setAttribute('data-y', y);
+
+    if (updateWindow) {
+      this.window.x = x;
+      this.window.y = y;
+    }
+
+  }
+
+  private enable() {
+    interact(this.element.nativeElement)
+      .draggable({enabled: true});
+    this.updatePosition(this.window.x, this.window.y, false);
+  }
+
+  ngOnDestroy(): void {
+    this.stateSubscription.unsubscribe();
   }
 
 }

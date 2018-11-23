@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   window2:DesktopWindow;
 
   ngOnInit(): void {
-    this.window1=new DesktopWindow(100,100,50,50);
-    this.window2=new DesktopWindow(300,300,50,50);
+    this.window1=new DesktopWindow("window1",100,100,50,50);
+    this.window2=new DesktopWindow("window2",300,300,50,50);
   }
 }

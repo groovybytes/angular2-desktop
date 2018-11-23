@@ -1,6 +1,8 @@
-import {AfterContentInit, Component, ContentChildren, ElementRef, OnInit, QueryList, ViewEncapsulation} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, ElementRef, OnDestroy, OnInit, QueryList, ViewEncapsulation} from '@angular/core';
 import {Angular2DesktopService} from './angular2-desktop.service';
 import {WindowComponent} from './window/window.component';
+import {BarComponent} from './bar/bar.component';
+import {TaskBarComponent} from './bar/taskbar.component';
 
 
 // @ts-ignore
@@ -10,10 +12,11 @@ import {WindowComponent} from './window/window.component';
   styleUrls: ['./angular2-desktop.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class Angular2DesktopComponent implements OnInit, AfterContentInit {
+export class Angular2DesktopComponent implements OnInit, AfterContentInit,OnDestroy {
 
 
   @ContentChildren(WindowComponent) windows: QueryList<WindowComponent>;
+  @ContentChildren(TaskBarComponent) bars: QueryList<TaskBarComponent>;
 
 
   constructor(private desktop: Angular2DesktopService) {
@@ -23,6 +26,10 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    console.log(this.windows);
+    this.bars.forEach(bar=>bar.windows=this.windows);
+  }
+
+  ngOnDestroy(): void {
+
   }
 }

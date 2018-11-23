@@ -1,6 +1,12 @@
-<div class="window drag-handle"  interact [window]="window" parent=".desktop-container">
-  <div class="window-header">
-    <ng-content select=".header"></ng-content>
+<div
+  *ngIf="isVisible()"
+  [ngClass]="window.clazz"
+  interact
+  [window]="window"
+  parent=".desktop-container">
+  <div class="window-header drag-handle">
+    <!--<ng-content select=".header"></ng-content>-->
+    <gb-window-header [window]="window"></gb-window-header>
   </div>
   <div class="window-body">
     <ng-content select=".body"></ng-content>

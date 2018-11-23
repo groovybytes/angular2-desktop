@@ -5,7 +5,10 @@ import {LayoutcontrolComponent} from './layoutcontrol/layoutcontrol.component';
 import {WindowComponent} from './window/window.component';
 import {Angular2DesktopService} from './angular2-desktop.service';
 import {InteractDirective} from './interact.directive';
-import {TaskbarComponent} from './taskbar/taskbar.component';
+import {BarComponent} from './bar/bar.component';
+import {TaskBarComponent} from './bar/taskbar.component';
+import {WindowHeaderComponent} from './window/window-header.component';
+
 
 @NgModule({
   imports: [
@@ -15,9 +18,11 @@ import {TaskbarComponent} from './taskbar/taskbar.component';
   declarations: [Angular2DesktopComponent,
     WindowComponent,
     LayoutcontrolComponent,
-    TaskbarComponent,
+    WindowHeaderComponent,
+    BarComponent,
+    TaskBarComponent,
     InteractDirective],
-  exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent]
+  exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent,BarComponent,TaskBarComponent]
 })
 export class Angular2DesktopModule {
 }

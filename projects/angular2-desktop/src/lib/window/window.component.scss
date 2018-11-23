@@ -1,0 +1,26 @@
+@import "../angular2-desktop.component.variables";
+
+.window{
+  z-index: $z-index-window;
+  position: absolute;
+  background-color: $window-bg;
+  overflow: auto;
+
+}
+.window-header{
+  width:100%;
+  height:50px;
+  background-color: $window-header-bg;
+}
+
+
+.window-footer{
+  position: absolute;
+  width:100%;
+  height:50px;
+  background-color: $window-footer-bg;
+  bottom:0;
+}
+:host /deep/ {
+
+}

@@ -1,11 +1,19 @@
-<div class="card">
-  <div class="card-header">
+<div class="window drag-handle"  interact [window]="window" parent=".desktop-container">
+  <div class="window-header">
     <ng-content select=".header"></ng-content>
   </div>
-  <div class="card-body">
+  <div class="window-body">
     <ng-content select=".body"></ng-content>
   </div>
-  <div class="card-footer">
+  <div class="window-footer">
     <ng-content select=".footer"></ng-content>
   </div>
 </div>
+
+<!--
+[ngStyle]="{
+'width':width+'vw',
+'height':height+'vh',
+'left':x+'px',
+'right':y+'px'
+}"-->

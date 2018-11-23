@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LayoutManagerService} from "../layout-manager.service";
+import {Angular2DesktopService} from '../angular2-desktop.service';
 
 @Component({
   selector: 'layoutcontrol',
@@ -8,7 +8,7 @@ import {LayoutManagerService} from "../layout-manager.service";
 })
 export class LayoutcontrolComponent implements OnInit {
 
-  constructor(private layout:LayoutManagerService) { }
+  constructor(private desktop:Angular2DesktopService) { }
 
   ngOnInit() {
   }

@@ -1,40 +1,34 @@
 import {Component, HostBinding, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {LayoutManagerService} from "../layout-manager.service";
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
 import {DesktopWindow} from "../model/DesktopWindow";
+import {Angular2DesktopService} from '../angular2-desktop.service';
 
 @Component({
-  selector: 'window',
+  selector: 'gb-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
 export class WindowComponent implements OnInit,OnChanges {
 
-  @Input() title: string;
-  @Input() order: number;
-  @Input() showHeader:boolean=true;
-  @Input() position:string;
-  @Input() height:number;
+  @Input() window:DesktopWindow;
 
   @HostBinding('attr.class')
   get clazz() {
     return this.window?this.window.clazz:"";
   }
-  @HostBinding('style')
-  get style() {
+ /* @HostBinding('style')
+  get getStyle():SafeStyle {
     let zIndex=this.window?this.window.zIndex:0;
     return this.sanitizer.bypassSecurityTrustStyle('z-index:'+zIndex.toString());
 
-  }
-
-  window:DesktopWindow;
+  }*/
 
 
-  constructor(private layout: LayoutManagerService,private sanitizer:DomSanitizer) {
+  constructor(private desktop: Angular2DesktopService,private sanitizer:DomSanitizer) {
   }
 
   ngOnInit() {
-    this.layout.addWindowWithOrder(this.order);
+    //this.desktop.addWindowWithOrder(this.order);
 
   }
 

@@ -1,5 +1,5 @@
 import {WindowPosition} from "./WindowPosition";
-import {AbstractLayout} from "./AbstractLayout";
+import {AbstractLayout} from "./LayoutEngine";
 
 
 export class VerticalLayout extends AbstractLayout{

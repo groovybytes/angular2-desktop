@@ -1,9 +1,8 @@
-import {WindowPosition} from "./WindowPosition";
 import {WindowState} from "./WindowState";
 import {Subscription} from "rxjs";
 import {DesktopWindow} from "./DesktopWindow";
 
-export abstract class AbstractLayout {
+export class LayoutEngine {
 
   private subscriptions: Array<Subscription> = [];
   protected windows: Array<DesktopWindow> = [];
@@ -13,9 +12,6 @@ export abstract class AbstractLayout {
   }
 
 
-  abstract apply(): void;
-
-  abstract reset(): void;
 
   open(id: string): void {
     this.getWindow(id).state.next(WindowState.NORMAL);

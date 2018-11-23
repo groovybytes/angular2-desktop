@@ -1,0 +1,12 @@
+@import "../angular2-desktop.component.variables";
+
+
+
+:host{
+  position: absolute;
+  background-color: $bar-bg;
+  width:100vw;
+  height:$bar-size;
+
+}
+

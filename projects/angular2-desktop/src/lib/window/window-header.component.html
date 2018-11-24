@@ -1,12 +1,16 @@
 <span>{{window.title}}</span>
-<div  role="group" class="btn-group">
+<div role="group" class="btn-group">
   <button type="button" class="" *ngIf="window.state.getValue() != state.MAXIMIZED " (click)="maximize()">
     <i class="far fa-window-maximize"></i>
+  </button>
+
+  <button type="button" class="" *ngIf="window.state.getValue() != state.MINIMIZED" (click)="minimize()">
+    <i class="far fa-window-minimize"></i>
   </button>
   <button type="button" class="" *ngIf="window.state.getValue() != state.NORMAL" (click)="restore()">
     <i class="far fa-window-restore"></i>
   </button>
-  <button type="button" class=""  *ngIf="window.state.getValue() != state.MINIMIZED" (click)="minimize()">
-    <i class="far fa-window-minimize"></i>
+  <button type="button" class="" *ngIf="window.state.getValue() != state.MINIMIZED" (click)="close()">
+    <i class="fas fa-times"></i>
   </button>
 </div>

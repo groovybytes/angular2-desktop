@@ -1,5 +1,11 @@
 <div class="desktop-container">
   <ng-content></ng-content>
 
+  <div class="grid-container">
+    <div *ngFor="let window of getClosedWindows()" class="grid-item">
+      <gb-shortcut [shortCut]="window.shortCut"></gb-shortcut>
+    </div>
+
+  </div>
 </div>
 

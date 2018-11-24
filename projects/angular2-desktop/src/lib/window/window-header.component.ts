@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {WindowState} from '../model/WindowState';
+import {Angular2DesktopService} from '../angular2-desktop.service';
 
 
 @Component({
@@ -12,22 +13,27 @@ export class WindowHeaderComponent implements OnInit {
 
   @Input() window: DesktopWindow;
 
-  state=WindowState;
+  state = WindowState;
 
 
-  constructor() {
+  constructor(private desktop: Angular2DesktopService) {
   }
 
   minimize(): void {
-    this.window.state.next(WindowState.MINIMIZED);
+    this.desktop.minimize(this.window);
+
   }
 
   restore(): void {
-    this.window.state.next(WindowState.NORMAL);
+    this.desktop.normalize(this.window);
   }
 
   maximize(): void {
-    this.window.state.next(WindowState.MAXIMIZED);
+    this.desktop.maximize(this.window);
+  }
+
+  close(): void {
+    this.desktop.close(this.window);
   }
 
   ngOnInit() {

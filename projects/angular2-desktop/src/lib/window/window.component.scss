@@ -6,7 +6,9 @@
   background-color: $window-bg;
   overflow: auto;
 
-
+  &.active{
+    z-index: $z-index-window+1;
+  }
 }
 .window-header{
   width:100%;

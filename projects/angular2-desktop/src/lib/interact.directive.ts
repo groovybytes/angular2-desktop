@@ -3,6 +3,7 @@ import {DesktopWindow} from './model/DesktopWindow';
 import * as $ from 'jquery';
 import {Subscription} from 'rxjs';
 import {WindowState} from './model/WindowState';
+import {Angular2DesktopService} from './angular2-desktop.service';
 
 declare var interact;
 
@@ -18,7 +19,7 @@ export class InteractDirective implements OnInit, OnDestroy {
 
 
   constructor(private element: ElementRef,
-              private renderer: Renderer2) {
+              private desktopService: Angular2DesktopService) {
 
   }
 
@@ -55,7 +56,10 @@ export class InteractDirective implements OnInit, OnDestroy {
         // call this function on every dragmove event
         onmove: (event) => this.onMove(event),
         // call this function on every dragend event
-        onend: function (event) {
+        onend:  (event)=> {
+        },
+        onstart:  (event)=> {
+          this.desktopService.focus(this.window);
         }
       })
       .resizable({

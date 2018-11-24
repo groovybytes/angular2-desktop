@@ -30,7 +30,8 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/lodash/lodash.min.js",
-              "node_modules/interactjs/dist/interact.min.js"
+              "node_modules/interactjs/dist/interact.min.js",
+              "node_modules/chance/dist/chance.min.js"
             ]
           },
           "configurations": {

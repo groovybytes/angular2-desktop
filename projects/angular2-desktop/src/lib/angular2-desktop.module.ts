@@ -8,6 +8,7 @@ import {InteractDirective} from './interact.directive';
 import {BarComponent} from './bar/bar.component';
 import {TaskBarComponent} from './bar/taskbar.component';
 import {WindowHeaderComponent} from './window/window-header.component';
+import { ShortcutComponent } from './shortcut/shortcut.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {WindowHeaderComponent} from './window/window-header.component';
     WindowHeaderComponent,
     BarComponent,
     TaskBarComponent,
-    InteractDirective],
+    InteractDirective,
+    ShortcutComponent],
   exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent,BarComponent,TaskBarComponent]
 })
 export class Angular2DesktopModule {

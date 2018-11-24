@@ -1,6 +1,7 @@
-import {Component, HostBinding, Input, OnInit, QueryList} from '@angular/core';
-import {WindowComponent} from '../window/window.component';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 import {WindowState} from '../model/WindowState';
+import {Angular2DesktopService} from '../angular2-desktop.service';
+import {DesktopWindow} from '../model/DesktopWindow';
 
 @Component({
   selector: 'gb-taskbar',
@@ -11,21 +12,27 @@ export class TaskBarComponent implements OnInit {
 
   @Input() location: string = 'bottom';
 
-  @Input() windows: QueryList<WindowComponent>;
-
-
   @HostBinding('attr.class')
   get clazz() {
     return 'bar bar-' + this.location;
   }
 
-  ngOnInit() {
-    //this.desktop.addWindowWithOrder(this.order);
+  constructor(private desktop: Angular2DesktopService) {
 
   }
 
-  onEntryClicked(window: WindowComponent): void {
-    window.window.state.next(WindowState.NORMAL);
+  ngOnInit() {
+
+
+  }
+
+  getOpenWindows(): Array<DesktopWindow> {
+    return this.desktop.windows.filter(window=>window.state.getValue()!==WindowState.CLOSED);
+  }
+
+  onEntryClicked(window: DesktopWindow): void {
+    this.desktop.focus(window);
+    window.state.next(WindowState.NORMAL);
   }
 
 

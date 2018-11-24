@@ -1,0 +1,14 @@
+@import "../angular2-desktop.component.variables";
+
+.shortcut{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 15px;
+  width:100%;
+  height:100%;
+  background-color: darken($desktop-bg,10%);
+}
+
+.shortcut-title{
+  background-color: darken($desktop-bg,20%);
+}

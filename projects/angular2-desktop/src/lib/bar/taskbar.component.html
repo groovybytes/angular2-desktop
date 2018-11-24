@@ -1,3 +1,5 @@
-<div class="bar-entry" *ngFor="let window of windows" (click)="onEntryClicked(window)">
-  <span>{{window.window.title}}</span>
+<div class="bar-entry" [ngClass]="{'active':window.active.getValue()}"
+     *ngFor="let window of getOpenWindows()"
+     (click)="onEntryClicked(window)">
+  <span>{{window.title}}</span>
 </div>

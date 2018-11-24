@@ -1,12 +1,12 @@
-<div
-  *ngIf="isVisible()"
-  [ngClass]="window.clazz"
+<div (click)="onClick()"
+  *ngIf="model.isVisible()"
+  [ngClass]="model.clazz"
   interact
-  [window]="window"
+  [window]="model"
   parent=".desktop-container">
   <div class="window-header drag-handle">
     <!--<ng-content select=".header"></ng-content>-->
-    <gb-window-header [window]="window"></gb-window-header>
+    <gb-window-header [window]="model"></gb-window-header>
   </div>
   <div class="window-body">
     <ng-content select=".body"></ng-content>

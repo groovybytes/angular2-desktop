@@ -1,7 +1,8 @@
-import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Inject, Input, OnInit} from '@angular/core';
 import {WindowState} from '../model/WindowState';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {DesktopWindow} from '../model/DesktopWindow';
+import {Desktop} from '../model/Desktop';
 
 @Component({
   selector: 'gb-taskbar',
@@ -17,7 +18,7 @@ export class TaskBarComponent implements OnInit {
     return 'bar bar-' + this.location;
   }
 
-  constructor(private desktop: Angular2DesktopService) {
+  constructor(@Inject("desktop") private desktop:Desktop,private desktopService: Angular2DesktopService) {
 
   }
 
@@ -31,7 +32,7 @@ export class TaskBarComponent implements OnInit {
   }
 
   onEntryClicked(window: DesktopWindow): void {
-    this.desktop.focus(window);
+    this.desktopService.focus(window);
     window.state.next(WindowState.NORMAL);
   }
 

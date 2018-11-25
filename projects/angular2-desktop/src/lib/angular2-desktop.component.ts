@@ -1,7 +1,8 @@
-import {AfterContentInit, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {Angular2DesktopService} from './angular2-desktop.service';
 import {DesktopWindow} from './model/DesktopWindow';
 import {ShortCut} from './model/ShortCut';
+import {Desktop} from './model/Desktop';
 
 
 @Component({
@@ -15,8 +16,10 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit, OnDes
 
   //@ContentChildren(WindowComponent) windows: QueryList<WindowComponent>;
 
-  constructor(private desktopService: Angular2DesktopService) {
+  desktop: Desktop;
 
+  constructor(@Inject('desktop') desktop: Desktop,private desktopService: Angular2DesktopService) {
+    this.desktop=desktop;
   }
 
   ngOnInit() {
@@ -29,13 +32,6 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit, OnDes
 
   ngOnDestroy(): void {
 
-  }
-
-  getClosedWindows(): Array<DesktopWindow> {
-    this.desktopService.getClosedWindows().map(win=>win.shortCut).forEach(
-      x=>console.log(x.title))
-    )
-    return this.desktopService.getClosedWindows();
   }
 
   shortCutClicked(shortCut: ShortCut): void {

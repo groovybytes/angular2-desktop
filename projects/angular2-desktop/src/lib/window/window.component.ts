@@ -32,18 +32,18 @@ export class WindowComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private desktop:Angular2DesktopService) {
+  constructor(private desktopService:Angular2DesktopService) {
   }
 
   ngOnInit() {
-    this.window=this.desktop.registerWindow(this.specs);
-    this.subscriptions.push(this.window.state.subscribe(() => this.desktop.onWindowStateChanged(this.window)));
-    this.subscriptions.push(this.window.active.subscribe(() => this.desktop.onWindowActiveChanged(this.window)));
+    this.window=this.desktopService.registerWindow(this.specs);
+    this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
+    this.subscriptions.push(this.window.active.subscribe(() => this.desktopService.onWindowActiveChanged(this.window)));
 
   }
 
   onClick(): void {
-    this.desktop.focus(this.window);
+    this.desktopService.focus(this.window);
   }
 
   ngOnDestroy(): void {

@@ -10,7 +10,7 @@ export class SerializationService {
 
   deSerializeWindow(specs: WindowSpecs): DesktopWindow {
     let window = new DesktopWindow(specs.title, specs.x, specs.x, specs.width, specs.height);
-    window.shortCut=new ShortCut(specs.shortCut.title,specs.shortCut.icon,specs.shortCut.color);
+    window.shortCut=new ShortCut(window.id,specs.shortCut.title,specs.shortCut.icon,specs.shortCut.color);
     window.state.next(specs.state);
     window.active.next(specs.active);
     return window;

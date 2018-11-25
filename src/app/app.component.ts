@@ -32,8 +32,7 @@ export class AppComponent implements OnInit {
       window.shortCut.color=chance.color();
       window.shortCut.icon="";
       window.shortCut.fontColor="white";
-      window.shortCut.color=chance.color();
-      window.shortCut.color=chance.color();
+      window.shortCut.title=chance.word();
 
       this.windows.push(window);
 

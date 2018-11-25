@@ -10,13 +10,17 @@ import {TaskBarComponent} from './bar/taskbar.component';
 import {WindowHeaderComponent} from './window/window-header.component';
 import {ShortcutComponent} from './shortcut/shortcut.component';
 import {SerializationService} from './serialization.service';
+import {Desktop} from './model/Desktop';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  providers: [Angular2DesktopService,SerializationService],
+  providers: [
+    Angular2DesktopService,
+    {provide: 'desktop', useClass: Desktop},
+    SerializationService],
   declarations: [Angular2DesktopComponent,
     WindowComponent,
     LayoutcontrolComponent,
@@ -25,7 +29,7 @@ import {SerializationService} from './serialization.service';
     TaskBarComponent,
     InteractDirective,
     ShortcutComponent],
-  exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent,BarComponent,TaskBarComponent]
+  exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent, BarComponent, TaskBarComponent]
 })
 export class Angular2DesktopModule {
 }

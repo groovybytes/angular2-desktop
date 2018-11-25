@@ -1,4 +1,5 @@
 export class ShortCut {
+
   constructor(windowRef:string,title: string, icon: string, color?: string) {
     this.title = title;
     this.icon = icon;
@@ -7,7 +8,7 @@ export class ShortCut {
   }
 
   windowRef: string;
-  title: string;
+  title: string="xxx";
   icon: string;
   color: string;
   fontColor:string="white";

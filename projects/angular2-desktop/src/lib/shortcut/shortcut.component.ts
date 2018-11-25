@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {ShortCut} from '../model/ShortCut';
 
@@ -9,9 +9,11 @@ import {ShortCut} from '../model/ShortCut';
 })
 export class ShortcutComponent implements OnInit {
 
-  @Input() shortCut:ShortCut;
+  @Input() shortCut: ShortCut;
+  @Output() shortCutDblClicked: EventEmitter<void> = new EventEmitter();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

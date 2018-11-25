@@ -3,7 +3,10 @@
 
   <div class="grid-container">
     <div *ngFor="let window of getClosedWindows()" class="grid-item">
-      <gb-shortcut [shortCut]="window.shortCut"></gb-shortcut>
+      <gb-shortcut
+        [shortCut]="window.shortCut"
+        (shortCutDblClicked)="shortCutClicked(window.shortCut)">
+      </gb-shortcut>
     </div>
 
   </div>

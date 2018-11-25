@@ -1,9 +1,8 @@
-import {Component, EventEmitter, HostBinding, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {Component, HostBinding, Input, OnDestroy, OnInit} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
-import {WindowState} from '../model/WindowState';
 import {Subscription} from 'rxjs';
+import {WindowSpecs} from '../model/specs/WindowSpecs';
 
 @Component({
   selector: 'gb-window',
@@ -12,13 +11,16 @@ import {Subscription} from 'rxjs';
 })
 export class WindowComponent implements OnInit, OnDestroy {
 
-  @Input() model: DesktopWindow;
-  @Output() click: EventEmitter<void> = new EventEmitter();
+  @Input() specs: WindowSpecs;
 
   @HostBinding('attr.class')
   get clazz() {
-    return this.model ? this.model.clazz : '';
+    return this.window ? this.window.clazz : '';
   }
+
+  window: DesktopWindow;
+
+  private subscriptions:Array<Subscription>=[];
 
   /* @HostBinding('style')
    get getStyle():SafeStyle {
@@ -30,19 +32,22 @@ export class WindowComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private desktop: Angular2DesktopService, private sanitizer: DomSanitizer) {
+  constructor(private desktop:Angular2DesktopService) {
   }
 
   ngOnInit() {
+    this.window=this.desktop.registerWindow(this.specs);
+    this.subscriptions.push(this.window.state.subscribe(() => this.desktop.onWindowStateChanged(this.window)));
+    this.subscriptions.push(this.window.active.subscribe(() => this.desktop.onWindowActiveChanged(this.window)));
 
   }
 
   onClick(): void {
-    this.click.emit();
+    this.desktop.focus(this.window);
   }
 
   ngOnDestroy(): void {
-    this.model.destroy();
+    this.subscriptions.forEach(subscription=>subscription.unsubscribe());
   }
 
 }

@@ -1,11 +1,12 @@
 import {Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
-import * as $ from 'jquery';
+
 import {Subscription} from 'rxjs';
 import {WindowState} from './model/WindowState';
 import {Angular2DesktopService} from './angular2-desktop.service';
 
 declare var interact;
+declare var $;
 
 @Directive({
   selector: '[interact]'

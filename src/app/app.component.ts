@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DesktopWindow} from '../../projects/angular2-desktop/src/lib/model/DesktopWindow';
+import {WindowSpecs} from '../../projects/angular2-desktop/src/lib/model/specs/WindowSpecs';
+import {ShortCutSpecs} from '../../projects/angular2-desktop/src/lib/model/specs/ShortCutSpecs';
 import {WindowState} from '../../projects/angular2-desktop/src/lib/model/WindowState';
-import {ShortCut} from '../../projects/angular2-desktop/src/lib/model/ShortCut';
 
 declare var chance;
 
@@ -10,28 +10,36 @@ declare var chance;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'app';
 
-  windows:Array<DesktopWindow>=[];
-  nWindows=50;
+  windows: Array<WindowSpecs> = [];
+  nWindows = 50;
 
   ngOnInit(): void {
 
     for (let i = 0; i < this.nWindows; i++) {
-      let window = new DesktopWindow(chance.word(),
-        new ShortCut("w"+i,"",chance.color()),
-        chance.integer({ min: 20, max: 300 }),
-        chance.integer({ min: 20, max: 300 }),
-        chance.integer({ min: 30, max: 60 }),
-        chance.integer({ min: 30, max: 50 }));
+      let window = new WindowSpecs();
+      window.order=1;
+      window.state=WindowState.CLOSED;
+      window.active=false;
+      window.height=chance.integer({min: 30, max: 60});
+      window.width=chance.integer({min: 30, max: 60});
+      window.x=chance.integer({min: 20, max: 300});
+      window.y=chance.integer({min: 20, max: 300});
+      window.title=chance.word();
+      window.shortCut=new ShortCutSpecs();
+      window.shortCut.color=chance.color();
+      window.shortCut.icon="";
+      window.shortCut.fontColor="white";
+      window.shortCut.color=chance.color();
+      window.shortCut.color=chance.color();
 
       this.windows.push(window);
 
-     /* if (chance.d6()===6)  window.state.next(WindowState.NORMAL);
-      else window.state.next(WindowState.CLOSED);*/
+      /* if (chance.d6()===6)  window.state.next(WindowState.NORMAL);
+       else window.state.next(WindowState.CLOSED);*/
 
-      window.state.next(WindowState.CLOSED);
     }
 
 

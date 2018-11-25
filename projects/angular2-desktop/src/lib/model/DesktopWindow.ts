@@ -8,7 +8,7 @@ export class DesktopWindow {
   title: string;
   clazz: string;
   id: string;
-  zIndex: number = 1;
+  /*zIndex: number = 1;*/
   //zIndexTmp: number = 1;
   state: BehaviorSubject<WindowState> = new BehaviorSubject(WindowState.NORMAL);
   active: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -17,13 +17,10 @@ export class DesktopWindow {
   y: number;
   width: number;
   height: number;
-  shortCut:ShortCut;
-
-  private subscriptions: Array<Subscription> = [];
+  shortCut: ShortCut;
 
   constructor(
     title: string,
-    shortCut:ShortCut,
     x: number,
     y: number,
     width: number,
@@ -34,14 +31,11 @@ export class DesktopWindow {
     this.width = width;
     this.height = height;
     this.title = title;
-    this.shortCut=shortCut;
 
-    this.subscriptions.push(this.state.subscribe(() => this.updateClass()));
-    this.subscriptions.push(this.active.subscribe(() => this.updateClass()));
+
   }
 
-
-  private updateClass(): void {
+  updateClass(): void {
     this.clazz = 'window';
     /*if (this.position.getValue() === WindowPosition.TOP) this.clazz += " window-top";
     else if (this.position.getValue() === WindowPosition.BOTTOM) this.clazz += " window-bottom";
@@ -59,13 +53,13 @@ export class DesktopWindow {
 
   }
 
-  destroy(): void {
-    this.subscriptions.forEach(subscr => subscr.unsubscribe());
-  }
-
   isVisible(): boolean {
     return this.state.getValue() === WindowState.MAXIMIZED
       || this.state.getValue() === WindowState.NORMAL;
+  }
+
+  isOpen(): boolean {
+    return this.state.getValue() !== WindowState.CLOSED;
   }
 
 }

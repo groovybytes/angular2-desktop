@@ -8,14 +8,15 @@ import {InteractDirective} from './interact.directive';
 import {BarComponent} from './bar/bar.component';
 import {TaskBarComponent} from './bar/taskbar.component';
 import {WindowHeaderComponent} from './window/window-header.component';
-import { ShortcutComponent } from './shortcut/shortcut.component';
+import {ShortcutComponent} from './shortcut/shortcut.component';
+import {SerializationService} from './serialization.service';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  providers: [Angular2DesktopService],
+  providers: [Angular2DesktopService,SerializationService],
   declarations: [Angular2DesktopComponent,
     WindowComponent,
     LayoutcontrolComponent,

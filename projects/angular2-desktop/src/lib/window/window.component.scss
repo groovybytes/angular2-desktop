@@ -1,13 +1,13 @@
 @import "../angular2-desktop.component.variables";
 
 .window{
-  z-index: $z-index-window;
+  //z-index: $z-index-window;
   position: absolute;
   background-color: $window-bg;
   overflow: auto;
 
   &.active{
-    z-index: $z-index-window+1;
+   // z-index: $z-index-window+1;
   }
 }
 .window-header{

@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   windows: Array<WindowSpecs> = [];
-  nWindows = 50;
+  nWindows = 3;
 
   ngOnInit(): void {
 

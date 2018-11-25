@@ -1,7 +1,7 @@
 <div (click)="onClick()"
-     *ngIf="window.isVisible()"
+     *ngIf="window"
      [ngClass]="window.clazz"
-     [ngStyle]="{'z-index':1}"
+     [ngStyle]="{'z-index':getOrder()}"
      interact
      [window]="window"
      parent=".desktop-container">

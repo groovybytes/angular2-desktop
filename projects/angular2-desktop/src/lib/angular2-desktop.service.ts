@@ -9,7 +9,7 @@ import {Desktop} from './model/Desktop';
 export class Angular2DesktopService {
 
 
-  constructor(@Inject('desktop') private desktop: Desktop, private serializer: SerializationService) {
+  constructor(@Inject('desktop') private desktop: Desktop) {
     this.desktop = desktop;
 
   }
@@ -52,6 +52,7 @@ export class Angular2DesktopService {
   close(window: DesktopWindow): void {
     window.state.next(WindowState.CLOSED);
 
+
   }
 
   onWindowStateChanged(window: DesktopWindow): void {
@@ -70,20 +71,15 @@ export class Angular2DesktopService {
 
   }
 
-  registerWindow(specs: WindowSpecs): DesktopWindow {
-
-    let window = this.serializer.deSerializeWindow(specs);
-    //this.indices.add(window.id);
-    this.desktop.windows.push(window);
-
-    return window;
-  }
 
   removeWindow(window: DesktopWindow): void {
 
   }
 
   moveUp(window: DesktopWindow): void {
+    let index = this.desktop.orders.indexOf(window.id);
+    this.desktop.orders.splice(index,1);
+    this.desktop.orders.push(window.id);
     /* let openWindows = this.desktop.windows.filter(window => window.isOpen());
      let indices = openWindows.map(window => window.zIndex);
      let maxIndex = _.max(indices);

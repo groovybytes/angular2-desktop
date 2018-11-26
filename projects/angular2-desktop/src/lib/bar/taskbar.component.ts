@@ -3,7 +3,8 @@ import {WindowState} from '../model/WindowState';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Desktop} from '../model/Desktop';
-import {DomSanitizer, SafeStyle} from '@angular/platform-browser';
+import {DomSanitizer} from '@angular/platform-browser';
+import {DockPosition} from '../model/DockPosition';
 
 @Component({
   selector: 'gb-taskbar',
@@ -31,6 +32,7 @@ export class TaskBarComponent implements OnInit {
   /*[ngStyle]="{'height':desktop.configuration.taskBarSize+'px'}"*/
 
   desktop: Desktop;
+  DockPosition=DockPosition;
 
   constructor(@Inject('desktop') desktop: Desktop,
               private sanitizer: DomSanitizer,
@@ -44,6 +46,11 @@ export class TaskBarComponent implements OnInit {
 
   }
 
+  dock(position:DockPosition):void{
+    this.desktop.getTopWindow().dockPosition.next(position);
+    this.desktop.getTopWindow().state.next(WindowState.DOCKED);
+
+  }
   hasFocus(id: string): boolean {
     return this.desktopService.hasFocus(id);
   }

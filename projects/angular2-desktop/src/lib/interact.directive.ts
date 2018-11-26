@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
 
 import {Subscription} from 'rxjs';
@@ -141,7 +141,7 @@ export class InteractDirective implements OnInit, OnDestroy {
   }
 
   private onStateUpdated(state: WindowState): void {
-    if (state === WindowState.MAXIMIZED) {
+    if (state === WindowState.MAXIMIZED || state===WindowState.DOCKED) {
 
       this.disable();
     } else {

@@ -10,7 +10,7 @@ import {WindowState} from './model/WindowState';
 export class SerializationService {
 
   deSerializeWindow(specs: WindowSpecs): DesktopWindow {
-    let window = new DesktopWindow(specs.title,specs.state, specs.x, specs.x, specs.width, specs.height);
+    let window = new DesktopWindow(specs.title,specs.state,specs.dockPosition, specs.x, specs.x, specs.width, specs.height);
     window.shortCut=new ShortCut(window.id,specs.shortCut.title,specs.shortCut.icon,specs.shortCut.color);
     return window;
   }

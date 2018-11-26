@@ -31,23 +31,7 @@ export class WindowComponent implements OnInit, OnDestroy {
 
     this.window = this.windowService.create(this.specs);
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
-    //this.subscriptions.push(this.window.active.subscribe(() => this.desktopService.onWindowActiveChanged(this.window)));
-
-  }
-
-  getHeaderHeight(): number {
-
-    return this.desktop.configuration.windowConfig.headerHeight;
-
-  }
-
-  getBodyHeight(): string {
-    if (this.window.state.getValue()===WindowState.MAXIMIZED) return "100%";
-    else {
-      let height = this.window.height - this.desktop.configuration.windowConfig.headerHeight;
-      if (height<this.desktop.configuration.windowConfig.minHeight) height = this.desktop.configuration.windowConfig.minHeight;
-      return height+"px";
-    }
+    this.subscriptions.push(this.window.dockPosition.subscribe(() => this.desktopService.onWindowDockPositionChanged(this.window)));
 
   }
 

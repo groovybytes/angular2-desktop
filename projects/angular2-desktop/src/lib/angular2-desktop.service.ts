@@ -33,6 +33,10 @@ export class Angular2DesktopService {
 
   }
 
+  onWindowDockPositionChanged(window: DesktopWindow): void {
+
+  }
+
 
   hasFocus(id: string): boolean {
     return this.desktop.orders[this.desktop.orders.length - 1] === id;

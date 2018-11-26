@@ -1,4 +1,4 @@
-import {WindowPosition} from "./WindowPosition";
+import {DockPosition} from "./WindowPosition";
 import {AbstractLayout} from "./LayoutEngine";
 
 
@@ -15,11 +15,11 @@ export class VerticalLayout extends AbstractLayout{
 
     let window = this.windows.find(window=>window.order===0);
     if (window) {
-      window.position.next(WindowPosition.TOP);
+      window.position.next(DockPosition.TOP);
     }
     window = this.windows.find(window=>window.order===1);
     if (window) {
-      window.position.next(WindowPosition.BOTTOM);
+      window.position.next(DockPosition.BOTTOM);
     }
     this.windows.forEach(window=>window.updateClass());
   }

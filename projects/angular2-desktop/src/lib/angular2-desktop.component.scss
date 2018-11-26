@@ -18,6 +18,7 @@ body {
 .desktop-container {
   //box-sizing: border-box;
   height: $desktop-height;
+  position: absolute;
   width: 100%;
   max-width: 100%;
   overflow: hidden;

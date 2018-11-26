@@ -1,7 +1,8 @@
 import {WindowState} from './WindowState';
-import {BehaviorSubject, Subscription} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import * as _ from 'lodash';
 import {ShortCut} from './ShortCut';
+import {DockPosition} from './DockPosition';
 
 export class DesktopWindow {
 
@@ -12,7 +13,7 @@ export class DesktopWindow {
   //zIndexTmp: number = 1;
   state: BehaviorSubject<WindowState>;
   /*active: BehaviorSubject<boolean> = new BehaviorSubject(false);*/
-  //position: BehaviorSubject<WindowPosition> = new BehaviorSubject(WindowPosition.LEFT);
+  dockPosition: BehaviorSubject<DockPosition>;
   x: number;
   y: number;
   width: number;
@@ -22,6 +23,7 @@ export class DesktopWindow {
   constructor(
     title: string,
     state:WindowState,
+    dockPosition:DockPosition,
     x: number,
     y: number,
     width: number,
@@ -33,7 +35,7 @@ export class DesktopWindow {
     this.height = height;
     this.title = title;
     this.state=new BehaviorSubject(state);
-
+    this.dockPosition=new BehaviorSubject(dockPosition);
   }
 
   updateClass(): void {
@@ -49,6 +51,16 @@ export class DesktopWindow {
     if (this.state.getValue() === WindowState.CLOSED) this.clazz += ' window-closed';
     else if (this.state.getValue() === WindowState.MAXIMIZED) this.clazz += ' window-maximized';
     else if (this.state.getValue() === WindowState.MINIMIZED) this.clazz += ' window-minimized';
+    else if (this.state.getValue() === WindowState.DOCKED) {
+      this.clazz += ' window-docked';
+      if (this.dockPosition.getValue()===DockPosition.TOP) this.clazz+=" docked-top";
+      else if (this.dockPosition.getValue()===DockPosition.BOTTOM) this.clazz+=" docked-bottom";
+      else if (this.dockPosition.getValue()===DockPosition.TOP_LEFT) this.clazz+=" docked-top-left";
+      else if (this.dockPosition.getValue()===DockPosition.TOP_RIGHT) this.clazz+=" docked-top-right";
+      else if (this.dockPosition.getValue()===DockPosition.BOTTOM_LEFT) this.clazz+=" docked-bottom-left";
+      else if (this.dockPosition.getValue()===DockPosition.BOTTOM_RIGHT) this.clazz+=" docked-bottom-right";
+
+    }
 
     /*if (this.active.getValue()) this.clazz += ' active';*/
 
@@ -56,7 +68,7 @@ export class DesktopWindow {
 
   isVisible(): boolean {
     return this.state.getValue() === WindowState.MAXIMIZED
-      || this.state.getValue() === WindowState.NORMAL;
+      || this.state.getValue() === WindowState.NORMAL || this.state.getValue()===WindowState.DOCKED;
   }
 
   isOpen(): boolean {

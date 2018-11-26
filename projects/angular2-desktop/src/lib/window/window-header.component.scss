@@ -4,15 +4,15 @@
   float:right;
 
   button {
-    background-color: lighten($window-header-bg,20%);
-    border: 1px solid lighten($window-header-bg,40%);; /* Green border */
+    background-color: transparent;
+    border: none;
     color: $font-color; /* White text */
     padding: 5px 10px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side */
 
-    &hover {
-      background-color: lighten($window-header-bg,30%);
+    &:hover {
+      background-color: darken($window-header-bg,5%);
     }
   }
 

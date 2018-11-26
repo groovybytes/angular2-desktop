@@ -18,6 +18,7 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   window: DesktopWindow;
 
+
   private subscriptions: Array<Subscription> = [];
 
 

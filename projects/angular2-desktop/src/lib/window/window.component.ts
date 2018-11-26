@@ -1,10 +1,11 @@
-import {Component, HostBinding, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {Subscription} from 'rxjs';
 import {WindowSpecs} from '../model/specs/WindowSpecs';
 import {Desktop} from '../model/Desktop';
-import {SerializationService} from '../serialization.service';
+import {WindowService} from './window.service';
+import {WindowState} from '../model/WindowState';
 
 @Component({
   selector: 'gb-window',
@@ -15,40 +16,42 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   @Input() specs: WindowSpecs;
 
-  @HostBinding('attr.class')
-  get clazz() {
-    return this.window ? this.window.clazz : '';
-  }
-
   window: DesktopWindow;
 
   private subscriptions: Array<Subscription> = [];
 
-  /* @HostBinding('style')
-   get getStyle():SafeStyle {
-     let zIndex=this.window?this.window.zIndex:0;
-     return this.sanitizer.bypassSecurityTrustStyle('z-index:'+zIndex.toString());
-
-   }*/
-
 
   constructor(
     @Inject('desktop') private desktop: Desktop,
-    private desktopService: Angular2DesktopService,
-    private serializer: SerializationService) {
+    private desktopService: Angular2DesktopService, private windowService: WindowService) {
   }
 
   ngOnInit() {
-   /* let window = this.window=this.serializer.deSerializeWindow(this.specs);
-    this.desktopService.registerWindow(window);*/
-    this.desktop.specs.push(this.specs);
+
+    this.window = this.windowService.create(this.specs);
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
-    this.subscriptions.push(this.window.active.subscribe(() => this.desktopService.onWindowActiveChanged(this.window)));
+    //this.subscriptions.push(this.window.active.subscribe(() => this.desktopService.onWindowActiveChanged(this.window)));
+
+  }
+
+  getHeaderHeight(): number {
+
+    return this.desktop.configuration.windowConfig.headerHeight;
+
+  }
+
+  getBodyHeight(): string {
+    if (this.window.state.getValue()===WindowState.MAXIMIZED) return "100%";
+    else {
+      let height = this.window.height - this.desktop.configuration.windowConfig.headerHeight;
+      if (height<this.desktop.configuration.windowConfig.minHeight) height = this.desktop.configuration.windowConfig.minHeight;
+      return height+"px";
+    }
 
   }
 
   onClick(): void {
-    this.desktopService.focus(this.window);
+    this.desktopService.moveUp(this.window);
   }
 
   getOrder(): number {

@@ -1,6 +1,5 @@
 <div class="desktop-container">
   <ng-content></ng-content>
-
   <div class="grid-container">
     <div *ngFor="let window of desktop.windows" class="grid-item">
       <gb-shortcut [shortCut]="window.shortCut" (shortCutDblClicked)="shortCutClicked(window.shortCut)">
@@ -8,5 +7,7 @@
     </div>
 
   </div>
+
 </div>
+<gb-taskbar></gb-taskbar>
 

@@ -1,4 +1,6 @@
-<div class="bar-entry" [ngClass]="{'active':window.active.getValue()}"
+
+<div class="bar-entry"
+     [ngClass]="{'active':hasFocus(window.id)}"
      *ngFor="let window of getOpenWindows()"
      (click)="onEntryClicked(window)">
   <span>{{window.title}}</span>

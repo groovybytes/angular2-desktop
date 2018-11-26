@@ -15,76 +15,41 @@ export class Angular2DesktopService {
   }
 
 
-  validate(): void {
-    if (this.desktop.windows.length > 0) {
-      let activeWindows = this.desktop.windows.filter(window => window.active.getValue());
-      if (activeWindows.length === 0) this.focus(this.desktop.windows[0]);
-
-    }
-
-  }
-
-  focus(window: DesktopWindow): void {
-    window.active.next(true);
-    this.desktop.windows
-      .filter(_window => _window.id !== window.id)
-      .forEach(window => window.active.next(false));
-
-    this.moveUp(window);
-  }
-
-  getWindow(id: string): DesktopWindow {
-    return this.desktop.windows.find(window => window.id === id);
-  }
-
-  maximize(window: DesktopWindow): void {
-    window.state.next(WindowState.MAXIMIZED);
-  }
-
-  minimize(window: DesktopWindow): void {
-    window.state.next(WindowState.MINIMIZED);
-  }
-
-  normalize(window: DesktopWindow): void {
-    window.state.next(WindowState.NORMAL);
-  }
-
-  close(window: DesktopWindow): void {
-    window.state.next(WindowState.CLOSED);
-
-
-  }
-
   onWindowStateChanged(window: DesktopWindow): void {
+    if (window.state.getValue() === WindowState.NORMAL) {
+      this.desktop.orders.push(window.id);
+      this.moveUp(window);
+    }
+    else if (window.state.getValue() === WindowState.CLOSED) {
+      this.removeFromOrders(window.id);
+    }
+    else if (window.state.getValue() === WindowState.MINIMIZED) {
+      this.removeFromOrders(window.id);
+    }
+    else if (window.state.getValue() === WindowState.MAXIMIZED) {
+      this.moveUp(window);
+    }
     window.updateClass();
 
   }
 
-  onWindowActiveChanged(window: DesktopWindow): void {
-    window.updateClass();
 
-  }
-
-  open(window: DesktopWindow): void {
-    window.state.next(WindowState.NORMAL);
-    this.focus(window);
-
+  hasFocus(id: string): boolean {
+    return this.desktop.orders[this.desktop.orders.length - 1] === id;
   }
 
 
-  removeWindow(window: DesktopWindow): void {
-
+  private removeFromOrders(id: string): void {
+    let index = this.desktop.orders.indexOf(id);
+    this.desktop.orders.splice(index, 1);
   }
 
   moveUp(window: DesktopWindow): void {
     let index = this.desktop.orders.indexOf(window.id);
-    this.desktop.orders.splice(index,1);
+    this.desktop.orders.splice(index, 1);
     this.desktop.orders.push(window.id);
-    /* let openWindows = this.desktop.windows.filter(window => window.isOpen());
-     let indices = openWindows.map(window => window.zIndex);
-     let maxIndex = _.max(indices);
-     if (window.zIndex !== maxIndex) window.zIndex = maxIndex + 1;*/
   }
+
 }
 
 

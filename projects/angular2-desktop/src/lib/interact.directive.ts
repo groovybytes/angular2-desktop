@@ -1,9 +1,10 @@
-import {Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
 
 import {Subscription} from 'rxjs';
 import {WindowState} from './model/WindowState';
 import {Angular2DesktopService} from './angular2-desktop.service';
+import {Desktop} from './model/Desktop';
 
 declare var interact;
 declare var $;
@@ -20,6 +21,7 @@ export class InteractDirective implements OnInit, OnDestroy {
 
 
   constructor(private element: ElementRef,
+              @Inject('desktop') private desktop: Desktop,
               private desktopService: Angular2DesktopService) {
 
   }
@@ -35,8 +37,8 @@ export class InteractDirective implements OnInit, OnDestroy {
     this.element.nativeElement.setAttribute('data-x', this.window.x);
     this.element.nativeElement.setAttribute('data-y', this.window.y);
 
-    this.element.nativeElement.style.width = this.window.width + 'vw';
-    this.element.nativeElement.style.height = this.window.height + 'vh';
+    /*this.element.nativeElement.style.width = this.window.width + 'vw';
+    this.element.nativeElement.style.height = this.window.height + 'vh';*/
 
     interact(this.element.nativeElement)
       .draggable({
@@ -60,12 +62,13 @@ export class InteractDirective implements OnInit, OnDestroy {
         onend:  (event)=> {
         },
         onstart:  (event)=> {
-          this.desktopService.focus(this.window);
+          this.desktopService.moveUp(this.window);
         }
       })
       .resizable({
+
         // resize from all edges and corners
-        edges: {left: true, right: true, bottom: false, top: false},
+        edges: {left: true, right: true, bottom: true, top: true},
         restrictEdges: {
           outer: this.parent,
           endOnly: false,
@@ -73,9 +76,12 @@ export class InteractDirective implements OnInit, OnDestroy {
         enabled: true,
         inertia: false,
         restrictSize: {
-          min: {width: 10},
+          min: {
+            width: this.desktop.configuration.windowConfig.minWidth,
+            height: this.desktop.configuration.windowConfig.minHeight,
+          },
         },
-        axis: 'x',
+        invert: 'none',
         snapSize: {
           targets: [
             // snap the width and height to multiples of 100 when the element size
@@ -86,12 +92,10 @@ export class InteractDirective implements OnInit, OnDestroy {
       })
       .on('resizemove', (event) => this.onResizeMove(event))
       .on('resizeend', (event) => {
-        $(event.target).css('z-index', '1');
-        // this.resizeEnd.emit(event.target);
+
       })
       .on('resizestart', (event) => {
-        $(event.target).css('z-index', '10');
-        //this.resizeStart.emit();
+        this.desktopService.moveUp(this.window);
       });
 
 
@@ -112,10 +116,18 @@ export class InteractDirective implements OnInit, OnDestroy {
       y = (parseFloat(target.getAttribute('data-y')) || 0);
 
     // update the element's style
-    target.style.width = event.rect.width + 'px';
-    target.style.height = event.rect.height + 'px';
-    this.window.width = event.rect.width;
-    this.window.height = event.rect.height;
+    /*target.style.width = event.rect.width + 'px';
+    target.style.height = event.rect.height + 'px';*/
+    console.log(this.desktop.configuration.windowConfig.minWidth);
+    if (event.rect.width >= this.desktop.configuration.windowConfig.minWidth){
+      this.window.width = event.rect.width;
+    }
+
+    if (event.rect.height >= this.desktop.configuration.windowConfig.minHeight){
+      this.window.height = event.rect.height;
+    }
+
+
 
     // translate when resizing from top or left edges
     x += event.deltaRect.left;

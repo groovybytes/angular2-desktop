@@ -10,8 +10,7 @@
     padding: 5px 10px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     float: left; /* Float the buttons side by side */
-    height:$window-header-size*0.6;
-    width:$window-header-size;
+
     &hover {
       background-color: lighten($window-header-bg,30%);
     }
@@ -25,7 +24,7 @@
 :host{
   text-align: center;
   vertical-align: middle;
-  line-height: $window-header-size;       /* the same as your div height */
+  //line-height: $window-header-size;       /* the same as your div height */
 }
 
 /* Clear floats (clearfix hack) */

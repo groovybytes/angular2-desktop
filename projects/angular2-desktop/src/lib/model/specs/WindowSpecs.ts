@@ -2,7 +2,6 @@ import {ShortCutSpecs} from './ShortCutSpecs';
 
 export class WindowSpecs {
   state:number;
-  active:boolean;
   order:number;
   title:string;
   x: number;

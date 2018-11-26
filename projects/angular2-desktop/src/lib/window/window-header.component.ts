@@ -20,20 +20,20 @@ export class WindowHeaderComponent implements OnInit {
   }
 
   minimize(): void {
-    this.desktop.minimize(this.window);
+    this.window.state.next(WindowState.MINIMIZED);
 
   }
 
   restore(): void {
-    this.desktop.normalize(this.window);
+    this.window.state.next(WindowState.NORMAL);
   }
 
   maximize(): void {
-    this.desktop.maximize(this.window);
+    this.window.state.next(WindowState.MAXIMIZED);
   }
 
   close(): void {
-    this.desktop.close(this.window);
+    this.window.state.next(WindowState.CLOSED);
   }
 
   ngOnInit() {

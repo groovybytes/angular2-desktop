@@ -21,10 +21,9 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < this.nWindows; i++) {
       let window = new WindowSpecs();
       window.order=1;
-      window.state=WindowState.CLOSED;
-      window.active=false;
-      window.height=chance.integer({min: 30, max: 60});
-      window.width=chance.integer({min: 30, max: 60});
+      window.state=WindowState.NORMAL;
+      window.height=chance.integer({min: 100, max: 600});
+      window.width=chance.integer({min: 100, max: 600});
       window.x=chance.integer({min: 20, max: 300});
       window.y=chance.integer({min: 20, max: 300});
       window.title=chance.word();

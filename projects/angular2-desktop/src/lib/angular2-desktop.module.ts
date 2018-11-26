@@ -11,6 +11,7 @@ import {WindowHeaderComponent} from './window/window-header.component';
 import {ShortcutComponent} from './shortcut/shortcut.component';
 import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
+import {WindowService} from './window/window.service';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {Desktop} from './model/Desktop';
   ],
   providers: [
     Angular2DesktopService,
+    WindowService,
     {provide: 'desktop', useClass: Desktop},
     SerializationService],
   declarations: [Angular2DesktopComponent,

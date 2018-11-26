@@ -10,8 +10,8 @@ export class DesktopWindow {
   id: string;
   /*zIndex: number = 1;*/
   //zIndexTmp: number = 1;
-  state: BehaviorSubject<WindowState> = new BehaviorSubject(WindowState.NORMAL);
-  active: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  state: BehaviorSubject<WindowState>;
+  /*active: BehaviorSubject<boolean> = new BehaviorSubject(false);*/
   //position: BehaviorSubject<WindowPosition> = new BehaviorSubject(WindowPosition.LEFT);
   x: number;
   y: number;
@@ -21,6 +21,7 @@ export class DesktopWindow {
 
   constructor(
     title: string,
+    state:WindowState,
     x: number,
     y: number,
     width: number,
@@ -31,7 +32,7 @@ export class DesktopWindow {
     this.width = width;
     this.height = height;
     this.title = title;
-
+    this.state=new BehaviorSubject(state);
 
   }
 
@@ -49,7 +50,7 @@ export class DesktopWindow {
     else if (this.state.getValue() === WindowState.MAXIMIZED) this.clazz += ' window-maximized';
     else if (this.state.getValue() === WindowState.MINIMIZED) this.clazz += ' window-minimized';
 
-    if (this.active.getValue()) this.clazz += ' active';
+    /*if (this.active.getValue()) this.clazz += ' active';*/
 
   }
 

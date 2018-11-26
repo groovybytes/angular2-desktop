@@ -1,8 +1,8 @@
-import {AfterContentInit, Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-import {Angular2DesktopService} from './angular2-desktop.service';
-import {DesktopWindow} from './model/DesktopWindow';
+import {AfterContentInit, Component, HostBinding, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ShortCut} from './model/ShortCut';
 import {Desktop} from './model/Desktop';
+import {WindowState} from './model/WindowState';
+import {SafeStyle} from '@angular/platform-browser';
 
 
 @Component({
@@ -18,11 +18,24 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit, OnDes
 
   desktop: Desktop;
 
-  constructor(@Inject('desktop') desktop: Desktop,private desktopService: Angular2DesktopService) {
+ /* @HostBinding('style.height')
+  get getStyle(): string {
+    console.log((100 - this.desktop.configuration.taskBarSize) + '%');
+    return (100-this.desktop.configuration.taskBarSize)+"%";
+
+  }/!*  @HostBinding('style.height')
+  get getStyle(): SafeStyle {
+    let height = this.desktop.configuration.taskBarSize + 'px';
+    return this.sanitizer.bypassSecurityTrustStyle('height:' + height+";width:100vw");
+
+  }*!/*/
+
+  constructor(@Inject('desktop') desktop: Desktop) {
     this.desktop=desktop;
   }
 
   ngOnInit() {
+
   }
 
   ngAfterContentInit(): void {
@@ -35,8 +48,8 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit, OnDes
   }
 
   shortCutClicked(shortCut: ShortCut): void {
-    let window = this.desktopService.getWindow(shortCut.windowRef);
-    this.desktopService.open(window);
+    let window =  this.desktop.windows.find(window => window.id === shortCut.windowRef);
+    window.state.next(WindowState.NORMAL);
   }
 
 }

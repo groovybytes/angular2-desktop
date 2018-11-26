@@ -2,11 +2,10 @@
 
 $font-color:white;
 $desktop-bg:$light-aubergine;
-$window-bg:red;
-$window-header-bg:black;
-$window-footer-bg:black;
-$window-header-size:50px;
-$bar-size:50px;
-$bar-bg:blue;
+$desktop-height:95%;
+$taskbar-height:5%;
+$window-header-bg:$orange;
+$bar-bg:$orange;
+$window-bg:$white;
 $z-index-window:1;
-$z-index-bar:0;
+$z-index-bar:100000;

@@ -1,19 +1,16 @@
 <div (click)="onClick()"
-     *ngIf="window"
+     *ngIf="window.isVisible()"
      [ngClass]="window.clazz"
-     [ngStyle]="{'z-index':getOrder()}"
+     [ngStyle]="{'z-index':getOrder()+1,'width':window.width+'px'}"
      interact
      [window]="window"
      parent=".desktop-container">
-  <div class="window-header drag-handle">
+  <div class="window-header drag-handle" [ngStyle]="{'height':getHeaderHeight()+'px'}">
     <!--<ng-content select=".header"></ng-content>-->
     <gb-window-header [window]="window"></gb-window-header>
   </div>
-  <div class="window-body">
+  <div class="window-body" [ngStyle]="{'height':getBodyHeight()}">
     <ng-content select=".body"></ng-content>
-  </div>
-  <div class="window-footer">
-    <ng-content select=".footer"></ng-content>
   </div>
 </div>
 

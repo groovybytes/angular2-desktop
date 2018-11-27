@@ -1,75 +1,70 @@
 @import "../angular2-desktop.component.variables";
+@import "../docking";
 
-$full-body-height:96%;
-$full-header-height:4%;
 
 .window{
-  //z-index: $z-index-window;
   position: absolute;
   background-color: $window-bg;
-  //border: 2px solid $black;
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: auto;
+  padding:0;
 
-  //padding:2px;
-  &.active{
-   // z-index: $z-index-window+1;
-  }
 }
 
 .window-header{
   background-color: $window-header-bg;
   color:$font-color;
   height:$window-header-height;
-  position: relative;
-  width: 100%;
 }
 
 .window-body{
-  //margin-top:$window-header-height;
-  position: relative;
   overflow: auto;
+  border-left:2px solid $window-border-color;
+  border-right:2px solid $window-border-color;
+  border-bottom:1px solid $window-border-color;
+
 }
 
 .window-maximized{
   top: 0 !important;
   left:0 !important;
-  height: $desktop-height !important;
-  width:100% !important; ;
-  .window-header{
-    height: $full-header-height !important;
-  }
-  .window-body{
-    height: $full-body-height !important;
-
-  }
+  height: 100% !important;
+  width:100% !important;
 
 }
-.window-docked.docked-top{
-    top: 0 !important;
-    left:0 !important;
-    height: $desktop-height/2 !important;
-    width:100% !important;
-}
 
-.window-docked.docked-bottom{
-    bottom: 0 !important;
-    left:0 !important;
-    height: 50% !important;
-    width:100% !important;
-
-
-  .window-body{
-    width:100% !important;
-    height:100% !important;
-
-  }
+.dock-tools{
+  width:100%;
+  position: absolute;
+  top:$window-header-height;
+  background-color: lighten($window-header-bg,10%);
+  color:$font-color;
+  border-top: 1px solid darken($window-header-bg,10%);
 }
 
 
 :host /deep/ {
   .body{
-    width:100%;
-    height:100%;
-  
+    padding:$body-padding;
+
+  }
+
+  .window-btn{
+    background-color: transparent;
+    border: none;
+    color: $font-color; /* White text */
+    padding: 5px 10px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    // float: left; /* Float the buttons side by side */
+
+    &:hover {
+      background-color: darken($window-header-bg,5%);
+    }
+
+    &.active{
+      background-color: darken($window-header-bg,10%);
+    }
   }
 
 }

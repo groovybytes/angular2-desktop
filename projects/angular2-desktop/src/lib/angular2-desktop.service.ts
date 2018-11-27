@@ -17,7 +17,6 @@ export class Angular2DesktopService {
 
   onWindowStateChanged(window: DesktopWindow): void {
     if (window.state.getValue() === WindowState.NORMAL) {
-      this.desktop.orders.push(window.id);
       this.moveUp(window);
     }
     else if (window.state.getValue() === WindowState.CLOSED) {
@@ -37,6 +36,11 @@ export class Angular2DesktopService {
 
   }
 
+  onTaskBarClick(window: DesktopWindow): void {
+    if (window.state.getValue() === WindowState.MINIMIZED) window.state.next(WindowState.NORMAL);
+    else this.moveUp(window);
+  }
+
 
   hasFocus(id: string): boolean {
     return this.desktop.orders[this.desktop.orders.length - 1] === id;
@@ -50,8 +54,17 @@ export class Angular2DesktopService {
 
   moveUp(window: DesktopWindow): void {
     let index = this.desktop.orders.indexOf(window.id);
-    this.desktop.orders.splice(index, 1);
-    this.desktop.orders.push(window.id);
+    if (index===-1) this.desktop.orders.push(window.id);
+    else if (index < this.desktop.orders.length-1){
+      this.desktop.orders.splice(index, 1);
+      this.desktop.orders.push(window.id);
+    }
+
+    this.desktop.orders.forEach((windowId,i)=>{
+
+      console.log(this.desktop.getWindow(windowId).title+";"+i);
+    });
+
   }
 
 }

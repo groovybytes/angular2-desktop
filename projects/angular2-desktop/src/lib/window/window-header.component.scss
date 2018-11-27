@@ -1,25 +1,16 @@
 @import "../angular2-desktop.component.variables";
+@import "../common";
 
 .btn-group{
-  float:right;
-
-  button {
-    background-color: transparent;
-    border: none;
-    color: $font-color; /* White text */
-    padding: 5px 10px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
-
-    &:hover {
-      background-color: darken($window-header-bg,5%);
-    }
-  }
-
-  button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
-  }
+  margin-right:5px;
+  line-height: $window-header-height;
 }
+span{
+  line-height: $window-header-height;
+  pointer-events: none;
+  margin-left:10px;
+}
+
 
 :host{
   text-align: center;
@@ -27,9 +18,4 @@
   //line-height: $window-header-size;       /* the same as your div height */
 }
 
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
+

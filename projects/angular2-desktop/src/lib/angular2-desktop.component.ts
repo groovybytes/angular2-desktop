@@ -1,8 +1,8 @@
-import {AfterContentInit, Component, HostBinding, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {AfterContentInit, Component, Inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {ShortCut} from './model/ShortCut';
 import {Desktop} from './model/Desktop';
 import {WindowState} from './model/WindowState';
-import {SafeStyle} from '@angular/platform-browser';
+import {DockPosition} from './model/DockPosition';
 
 
 @Component({
@@ -17,6 +17,7 @@ export class Angular2DesktopComponent implements OnInit, AfterContentInit, OnDes
   //@ContentChildren(WindowComponent) windows: QueryList<WindowComponent>;
 
   desktop: Desktop;
+  dockPreviewPosition:DockPosition=DockPosition.LEFT;
 
  /* @HostBinding('style.height')
   get getStyle(): string {

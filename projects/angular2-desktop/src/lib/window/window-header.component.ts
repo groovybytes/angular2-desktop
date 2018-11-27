@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {WindowState} from '../model/WindowState';
-import {Angular2DesktopService} from '../angular2-desktop.service';
 
 
 @Component({
@@ -12,18 +11,21 @@ import {Angular2DesktopService} from '../angular2-desktop.service';
 export class WindowHeaderComponent implements OnInit {
 
   @Input() window: DesktopWindow;
+  @Output() dockBtnClicked:EventEmitter<void>=new EventEmitter();
 
   state = WindowState;
 
+  dockBtnActive:boolean=false;
 
-  constructor(private desktop: Angular2DesktopService) {
+
+  constructor() {
+
   }
 
   minimize(): void {
     this.window.state.next(WindowState.MINIMIZED);
 
   }
-
   restore(): void {
     this.window.state.next(WindowState.NORMAL);
   }
@@ -35,6 +37,17 @@ export class WindowHeaderComponent implements OnInit {
   close(): void {
     this.window.state.next(WindowState.CLOSED);
   }
+
+  onDockBtnClicked():void{
+    this.dockBtnActive=!this.dockBtnActive;
+    this.dockBtnClicked.emit();
+
+  }
+  unDock():void{
+    this.window.state.next(WindowState.NORMAL);
+
+  }
+
 
   ngOnInit() {
   }

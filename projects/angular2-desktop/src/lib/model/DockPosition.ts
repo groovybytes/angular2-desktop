@@ -4,5 +4,7 @@ export enum DockPosition {
   TOP_RIGHT=3,
   BOTTOM_LEFT=4,
   BOTTOM=5,
-  BOTTOM_RIGHT=6
+  BOTTOM_RIGHT=6,
+  LEFT=7,
+  RIGHT=8
 }

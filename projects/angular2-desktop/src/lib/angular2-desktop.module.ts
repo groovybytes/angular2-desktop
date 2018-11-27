@@ -12,6 +12,7 @@ import {ShortcutComponent} from './shortcut/shortcut.component';
 import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
 import {WindowService} from './window/window.service';
+import {DockPreviewComponent} from './dock-preview/dock-preview.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {WindowService} from './window/window.service';
     SerializationService],
   declarations: [Angular2DesktopComponent,
     WindowComponent,
+    DockPreviewComponent,
     LayoutcontrolComponent,
     WindowHeaderComponent,
     BarComponent,

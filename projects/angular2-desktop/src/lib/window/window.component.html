@@ -1,17 +1,46 @@
 <div (click)="onClick()"
      *ngIf="window.isVisible()"
      [ngClass]="window.clazz"
-     [ngStyle]="{'z-index':getOrder()+1 }"
+
+     [ngStyle]="{'z-index':desktop.orders.indexOf(window.id)+1,'width':window.width+'px',
+     'height':window.height+'px'}"
      interact
      [window]="window"
      parent=".desktop-container">
+
+  <div class="dock-tools" *ngIf="dockToolsVisible">
+    <div role="group" class="btn-group">
+      <button type="button" class="window-btn" (click)="dock(DockPosition.TOP)">
+        <i class="fas fa-caret-up fa-2x"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.TOP_LEFT)">
+        <i class="fas fa-caret-up fa-2x " style="transform: rotate(-45deg);"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.TOP_RIGHT)">
+        <i class="fas fa-caret-up fa-2x " style="transform: rotate(45deg);"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.BOTTOM)">
+        <i class="fas fa-caret-down fa-2x"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.BOTTOM_LEFT)">
+        <i class="fas fa-caret-down fa-2x " style="transform: rotate(45deg);"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.BOTTOM_RIGHT)">
+        <i class="fas fa-caret-down fa-2x " style="transform: rotate(-45deg);"></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.LEFT)">
+        <i class="fas fa-caret-left fa-2x "></i>
+      </button>
+      <button type="button" class="window-btn" (click)="dock(DockPosition.RIGHT)">
+        <i class="fas fa-caret-right fa-2x "></i>
+      </button>
+    </div>
+  </div>
   <div class="window-header drag-handle">
     <!--<ng-content select=".header"></ng-content>-->
-    <gb-window-header [window]="window"></gb-window-header>
+    <gb-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></gb-window-header>
   </div>
-  <div class="window-body"
-       [ngStyle]="{'width':window.width+'px',
-     'height':window.height+'px'}">
+  <div class="window-body" >
     <ng-content select=".body"></ng-content>
   </div>
 </div>
@@ -23,3 +52,5 @@
 'left':x+'px',
 'right':y+'px'
 }"-->
+<!--
+[ngStyle]="{'height':getBodyHeight()+'px'}"-->

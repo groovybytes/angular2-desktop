@@ -81,14 +81,7 @@ export class InteractDirective implements OnInit, OnDestroy {
             height: this.desktop.configuration.windowConfig.minHeight,
           },
         },
-        invert: 'none',
-        snapSize: {
-          targets: [
-            // snap the width and height to multiples of 100 when the element size
-            // is 25 pixels away from the target size
-            {width: 50, range: 10},
-          ]
-        }
+        invert: 'none'
       })
       .on('resizemove', (event) => this.onResizeMove(event))
       .on('resizeend', (event) => {
@@ -153,6 +146,10 @@ export class InteractDirective implements OnInit, OnDestroy {
   private disable() {
     interact(this.element.nativeElement)
       .draggable({enabled: false});
+    interact(this.element.nativeElement)
+      .resizable({enabled: false});
+
+
     this.updatePosition(0, 0, false);
   }
 
@@ -175,6 +172,9 @@ export class InteractDirective implements OnInit, OnDestroy {
   private enable() {
     interact(this.element.nativeElement)
       .draggable({enabled: true});
+    interact(this.element.nativeElement)
+      .resizable({enabled: true});
+
     this.updatePosition(this.window.x, this.window.y, false);
   }
 

@@ -1,0 +1,9 @@
+@import "../angular2-desktop.component.variables";
+@import "../docking";
+
+.preview-rect{
+  position: absolute;
+  background-color: lighten($desktop-bg,2%);
+  opacity: 0.8;
+  border:1px solid black;
+}

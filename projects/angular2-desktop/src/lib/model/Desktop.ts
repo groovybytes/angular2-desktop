@@ -10,4 +10,8 @@ export class Desktop {
   getTopWindow():DesktopWindow{
     return this.windows.find(window=>window.id===this.orders[this.orders.length-1]);
   }
+
+  getWindow(id:string):DesktopWindow{
+    return this.windows.find(window=>window.id===id);
+  }
 }

@@ -1,0 +1,33 @@
+.btn-group{
+  float:right;
+
+  button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.center{
+  text-align: center;
+  vertical-align: middle;
+}
+.float-right{
+  float:right;
+}
+
+.no-select{
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
+
+.inline{
+  display: inline-block;
+}

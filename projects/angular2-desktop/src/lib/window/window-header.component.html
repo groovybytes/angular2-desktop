@@ -1,17 +1,33 @@
-<span>{{window.title}}</span>
-<div role="group" class="btn-group">
+<span class="inline no-select center">{{window.title}}</span>
 
+<div role="group" class="btn-group center">
 
-  <button type="button" class="" *ngIf="window.state.getValue() != state.MINIMIZED" (click)="minimize()">
+  <button type="button" *ngIf="window.state.getValue() !== state.DOCKED" class="window-btn" (click)="onDockBtnClicked()">
+    <i class="fas fa-lock"></i>
+  </button>
+  <button type="button" *ngIf="window.state.getValue() === state.DOCKED" class="window-btn" (click)="unDock()">
+    <i class="fas fa-unlock"></i>
+  </button>
+  <button type="button" class="window-btn"
+          *ngIf="window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
+          (click)="minimize()">
     <i class="far fa-window-minimize"></i>
   </button>
-  <button type="button" class="" *ngIf="window.state.getValue() != state.MAXIMIZED " (click)="maximize()">
+  <button type="button"
+          class="window-btn"
+          *ngIf="window.state.getValue() != state.MAXIMIZED && window.state.getValue() !== state.DOCKED"
+          (click)="maximize()">
     <i class="far fa-window-maximize"></i>
   </button>
-  <button type="button" class="" *ngIf="window.state.getValue() != state.NORMAL" (click)="restore()">
+  <button type="button" class="window-btn"
+          *ngIf="window.state.getValue() != state.NORMAL  && window.state.getValue() !== state.DOCKED"
+          (click)="restore()">
     <i class="far fa-window-restore"></i>
   </button>
-  <button type="button" class="" *ngIf="window.state.getValue() != state.MINIMIZED" (click)="close()">
+  <button type="button"
+          class="window-btn"
+          *ngIf="window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
+          (click)="close()">
     <i class="fas fa-times"></i>
   </button>
 </div>

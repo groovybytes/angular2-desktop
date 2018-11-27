@@ -59,6 +59,8 @@ export class DesktopWindow {
       else if (this.dockPosition.getValue()===DockPosition.TOP_RIGHT) this.clazz+=" docked-top-right";
       else if (this.dockPosition.getValue()===DockPosition.BOTTOM_LEFT) this.clazz+=" docked-bottom-left";
       else if (this.dockPosition.getValue()===DockPosition.BOTTOM_RIGHT) this.clazz+=" docked-bottom-right";
+      else if (this.dockPosition.getValue()===DockPosition.LEFT) this.clazz+=" docked-left";
+      else if (this.dockPosition.getValue()===DockPosition.RIGHT) this.clazz+=" docked-right";
 
     }
 

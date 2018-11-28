@@ -15,7 +15,11 @@ export class SerializationService {
     return window;
   }
 
-  serializeDesktop(desktop: Desktop, windows: Array<DesktopWindow>): never {
+  serializeDesktop(desktop: Desktop): never {
+    throw new Error('not implemented');
+  }
+
+  deSerializeDesktop(desktop: Desktop, windows: Array<DesktopWindow>): never {
     throw new Error('not implemented');
 
   }

@@ -1,12 +1,10 @@
-import {AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {Subscription} from 'rxjs';
 import {WindowSpecs} from '../model/specs/WindowSpecs';
 import {Desktop} from '../model/Desktop';
 import {WindowService} from './window.service';
-import {DockPosition} from '../model/DockPosition';
-import {WindowState} from '../model/WindowState';
 
 @Component({
   selector: 'gb-window',
@@ -19,7 +17,7 @@ export class WindowComponent implements OnInit, OnDestroy {
   window: DesktopWindow;
   dockToolsVisible:boolean=false;
   private subscriptions: Array<Subscription> = [];
-  DockPosition=DockPosition;
+
   desktop: Desktop;
 
   constructor(
@@ -32,9 +30,27 @@ export class WindowComponent implements OnInit, OnDestroy {
 
     this.window = this.windowService.create(this.specs);
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
-    this.subscriptions.push(this.window.dockPosition.subscribe(() => this.desktopService.onWindowDockPositionChanged(this.window)));
+    this.subscriptions.push(this.window.dockPosition.subscribe(() =>
+    {
+      this.dockToolsVisible=false;
+      this.desktopService.onWindowDockPositionChanged(this.window);
+    }));
 
   }
+
+  getStyle(){
+
+
+
+    return {
+      'z-index':this.desktop.orders.indexOf(this.window.id)+1,
+      'transform':
+        'translate(' + (this.window.animatedX!=null?this.window.animatedX:this.window.x+'px')+',' +
+        (this.window.animatedY!=null?this.window.animatedY:(this.window.y+'px')) + ')',
+      'width':this.window.width+'px',
+      'height':this.window.height+'px'};
+  }
+
 
   onClick(): void {
     this.desktopService.moveUp(this.window);
@@ -49,17 +65,5 @@ export class WindowComponent implements OnInit, OnDestroy {
     this.dockToolsVisible=!this.dockToolsVisible;
   }
 
-
-  dock(position:DockPosition):void{
-    this.desktop.getTopWindow().dockPosition.next(position);
-    this.desktop.getTopWindow().state.next(WindowState.DOCKED);
-
-    this.dockToolsVisible=false;
-
-  }
-
- /* getBodyHeight():number{
-    return this.headerHeight?this.window.height-this.headerHeight:0;
-  }*/
 
 }

@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Angular2DesktopComponent} from './angular2-desktop.component';
 import {CommonModule} from '@angular/common';
-import {LayoutcontrolComponent} from './layoutcontrol/layoutcontrol.component';
 import {WindowComponent} from './window/window.component';
 import {Angular2DesktopService} from './angular2-desktop.service';
 import {InteractDirective} from './interact.directive';
@@ -13,6 +12,7 @@ import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
 import {WindowService} from './window/window.service';
 import {DockPreviewComponent} from './dock-preview/dock-preview.component';
+import { DockToolsComponent } from './dock-tools/dock-tools.component';
 
 
 @NgModule({
@@ -27,13 +27,13 @@ import {DockPreviewComponent} from './dock-preview/dock-preview.component';
   declarations: [Angular2DesktopComponent,
     WindowComponent,
     DockPreviewComponent,
-    LayoutcontrolComponent,
     WindowHeaderComponent,
     BarComponent,
     TaskBarComponent,
     InteractDirective,
-    ShortcutComponent],
-  exports: [Angular2DesktopComponent, WindowComponent, LayoutcontrolComponent, BarComponent, TaskBarComponent]
+    ShortcutComponent,
+    DockToolsComponent],
+  exports: [Angular2DesktopComponent, WindowComponent, BarComponent]
 })
 export class Angular2DesktopModule {
 }

@@ -1,8 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
 import {WindowState} from './model/WindowState';
-import {WindowSpecs} from './model/specs/WindowSpecs';
-import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
 
 @Injectable()
@@ -16,19 +14,27 @@ export class Angular2DesktopService {
 
 
   onWindowStateChanged(window: DesktopWindow): void {
+
     if (window.state.getValue() === WindowState.NORMAL) {
       this.moveUp(window);
+      window.updateClass();
     }
     else if (window.state.getValue() === WindowState.CLOSED) {
       this.removeFromOrders(window.id);
+      window.updateClass();
     }
     else if (window.state.getValue() === WindowState.MINIMIZED) {
       this.removeFromOrders(window.id);
     }
     else if (window.state.getValue() === WindowState.MAXIMIZED) {
       this.moveUp(window);
+      window.updateClass();
     }
-    window.updateClass();
+    else if (window.state.getValue() === WindowState.DOCKED) {
+
+      window.updateClass();
+    }
+
 
   }
 
@@ -37,7 +43,7 @@ export class Angular2DesktopService {
   }
 
   onTaskBarClick(window: DesktopWindow): void {
-    if (window.state.getValue() === WindowState.MINIMIZED) window.state.next(WindowState.NORMAL);
+    if (window.state.getValue() === WindowState.MINIMIZED) window.normalize();
     else this.moveUp(window);
   }
 
@@ -54,16 +60,11 @@ export class Angular2DesktopService {
 
   moveUp(window: DesktopWindow): void {
     let index = this.desktop.orders.indexOf(window.id);
-    if (index===-1) this.desktop.orders.push(window.id);
-    else if (index < this.desktop.orders.length-1){
+    if (index === -1) this.desktop.orders.push(window.id);
+    else if (index < this.desktop.orders.length - 1) {
       this.desktop.orders.splice(index, 1);
       this.desktop.orders.push(window.id);
     }
-
-    this.desktop.orders.forEach((windowId,i)=>{
-
-      console.log(this.desktop.getWindow(windowId).title+";"+i);
-    });
 
   }
 

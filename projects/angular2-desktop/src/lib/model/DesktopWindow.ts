@@ -6,8 +6,11 @@ import {DockPosition} from './DockPosition';
 
 export class DesktopWindow {
 
+  private readonly animationDuration = 1000;
   title: string;
   clazz: string;
+  animatedY: string;
+  animatedX: string;
   id: string;
   /*zIndex: number = 1;*/
   //zIndexTmp: number = 1;
@@ -22,8 +25,8 @@ export class DesktopWindow {
 
   constructor(
     title: string,
-    state:WindowState,
-    dockPosition:DockPosition,
+    state: WindowState,
+    dockPosition: DockPosition,
     x: number,
     y: number,
     width: number,
@@ -34,8 +37,8 @@ export class DesktopWindow {
     this.width = width;
     this.height = height;
     this.title = title;
-    this.state=new BehaviorSubject(state);
-    this.dockPosition=new BehaviorSubject(dockPosition);
+    this.state = new BehaviorSubject(state);
+    this.dockPosition = new BehaviorSubject(dockPosition);
   }
 
   updateClass(): void {
@@ -53,14 +56,14 @@ export class DesktopWindow {
     else if (this.state.getValue() === WindowState.MINIMIZED) this.clazz += ' window-minimized';
     else if (this.state.getValue() === WindowState.DOCKED) {
       this.clazz += ' window-docked';
-      if (this.dockPosition.getValue()===DockPosition.TOP) this.clazz+=" docked-top";
-      else if (this.dockPosition.getValue()===DockPosition.BOTTOM) this.clazz+=" docked-bottom";
-      else if (this.dockPosition.getValue()===DockPosition.TOP_LEFT) this.clazz+=" docked-top-left";
-      else if (this.dockPosition.getValue()===DockPosition.TOP_RIGHT) this.clazz+=" docked-top-right";
-      else if (this.dockPosition.getValue()===DockPosition.BOTTOM_LEFT) this.clazz+=" docked-bottom-left";
-      else if (this.dockPosition.getValue()===DockPosition.BOTTOM_RIGHT) this.clazz+=" docked-bottom-right";
-      else if (this.dockPosition.getValue()===DockPosition.LEFT) this.clazz+=" docked-left";
-      else if (this.dockPosition.getValue()===DockPosition.RIGHT) this.clazz+=" docked-right";
+      if (this.dockPosition.getValue() === DockPosition.TOP) this.clazz += ' docked-top';
+      else if (this.dockPosition.getValue() === DockPosition.BOTTOM) this.clazz += ' docked-bottom';
+      else if (this.dockPosition.getValue() === DockPosition.TOP_LEFT) this.clazz += ' docked-top-left';
+      else if (this.dockPosition.getValue() === DockPosition.TOP_RIGHT) this.clazz += ' docked-top-right';
+      else if (this.dockPosition.getValue() === DockPosition.BOTTOM_LEFT) this.clazz += ' docked-bottom-left';
+      else if (this.dockPosition.getValue() === DockPosition.BOTTOM_RIGHT) this.clazz += ' docked-bottom-right';
+      else if (this.dockPosition.getValue() === DockPosition.LEFT) this.clazz += ' docked-left';
+      else if (this.dockPosition.getValue() === DockPosition.RIGHT) this.clazz += ' docked-right';
 
     }
 
@@ -69,12 +72,42 @@ export class DesktopWindow {
   }
 
   isVisible(): boolean {
-    return this.state.getValue() === WindowState.MAXIMIZED
-      || this.state.getValue() === WindowState.NORMAL || this.state.getValue()===WindowState.DOCKED;
+    return this.state.getValue() !== WindowState.CLOSED && this.state.getValue() !== WindowState.MINIMIZED;
   }
 
   isOpen(): boolean {
     return this.state.getValue() !== WindowState.CLOSED;
+  }
+
+  minimize(xPosition:number,desktopHeight:number): void {
+
+    this.clazz += ' animation minimize';
+    this.animatedY = desktopHeight+"px";
+    this.animatedX = xPosition+"px";
+    setTimeout(() => {
+      this.animatedY = null;
+      this.animatedX = null;
+      this.state.next(WindowState.MINIMIZED);
+    }, this.animationDuration);
+  }
+
+  close(): void {
+
+    this.clazz += ' animation close';
+
+    setTimeout(() => {
+      this.state.next(WindowState.CLOSED);
+    }, this.animationDuration);
+  }
+
+  normalize(): void {
+    this.state.next(WindowState.NORMAL);
+    this.clazz += ' animated fadeIn';
+  }
+
+  maximize(): void {
+    this.clazz += ' animation maximize';
+    setTimeout(() => this.state.next(WindowState.MAXIMIZED), this.animationDuration);
   }
 
 }

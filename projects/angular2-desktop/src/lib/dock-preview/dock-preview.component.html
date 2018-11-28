@@ -1,3 +1,10 @@
-<div class="preview-rect window-docked docked-left">
+<div class="preview-rect window-docked docked-left" *ngIf="position===DockPosition.LEFT"></div>
+<div class="preview-rect window-docked docked-right" *ngIf="position===DockPosition.RIGHT"></div>
+<div class="preview-rect window-docked docked-top" *ngIf="position===DockPosition.TOP"></div>
+<div class="preview-rect window-docked docked-top-left" *ngIf="position===DockPosition.TOP_LEFT"></div>
+<div class="preview-rect window-docked docked-top-right" *ngIf="position===DockPosition.TOP_RIGHT"></div>
+<div class="preview-rect window-docked docked-bottom" *ngIf="position===DockPosition.BOTTOM"></div>
+<div class="preview-rect window-docked docked-bottom-left" *ngIf="position===DockPosition.BOTTOM_LEFT"></div>
+<div class="preview-rect window-docked docked-bottom-right" *ngIf="position===DockPosition.BOTTOM_RIGHT"></div>
 
-</div>
+

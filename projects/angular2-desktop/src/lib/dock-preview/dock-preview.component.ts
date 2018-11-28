@@ -11,6 +11,7 @@ export class DockPreviewComponent implements OnInit {
 
   @Input() position:DockPosition;
   @Input() show:boolean;
+  DockPosition=DockPosition;
 
   ngOnInit(): void {
   }

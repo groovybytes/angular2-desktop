@@ -1,4 +1,4 @@
-import {Component, HostBinding, Inject, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, HostBinding, Inject, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {WindowState} from '../model/WindowState';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {DesktopWindow} from '../model/DesktopWindow';
@@ -10,9 +10,10 @@ import {DomSanitizer} from '@angular/platform-browser';
   templateUrl: './taskbar.component.html',
   styleUrls: ['./taskbar.component.scss']
 })
-export class TaskBarComponent implements OnInit {
+export class TaskBarComponent implements OnInit,AfterViewInit {
 
   @Input() location: string = 'bottom';
+  @ViewChildren("entry") entries:QueryList<ElementRef>;
 
   @HostBinding('attr.class')
   get clazz() {
@@ -41,11 +42,16 @@ export class TaskBarComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.desktop.taskBar=this;
 
   }
 
 
+  getTaskBarEntryLeft(windowId:string):number{
+    let entry = this.entries.find(entry=>entry.nativeElement.id === "taskbar-entry-"+windowId);
+    return entry.nativeElement.offsetLeft;
+
+  }
   hasFocus(id: string): boolean {
     return this.desktopService.hasFocus(id);
   }
@@ -56,6 +62,10 @@ export class TaskBarComponent implements OnInit {
 
   onEntryClicked(window: DesktopWindow): void {
     this.desktopService.onTaskBarClick(window);
+
+  }
+
+  ngAfterViewInit(): void {
 
   }
 

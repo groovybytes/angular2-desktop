@@ -1,0 +1,11 @@
+@import "../angular2-desktop.component.variables";
+@import "../docking";
+
+.dock-tools{
+  width:100%;
+  position: absolute;
+  top:$window-header-height;
+  background-color: lighten($window-header-bg,10%);
+  color:$font-color;
+  border-top: 1px solid darken($window-header-bg,10%);
+}

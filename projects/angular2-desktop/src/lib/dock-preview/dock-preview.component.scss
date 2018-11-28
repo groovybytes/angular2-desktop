@@ -1,9 +1,18 @@
 @import "../angular2-desktop.component.variables";
 @import "../docking";
 
-.preview-rect{
+:host {
+  z-index: $z-index-dock-preview;
+  background-color: transparent;
   position: absolute;
-  background-color: lighten($desktop-bg,2%);
-  opacity: 0.8;
-  border:1px solid black;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.preview-rect {
+  position: absolute;
+  background-color: lighten($desktop-bg, 10%);
+  opacity: 0.5;
+  border: 2px solid black;
 }

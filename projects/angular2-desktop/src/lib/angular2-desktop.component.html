@@ -1,4 +1,5 @@
-<div class="desktop-container">
+<div class="desktop-container" #container>
+  <gb-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></gb-dock-preview>
   <ng-content></ng-content>
   <div class="grid-container">
     <div *ngFor="let window of desktop.windows" class="grid-item">
@@ -7,8 +8,10 @@
     </div>
 
   </div>
-  <gb-dock-preview [position]="dockPreviewPosition"></gb-dock-preview>
+
 
 </div>
 <gb-taskbar></gb-taskbar>
+
+<!--*ngIf="showDockPreview"-->
 

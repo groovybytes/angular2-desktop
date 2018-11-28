@@ -1,3 +1,7 @@
+.window-docked{
+  transform:translate(0,0) !important;
+}
+
 .window-docked.docked-top{
   top: 0 !important;
   left:0 !important;
@@ -15,6 +19,7 @@
   right:0 !important;
   height: 50% !important;
   width:50% !important;
+
 }
 .window-docked.docked-bottom{
   bottom: 0 !important;
@@ -45,4 +50,5 @@
   right:0 !important;
   height: 100% !important;
   width:50% !important;
+
 }

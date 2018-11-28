@@ -1,5 +1,6 @@
 
-<div class="bar-entry"
+<div class="bar-entry" #entry
+     [id]="'taskbar-entry-'+window.id"
      [ngClass]="{'active':hasFocus(window.id)}"
      *ngFor="let window of getOpenWindows()"
      (click)="onEntryClicked(window)">

@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {WindowState} from '../model/WindowState';
+import {Desktop} from '../model/Desktop';
 
 
 @Component({
@@ -18,12 +19,15 @@ export class WindowHeaderComponent implements OnInit {
   dockBtnActive:boolean=false;
 
 
-  constructor() {
+  constructor( @Inject('desktop') private desktop: Desktop) {
 
   }
 
   minimize(): void {
-    this.window.state.next(WindowState.MINIMIZED);
+
+    let targetEntryLeft = this.desktop.taskBar.getTaskBarEntryLeft(this.window.id);
+    let desktopHeight=this.desktop.component.getHeight();
+    this.window.minimize(targetEntryLeft,desktopHeight);
 
   }
   restore(): void {
@@ -31,11 +35,11 @@ export class WindowHeaderComponent implements OnInit {
   }
 
   maximize(): void {
-    this.window.state.next(WindowState.MAXIMIZED);
+    this.window.maximize();
   }
 
   close(): void {
-    this.window.state.next(WindowState.CLOSED);
+    this.window.close();
   }
 
   onDockBtnClicked():void{

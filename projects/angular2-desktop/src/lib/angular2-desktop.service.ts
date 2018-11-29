@@ -35,7 +35,6 @@ export class Angular2DesktopService {
       window.updateClass();
     }
 
-
   }
 
   onWindowDockPositionChanged(window: DesktopWindow): void {
@@ -45,6 +44,13 @@ export class Angular2DesktopService {
   onTaskBarClick(window: DesktopWindow): void {
     if (window.state.getValue() === WindowState.MINIMIZED) window.normalize();
     else this.moveUp(window);
+  }
+
+  toggleDesktop(): void {
+    this.desktop.windows.filter(window => window.isOpen())
+      .forEach(window => {
+        window.hide=!window.hide;
+      });
   }
 
 
@@ -59,6 +65,7 @@ export class Angular2DesktopService {
   }
 
   moveUp(window: DesktopWindow): void {
+    window.hide=false;
     let index = this.desktop.orders.indexOf(window.id);
     if (index === -1) this.desktop.orders.push(window.id);
     else if (index < this.desktop.orders.length - 1) {

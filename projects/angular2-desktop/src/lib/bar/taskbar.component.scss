@@ -24,6 +24,18 @@
 
 }
 
+.view-desktop{
+  float:right;
+  width:30px;
+  height:100%;
+  border-left: 1px solid black;
+  background-color: lighten($bar-bg,5%);
+  &:hover{
+    background-color: lighten($bar-bg,10%);
+  }
+
+}
+
 
 :host{
   position: absolute;

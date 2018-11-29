@@ -6,12 +6,13 @@
      [window]="window"
      parent=".desktop-container">
 
-  <gb-dock-tools *ngIf="dockToolsVisible"></gb-dock-tools>
+
 
   <div class="window-header drag-handle">
     <!--<ng-content select=".header"></ng-content>-->
     <gb-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></gb-window-header>
   </div>
+  <gb-dock-tools *ngIf="dockToolsVisible"></gb-dock-tools>
   <div class="window-body" >
     <ng-content select=".body"></ng-content>
   </div>

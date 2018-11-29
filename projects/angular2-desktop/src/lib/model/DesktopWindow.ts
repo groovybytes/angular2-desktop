@@ -12,16 +12,14 @@ export class DesktopWindow {
   animatedY: string;
   animatedX: string;
   id: string;
-  /*zIndex: number = 1;*/
-  //zIndexTmp: number = 1;
   state: BehaviorSubject<WindowState>;
-  /*active: BehaviorSubject<boolean> = new BehaviorSubject(false);*/
   dockPosition: BehaviorSubject<DockPosition>;
   x: number;
   y: number;
   width: number;
   height: number;
   shortCut: ShortCut;
+  hide:boolean=false;
 
   constructor(
     title: string,
@@ -72,8 +70,9 @@ export class DesktopWindow {
   }
 
   isVisible(): boolean {
-    return this.state.getValue() !== WindowState.CLOSED && this.state.getValue() !== WindowState.MINIMIZED;
+    return !this.hide && this.state.getValue() !== WindowState.CLOSED && this.state.getValue() !== WindowState.MINIMIZED;
   }
+
 
   isOpen(): boolean {
     return this.state.getValue() !== WindowState.CLOSED;
@@ -103,6 +102,7 @@ export class DesktopWindow {
   normalize(): void {
     this.state.next(WindowState.NORMAL);
     this.clazz += ' animated fadeIn';
+    this.hide=false;
   }
 
   maximize(): void {

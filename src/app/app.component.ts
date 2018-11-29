@@ -24,14 +24,14 @@ export class AppComponent implements OnInit {
       window.state=WindowState.NORMAL;
       window.height=chance.integer({min: 100, max: 600});
       window.width=chance.integer({min: 100, max: 600});
-      window.x=chance.integer({min: 20, max: 300});
-      window.y=chance.integer({min: 20, max: 300});
+      window.x=chance.integer({min: 50, max: 500});
+      window.y=chance.integer({min: 50, max: 500});
       window.title=chance.word();
       window.shortCut=new ShortCutSpecs();
       window.shortCut.color=chance.color();
       window.shortCut.icon="";
       window.shortCut.fontColor="white";
-      window.shortCut.title=chance.word();
+      window.shortCut.title=window.title;
 
       this.windows.push(window);
 

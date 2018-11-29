@@ -65,6 +65,10 @@ export class TaskBarComponent implements OnInit,AfterViewInit {
 
   }
 
+  viewDesktop():void{
+    this.desktopService.toggleDesktop();
+  }
+
   ngAfterViewInit(): void {
 
   }

@@ -2,45 +2,53 @@
 @import "../docking";
 @import "../animations";
 
-.window{
+
+.window {
   position: absolute;
   background-color: $window-bg;
   display: grid;
   grid-column-gap: 0;
   grid-template-columns: auto;
-  padding:0;
+  padding: 0;
+  grid-template-rows: $window-header-height 1fr;
 
 }
 
-.window-header{
+.window-header {
   background-color: $window-header-bg;
-  color:$font-color;
-  height:$window-header-height;
+  color: $font-color;
+  height: $window-header-height;
 }
 
-.window-body{
+.window-body {
   overflow: auto;
-  border-left:2px solid $window-border-color;
-  border-right:2px solid $window-border-color;
-  border-bottom:1px solid $window-border-color;
+  border-left: 2px solid $window-border-color;
+  border-right: 2px solid $window-border-color;
+  border-bottom: 1px solid $window-border-color;
 
 }
 
-.window-maximized{
-  transform: translate(0,0) !important;
+.window-maximized {
+  transform: translate(0, 0) !important;
   height: 100% !important;
-  width:100% !important;
+  width: 100% !important;
 
+}
+
+gb-dock-tools {
+  margin-top: $window-header-height;
+  position: absolute;
+  width:100%;
 }
 
 
 :host /deep/ {
-  .body{
-    padding:$body-padding;
+  .body {
+    padding: $body-padding;
 
   }
 
-  .window-btn{
+  .window-btn {
     background-color: transparent;
     border: none;
     color: $font-color; /* White text */
@@ -49,11 +57,11 @@
     // float: left; /* Float the buttons side by side */
 
     &:hover {
-      background-color: darken($window-header-bg,5%);
+      background-color: darken($window-header-bg, 5%);
     }
 
-    &.active{
-      background-color: darken($window-header-bg,10%);
+    &.active {
+      background-color: darken($window-header-bg, 10%);
     }
   }
 

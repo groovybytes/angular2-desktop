@@ -2,18 +2,28 @@ import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {Subscription} from 'rxjs';
-import {WindowSpecs} from '../model/specs/WindowSpecs';
 import {Desktop} from '../model/Desktop';
 import {WindowService} from './window.service';
+import {WindowState} from '../model/WindowState';
+import {DockPosition} from '../model/DockPosition';
 
 @Component({
-  selector: 'gb-window',
+  selector: 'a2d-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
 export class WindowComponent implements OnInit, OnDestroy {
 
-  @Input() specs: WindowSpecs;
+
+  @Input() id:string;
+  @Input() state:WindowState;
+  @Input() dockPosition:DockPosition;
+  @Input() title:string;
+  @Input() x: number;
+  @Input() y: number;
+  @Input() width: number;
+  @Input() height: number;
+
   window: DesktopWindow;
   dockToolsVisible:boolean=false;
   private subscriptions: Array<Subscription> = [];
@@ -28,7 +38,7 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.window = this.windowService.create(this.specs);
+    this.window = this.windowService.create(this.id,this.title,this.state,this.dockPosition,this.x,this.y,this.width,this.height);
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
     this.subscriptions.push(this.window.dockPosition.subscribe(() =>
     {

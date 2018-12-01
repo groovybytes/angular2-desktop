@@ -132,7 +132,7 @@
       "root": "projects/angular2-desktop",
       "sourceRoot": "projects/angular2-desktop/src",
       "projectType": "library",
-      "prefix": "gb",
+      "prefix": "a2d",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

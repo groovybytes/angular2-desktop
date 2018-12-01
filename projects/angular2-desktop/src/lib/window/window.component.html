@@ -4,26 +4,14 @@
      [ngStyle]="getStyle()"
      interact
      [window]="window"
-     parent=".desktop-container">
-
-
+     parent=".window-container">
 
   <div class="window-header drag-handle">
     <!--<ng-content select=".header"></ng-content>-->
-    <gb-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></gb-window-header>
+    <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
   </div>
-  <gb-dock-tools *ngIf="dockToolsVisible"></gb-dock-tools>
+  <a2d-dock-tools *ngIf="dockToolsVisible"></a2d-dock-tools>
   <div class="window-body" >
     <ng-content select=".body"></ng-content>
   </div>
 </div>
-
-<!--
-[ngStyle]="{
-'width':width+'vw',
-'height':height+'vh',
-'left':x+'px',
-'right':y+'px'
-}"-->
-<!--
-[ngStyle]="{'height':getBodyHeight()+'px'}"-->

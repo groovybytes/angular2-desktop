@@ -7,13 +7,13 @@ It emulates a desktop environment.
 
 example usage:
 
-<gb-angular2-desktop>
-  <gb-window [specs]="window">
+<a2d-desktop>
+  <a2d-window [specs]="window">
     <div class="body" >
       <button>Some Btn</button>
     </div>
-  </gb-window>
-</gb-angular2-desktop>
+  </a2d-window>
+</a2d-desktop>
 
 it depends on interactjs, lodash, jquery and font-awesome
 

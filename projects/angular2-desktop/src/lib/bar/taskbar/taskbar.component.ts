@@ -1,12 +1,13 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, Inject, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {WindowState} from '../model/WindowState';
-import {Angular2DesktopService} from '../angular2-desktop.service';
-import {DesktopWindow} from '../model/DesktopWindow';
-import {Desktop} from '../model/Desktop';
+
 import {DomSanitizer} from '@angular/platform-browser';
+import {AfterViewInit, Component, ElementRef, HostBinding, Inject, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {WindowState} from '../../model/WindowState';
+import {Desktop} from '../../model/Desktop';
+import {Angular2DesktopService} from '../../angular2-desktop.service';
+import {DesktopWindow} from '../../model/DesktopWindow';
 
 @Component({
-  selector: 'gb-taskbar',
+  selector: 'a2d-taskbar',
   templateUrl: './taskbar.component.html',
   styleUrls: ['./taskbar.component.scss']
 })

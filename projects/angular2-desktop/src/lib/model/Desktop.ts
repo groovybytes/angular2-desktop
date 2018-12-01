@@ -1,10 +1,9 @@
 import {DesktopWindow} from './DesktopWindow';
-import {WindowSpecs} from './specs/WindowSpecs';
 import {DesktopConfiguration} from './DesktopConfiguration';
 import {DockPosition} from './DockPosition';
 import {Subject} from 'rxjs';
-import {TaskBarComponent} from '../bar/taskbar.component';
 import {Angular2DesktopComponent} from '../angular2-desktop.component';
+import {TaskBarComponent} from '../bar/taskbar/taskbar.component';
 
 export class Desktop {
   windows:Array<DesktopWindow>=[];
@@ -20,5 +19,9 @@ export class Desktop {
 
   getWindow(id:string):DesktopWindow{
     return this.windows.find(window=>window.id===id);
+  }
+
+  getTargetPosition(query:string):ClientRect{
+    return this.component.getElement(query).getBoundingClientRect();
   }
 }

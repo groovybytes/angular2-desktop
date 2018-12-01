@@ -4,7 +4,7 @@ import {WindowState} from '../model/WindowState';
 import {Desktop} from '../model/Desktop';
 
 @Component({
-  selector: 'gb-dock-tools',
+  selector: 'a2d-dock-tools',
   templateUrl: './dock-tools.component.html',
   styleUrls: ['./dock-tools.component.scss']
 })

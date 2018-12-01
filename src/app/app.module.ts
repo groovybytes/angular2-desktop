@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { Angular2DesktopModule} from 'projects/angular2-desktop/src/public_api';
+import {Angular2DesktopModule} from 'projects/angular2-desktop/src/public_api';
 
 @NgModule({
   declarations: [

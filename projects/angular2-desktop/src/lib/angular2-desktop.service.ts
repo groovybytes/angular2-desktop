@@ -3,6 +3,7 @@ import {DesktopWindow} from './model/DesktopWindow';
 import {WindowState} from './model/WindowState';
 import {Desktop} from './model/Desktop';
 
+
 @Injectable()
 export class Angular2DesktopService {
 

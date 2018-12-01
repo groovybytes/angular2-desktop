@@ -4,13 +4,13 @@
         "directive-selector": [
             true,
             "attribute",
-            "gb",
+            "a2d",
             "camelCase"
         ],
         "component-selector": [
             false,
             "element",
-            "gb"
+            "a2d"
         ]
     }
 }

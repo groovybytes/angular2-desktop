@@ -8,7 +8,7 @@ export class ShortCut {
   }
 
   windowRef: string;
-  title: string="xxx";
+  title: string;
   icon: string;
   color: string;
   fontColor:string="white";

@@ -1,17 +1,15 @@
-<div class="desktop-container" #container>
-  <gb-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></gb-dock-preview>
-  <ng-content></ng-content>
-  <div class="grid-container">
-    <div *ngFor="let window of desktop.windows" class="grid-item">
-      <gb-shortcut [shortCut]="window.shortCut" (shortCutDblClicked)="shortCutClicked(window.shortCut)">
-      </gb-shortcut>
-    </div>
-
-  </div>
+<!-- <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>-->
 
 
+
+<ng-content select=".bar-left"></ng-content>
+
+<div class="window-container">
+  <ng-content select=".windows" #container></ng-content>
 </div>
-<gb-taskbar></gb-taskbar>
 
-<!--*ngIf="showDockPreview"-->
+
+
+
+
 

@@ -12,7 +12,7 @@ $duration-normal:0.7s;
   &.minimize{
     -webkit-transition: width $duration-normal, height $duration-normal,transform $duration-normal; /* For Safari 3.1 to 6.0 */
     transition: width $duration-normal,height $duration-normal,transform $duration-normal;
-    height: 0 !important;
+    height: 200px !important;
     width: 200px !important;
 
     //transform: translateY(100%) !important;

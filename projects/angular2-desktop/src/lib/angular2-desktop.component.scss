@@ -3,59 +3,54 @@
 @import "scrollbar";
 
 
-html,body {
+:host {
   height: 100%;
-  width:100%;
-  min-width: 1024px;
-  overflow: hidden;
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: $bar-size auto;
+  grid-template-rows: 1fr;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  //max-height: 100vh;
+.window-container {
 
-}
-
-.desktop-container {
-  //box-sizing: border-box;
-  height: $desktop-height;
-  position: absolute;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  background-color: $desktop-bg;
-}
-
-
-.bar{
-  z-index: $z-index-bar;
-}
-
-.bar-bottom {
-  bottom: 0;
-}
-
-.bar-top {
-  top: 0;
+  background-color: black;
 }
 
 .bar-left {
-  left: 0;
+  background-color: red;
 }
 
-.bar-right {
-  right: 0;
+/*
+
+.main-container{
+
 }
 
-table{
-  max-width: 100vw;
+.desktop-container{
+
+  //grid-template-rows: $window-header-height 1fr;
+}
+
+.window-container {
+  //box-sizing: border-box;
+ // height: $desktop-height;
+  //position: absolute;
+ !* width: 100%;
+  max-width: 100%;*!
   overflow: hidden;
-}
-:host {
+
+  background: url($background-image) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 
 }
 
-:host /deep/ {
-
+.contains-left-bar{
+  .window-container {
+    //margin-left:$bar-size;
+  }
 }
+*/
+

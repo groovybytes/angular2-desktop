@@ -5,7 +5,7 @@ import {Desktop} from '../model/Desktop';
 
 
 @Component({
-  selector: 'gb-window-header',
+  selector: 'a2d-window-header',
   templateUrl: './window-header.component.html',
   styleUrls: ['./window-header.component.scss']
 })
@@ -25,9 +25,11 @@ export class WindowHeaderComponent implements OnInit {
 
   minimize(): void {
 
-    let targetEntryLeft = this.desktop.taskBar.getTaskBarEntryLeft(this.window.id);
+    let position = this.desktop.getTargetPosition("#shortcut-"+this.window.id);
+    this.window.minimize(position);
+    /*let targetEntryLeft = this.desktop.taskBar.getTaskBarEntryLeft(this.window.id);
     let desktopHeight=this.desktop.component.getHeight();
-    this.window.minimize(targetEntryLeft,desktopHeight);
+    this.window.minimize(targetEntryLeft,desktopHeight);*/
 
   }
   restore(): void {

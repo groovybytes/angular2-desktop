@@ -1,6 +1,5 @@
 import {WindowState} from './WindowState';
 import {BehaviorSubject} from 'rxjs';
-import * as _ from 'lodash';
 import {ShortCut} from './ShortCut';
 import {DockPosition} from './DockPosition';
 
@@ -22,6 +21,7 @@ export class DesktopWindow {
   hide:boolean=false;
 
   constructor(
+    id:string,
     title: string,
     state: WindowState,
     dockPosition: DockPosition,
@@ -29,7 +29,7 @@ export class DesktopWindow {
     y: number,
     width: number,
     height: number) {
-    this.id = _.uniqueId('window_');
+    this.id = id;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -78,11 +78,11 @@ export class DesktopWindow {
     return this.state.getValue() !== WindowState.CLOSED;
   }
 
-  minimize(xPosition:number,desktopHeight:number): void {
+  minimize(position:ClientRect): void {
 
     this.clazz += ' animation minimize';
-    this.animatedY = desktopHeight+"px";
-    this.animatedX = xPosition+"px";
+    this.animatedY = position.top+"px";
+    this.animatedX = position.right+"px";
     setTimeout(() => {
       this.animatedY = null;
       this.animatedX = null;
@@ -100,6 +100,7 @@ export class DesktopWindow {
   }
 
   normalize(): void {
+
     this.state.next(WindowState.NORMAL);
     this.clazz += ' animated fadeIn';
     this.hide=false;

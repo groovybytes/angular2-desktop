@@ -12,10 +12,14 @@ span{
 }
 
 
+
 :host{
   text-align: center;
   vertical-align: middle;
   //line-height: $window-header-size;       /* the same as your div height */
+}
+:host /deep/{
+
 }
 
 

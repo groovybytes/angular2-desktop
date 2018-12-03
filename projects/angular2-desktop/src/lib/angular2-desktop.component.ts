@@ -36,7 +36,7 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy {
 
   @HostBinding('class')
   get clazz() {
-    return 'theme-ubuntu';//this.componentClass;
+    return 'angular2-desktop';
   }
 
   private componentClass: string = '';

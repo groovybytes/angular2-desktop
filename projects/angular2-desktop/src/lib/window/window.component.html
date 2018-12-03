@@ -6,12 +6,14 @@
      [window]="window"
      parent=".window-container">
 
-  <div class="window-header drag-handle">
-    <!--<ng-content select=".header"></ng-content>-->
+  <div *ngIf="window.showHeader" class="window-header drag-handle">
+    <div class="custom-header">
+      <ng-content select=".header"></ng-content>
+    </div>
     <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
   </div>
   <a2d-dock-tools *ngIf="dockToolsVisible"></a2d-dock-tools>
-  <div class="window-body" >
+  <div class="window-body">
     <ng-content select=".body"></ng-content>
   </div>
 </div>

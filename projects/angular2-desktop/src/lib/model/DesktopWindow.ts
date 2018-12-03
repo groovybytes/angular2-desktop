@@ -18,7 +18,10 @@ export class DesktopWindow {
   width: number;
   height: number;
   shortCut: ShortCut;
+  alwaysOnTop: boolean;
+  showDockingTools: boolean;
   hide: boolean = false;
+  showHeader:boolean=true;
 
   constructor(
     id: string,

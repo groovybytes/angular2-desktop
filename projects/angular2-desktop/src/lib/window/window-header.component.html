@@ -2,10 +2,10 @@
 
 <div role="group" class="btn-group center">
 
-  <button type="button" *ngIf="window.state.getValue() !== state.DOCKED" class="window-btn" (click)="onDockBtnClicked()">
+  <button type="button" *ngIf="window.showDockingTools && window.state.getValue() !== state.DOCKED" class="window-btn" (click)="onDockBtnClicked()">
     <i class="fas fa-lock fa-xs"></i>
   </button>
-  <button type="button" *ngIf="window.state.getValue() === state.DOCKED" class="window-btn" (click)="unDock()">
+  <button type="button" *ngIf="window.showDockingTools &&  window.state.getValue() === state.DOCKED" class="window-btn" (click)="unDock()">
     <i class="fas fa-unlock fa-xs"></i>
   </button>
   <button type="button" class="window-btn"

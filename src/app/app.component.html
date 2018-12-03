@@ -3,12 +3,18 @@
     <a2d-window
       [id]="'chrome'"
       [title]="'google chrome'"
-      [state]="WindowState.NORMAL"
-      [dockPosition]="DockPosition.LEFT"
+      [state]="WindowState.DOCKED"
+      [showHeader]="true"
+      [dockPosition]="DockPosition.TOP"
       [x]="50"
       [y]="50"
+      [showDockingTools]="false"
       [width]="400"
       [height]="400">
+      <div class="header">
+
+        xxx
+      </div>
       <div class="body">
 
         test
@@ -21,6 +27,7 @@
       [dockPosition]="DockPosition.LEFT"
       [x]="400"
       [y]="400"
+      [alwaysOnTop]="true"
       [width]="400"
       [height]="400">
       <div class="body">

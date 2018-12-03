@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, Input} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Desktop} from '../model/Desktop';
 import {SerializationService} from '../serialization.service';
@@ -17,15 +17,19 @@ export class WindowService {
 
   create(id: string,
          title: string,
-         windowState:WindowState,
-         position:DockPosition,
+         windowState: WindowState,
+         position: DockPosition,
+         alwaysOnTop: boolean,
+         showDockingTools: boolean,
          x: number,
          y: number,
          width: number,
          height: number): DesktopWindow {
 
 
-    let window = new DesktopWindow(id,title, windowState, position, x, y, width, height);
+    let window = new DesktopWindow(id, title, windowState, position, x, y, width, height);
+    window.alwaysOnTop=alwaysOnTop;
+    window.showDockingTools=showDockingTools;
     if (window.width < this.desktop.configuration.windowConfig.minWidth)
       window.width = this.desktop.configuration.windowConfig.minWidth;
 

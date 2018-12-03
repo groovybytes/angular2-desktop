@@ -23,6 +23,9 @@ export class WindowComponent implements OnInit, OnDestroy {
   @Input() y: number;
   @Input() width: number;
   @Input() height: number;
+  @Input() alwaysOnTop: boolean=false;
+  @Input() showDockingTools: boolean=true;
+  @Input() showHeader: boolean=true;
 
   window: DesktopWindow;
   dockToolsVisible:boolean=false;
@@ -38,7 +41,19 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.window = this.windowService.create(this.id,this.title,this.state,this.dockPosition,this.x,this.y,this.width,this.height);
+    this.window = this.windowService.create(
+      this.id,
+      this.title,
+      this.state,
+      this.dockPosition,
+      this.alwaysOnTop,
+      this.showDockingTools,
+      this.x,
+      this.y,
+      this.width,
+      this.height);
+
+    this.window.showHeader=this.showHeader;
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
     this.subscriptions.push(this.window.dockPosition.subscribe(() =>
     {
@@ -50,10 +65,8 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   getStyle(){
 
-
-
     return {
-      'z-index':this.desktop.orders.indexOf(this.window.id)+1,
+      'z-index':this.alwaysOnTop?this.desktop.orders.length+1: this.desktop.orders.indexOf(this.window.id)+1,
       'transform':
         'translate(' + (this.window.animatedX!=null?this.window.animatedX:this.window.x+'px')+',' +
         (this.window.animatedY!=null?this.window.animatedY:(this.window.y+'px')) + ')',

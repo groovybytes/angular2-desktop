@@ -1,23 +1,101 @@
-@import "angular2-desktop.component.variables";
-@import "grid";
-@import "scrollbar";
+@import "scss/variables";
+@import "scss/scrollbar";
+
 
 
 :host {
   height: 100%;
+  width: 100%;
   display: grid;
   grid-column-gap: 0;
-  grid-template-columns: $bar-size auto;
-  grid-template-rows: 1fr;
+  grid-template-columns: $bar-size-left 1fr;
+  grid-template-rows: $bar-size-top 1fr;
+
+  background: url($background-image) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .window-container {
+  position: relative;
+  overflow: hidden;
 
-  background-color: black;
 }
 
 .bar-left {
-  background-color: red;
+
+  position: relative;
+}
+
+.bar-top {
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  position: relative;
+
+}
+
+.bar {
+  background-color: black;
+  opacity: 0.2;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bar-content {
+  position: absolute;
+  z-index: 1;
+  height:100%;
+  width:100%;
+}
+
+.taskbar-entry{
+  display:inline-block;
+  height: 100%;
+  max-width: 20vw;
+  width:20vw;
+  border-right: 1px solid theme-color("accent");
+  text-align: center;
+  vertical-align: middle;
+  line-height: $bar-size-top;
+  span{
+    color:theme-color("foreground");
+  }
+
+
+  &.active{
+    background-color: theme-color("accent");
+  }
+  &:hover{
+    background-color: theme-color("background");
+  }
+
+}
+
+.view-desktop{
+  float:right;
+  width:30px;
+  height:100%;
+
+  border-left: 3px solid theme-color("accent");
+  background-color: black;
+  opacity: 0.2;
+  &:hover{
+    opacity: 0.3;
+  }
+
+}
+
+
+:host /deep/ {
+
+
 }
 
 /*

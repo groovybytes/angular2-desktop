@@ -14,36 +14,35 @@ import {Desktop} from './model/Desktop';
 import {WindowState} from './model/WindowState';
 import {DockPosition} from './model/DockPosition';
 import {Subscription} from 'rxjs';
-import {ShortCutComponent} from './bar/favourites/short-cut.component';
-import {FavouritesComponent} from './bar/favourites/favourites.component';
-import {BarComponent} from './bar/bar.component';
+import {DesktopWindow} from './model/DesktopWindow';
+import {Angular2DesktopService} from './angular2-desktop.service';
 
 
 @Component({
   selector: 'a2d-desktop',
   templateUrl: './angular2-desktop.component.html',
   styleUrls: ['./angular2-desktop.component.scss']
+
 })
-export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContentInit {
+export class Angular2DesktopComponent implements OnInit, OnDestroy {
 
 
   desktop: Desktop;
   dockPreviewPosition: DockPosition = DockPosition.LEFT;
   showDockPreview: boolean = false;
   @ViewChild('container') container: ElementRef;
-  @ContentChildren(BarComponent) bars: QueryList<BarComponent>;
 
   private subscriptions: Array<Subscription> = [];
 
   @HostBinding('class')
   get clazz() {
-    return this.componentClass;
+    return 'theme-ubuntu';//this.componentClass;
   }
 
   private componentClass: string = '';
 
 
-  constructor(@Inject('desktop') desktop: Desktop, private element: ElementRef) {
+  constructor(@Inject('desktop') desktop: Desktop, private element: ElementRef, private desktopService: Angular2DesktopService) {
     this.desktop = desktop;
   }
 
@@ -62,9 +61,28 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   }
 
   getElement(query: string): Element {
-    return this.container.nativeElement.querySelector(query);
+    return this.element.nativeElement.querySelector(query);
   }
 
+  hasFocus(id: string): boolean {
+    return this.desktopService.hasFocus(id);
+  }
+
+  getVisibleWindows(): Array<DesktopWindow> {
+    return this.desktop.windows.filter(window =>
+      window.state.getValue() === WindowState.NORMAL ||
+      window.state.getValue() === WindowState.MAXIMIZED ||
+      window.state.getValue() === WindowState.DOCKED);
+  }
+
+  onTaskBarEntryClicked(window: DesktopWindow): void {
+    this.desktopService.onTaskBarClick(window);
+
+  }
+
+  viewDesktop(): void {
+    this.desktopService.toggleDesktop();
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
@@ -75,17 +93,6 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
     window.state.next(WindowState.NORMAL);
   }
 
-  ngAfterContentInit(): void {
-    this.updateClazz();
-  }
-
-  private updateClazz(): void {
-    this.componentClass = '';
-    this.bars.forEach(bar => {
-      if (bar.location === 'left') this.componentClass += ' contains-left-bar';
-      else if (bar.location === 'top') this.componentClass += ' contains-top-bar';
-    });
-  }
 
 }
 

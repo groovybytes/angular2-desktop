@@ -5,7 +5,7 @@ import {DockPosition} from './DockPosition';
 
 export class DesktopWindow {
 
-  private readonly animationDuration = 1000;
+  private readonly animationTimeout = 500;
   title: string;
   clazz: string;
   animatedY: string;
@@ -18,10 +18,10 @@ export class DesktopWindow {
   width: number;
   height: number;
   shortCut: ShortCut;
-  hide:boolean=false;
+  hide: boolean = false;
 
   constructor(
-    id:string,
+    id: string,
     title: string,
     state: WindowState,
     dockPosition: DockPosition,
@@ -78,16 +78,12 @@ export class DesktopWindow {
     return this.state.getValue() !== WindowState.CLOSED;
   }
 
-  minimize(position:ClientRect): void {
+  minimize(): void {
 
     this.clazz += ' animation minimize';
-    this.animatedY = position.top+"px";
-    this.animatedX = position.right+"px";
     setTimeout(() => {
-      this.animatedY = null;
-      this.animatedX = null;
       this.state.next(WindowState.MINIMIZED);
-    }, this.animationDuration);
+    }, this.animationTimeout);
   }
 
   close(): void {
@@ -96,19 +92,22 @@ export class DesktopWindow {
 
     setTimeout(() => {
       this.state.next(WindowState.CLOSED);
-    }, this.animationDuration);
+    }, this.animationTimeout);
   }
 
   normalize(): void {
-
     this.state.next(WindowState.NORMAL);
-    this.clazz += ' animated fadeIn';
-    this.hide=false;
+    this.clazz += ' animation normalize';
+    this.hide = false;
+
+    setTimeout(() => {
+      this.updateClass();
+    }, this.animationTimeout);
   }
 
   maximize(): void {
     this.clazz += ' animation maximize';
-    setTimeout(() => this.state.next(WindowState.MAXIMIZED), this.animationDuration);
+    setTimeout(() => this.state.next(WindowState.MAXIMIZED), this.animationTimeout);
   }
 
 }

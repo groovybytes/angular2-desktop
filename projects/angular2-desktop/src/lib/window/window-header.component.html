@@ -3,31 +3,31 @@
 <div role="group" class="btn-group center">
 
   <button type="button" *ngIf="window.state.getValue() !== state.DOCKED" class="window-btn" (click)="onDockBtnClicked()">
-    <i class="fas fa-lock"></i>
+    <i class="fas fa-lock fa-xs"></i>
   </button>
   <button type="button" *ngIf="window.state.getValue() === state.DOCKED" class="window-btn" (click)="unDock()">
-    <i class="fas fa-unlock"></i>
+    <i class="fas fa-unlock fa-xs"></i>
   </button>
   <button type="button" class="window-btn"
           *ngIf="window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
           (click)="minimize()">
-    <i class="far fa-window-minimize"></i>
+    <i class="far fa-window-minimize fa-xs"></i>
   </button>
   <button type="button"
           class="window-btn"
           *ngIf="window.state.getValue() != state.MAXIMIZED && window.state.getValue() !== state.DOCKED"
           (click)="maximize()">
-    <i class="far fa-window-maximize"></i>
+    <i class="far fa-window-maximize fa-xs"></i>
   </button>
   <button type="button" class="window-btn"
           *ngIf="window.state.getValue() != state.NORMAL  && window.state.getValue() !== state.DOCKED"
           (click)="restore()">
-    <i class="far fa-window-restore"></i>
+    <i class="far fa-window-restore fa-xs"></i>
   </button>
   <button type="button"
-          class="window-btn"
+          class="window-btn danger "
           *ngIf="window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
           (click)="close()">
-    <i class="fas fa-times"></i>
+    <i class="fas fa-times fa-xs"></i>
   </button>
 </div>

@@ -25,11 +25,8 @@ export class WindowHeaderComponent implements OnInit {
 
   minimize(): void {
 
-    let position = this.desktop.getTargetPosition("#shortcut-"+this.window.id);
-    this.window.minimize(position);
-    /*let targetEntryLeft = this.desktop.taskBar.getTaskBarEntryLeft(this.window.id);
-    let desktopHeight=this.desktop.component.getHeight();
-    this.window.minimize(targetEntryLeft,desktopHeight);*/
+    //let position = this.desktop.getTargetPosition("#shortcut-"+this.window.id);
+    this.window.minimize();
 
   }
   restore(): void {

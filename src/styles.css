@@ -3,7 +3,7 @@ html, body {
   height: 100%;
   width: 100%;
   min-width: 1024px;
-  overflow: hidden;
+  //overflow: hidden;
   min-height: 100% !important;
   margin: 0;
   padding: 0;

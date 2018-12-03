@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import {WindowComponent} from './window/window.component';
 import {Angular2DesktopService} from './angular2-desktop.service';
 import {InteractDirective} from './interact.directive';
-import {BarComponent} from './bar/bar.component';
 import {WindowHeaderComponent} from './window/window-header.component';
 import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
@@ -12,11 +11,10 @@ import {WindowService} from './window/window.service';
 import {DockPreviewComponent} from './dock-preview/dock-preview.component';
 import { DockToolsComponent } from './dock-tools/dock-tools.component';
 import { MenuComponent } from './menu/menu.component';
-import { FavouritesComponent } from './bar/favourites/favourites.component';
-import {TaskBarComponent} from './bar/taskbar/taskbar.component';
-import {ShortCutComponent} from './bar/favourites/short-cut.component';
 import { WindowContainerComponent } from './window-container/window-container.component';
-import { BarContainerComponent } from './bar-container/bar-container.component';
+import {ShortCutComponent} from './short-cut/short-cut.component';
+import {TaskBarComponent} from './taskbar/taskbar.component';
+
 
 
 @NgModule({
@@ -31,23 +29,17 @@ import { BarContainerComponent } from './bar-container/bar-container.component';
   declarations: [Angular2DesktopComponent,
     WindowComponent,
     DockPreviewComponent,
-    ShortCutComponent,
     WindowHeaderComponent,
-    BarComponent,
-    TaskBarComponent,
     InteractDirective,
+    ShortCutComponent,
     DockToolsComponent,
     MenuComponent,
-    FavouritesComponent,
     WindowContainerComponent,
-    BarContainerComponent],
+    TaskBarComponent],
   exports: [
     Angular2DesktopComponent,
     WindowComponent,
-    WindowContainerComponent,
-    BarContainerComponent,
-    ShortCutComponent,
-    BarComponent]
+    WindowContainerComponent,]
 })
 export class Angular2DesktopModule {
 }

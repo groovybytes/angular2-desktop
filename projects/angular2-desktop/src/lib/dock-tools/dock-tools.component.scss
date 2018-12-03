@@ -1,11 +1,34 @@
-@import "../angular2-desktop.component.variables";
-@import "../docking";
+@import "../scss/variables";
+@import "../scss/docking";
 
-.dock-tools{
-  background-color: lighten($window-header-bg,10%);
-  color:$font-color;
-  border-top: 1px solid darken($window-header-bg,10%);
+button {
+
+
+  //border: 1px solid theme-color('background','dark');
+  color: theme-color('accent');
+  cursor: pointer;
+  background-color: theme-color('background');
+  border:none;
+  //margin-left:2px;
+
+  &:hover {
+    opacity: 0.8;
+
+
+
+  }
+
+  &.danger{
+    background-image: none;
+    background-color: theme-color('accent');
+  }
 }
-:host{
 
+:host{
+  border-top: 1px solid theme-color('background',"light");
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  background-color: theme-color('background');
+ // color: theme-color('foreground');
+  height:35px;
 }

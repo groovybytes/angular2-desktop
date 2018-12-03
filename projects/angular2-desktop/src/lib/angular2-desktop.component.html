@@ -1,15 +1,36 @@
-<!-- <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>-->
+<div class="bar-top">
+  <div class="bar">
+
+  </div>
+  <div class="bar-content">
+    <div class="taskbar-entry"
+         [id]="'taskbar-entry-'+window.id"
+         [ngClass]="{'active':hasFocus(window.id)}"
+         *ngFor="let window of getVisibleWindows()"
+         (click)="onTaskBarEntryClicked(window)">
+      <span>{{window.title}}</span>
+    </div>
+    <div class="view-desktop" (click)="viewDesktop()">
+
+    </div>
+  </div>
+</div>
+
+<div class="bar-left">
+  <div class="bar">
+
+  </div>
+  <div class="bar-content">
+    <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
+    <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+    <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+  </div>
 
 
-
-<ng-content select=".bar-left"></ng-content>
-
-<div class="window-container">
-  <ng-content select=".windows" #container></ng-content>
 </div>
 
 
-
-
-
-
+<div class="window-container" #container>
+  <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
+  <ng-content ></ng-content>
+</div>

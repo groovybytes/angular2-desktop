@@ -38,6 +38,7 @@ import {TaskBarComponent} from './taskbar/taskbar.component';
     TaskBarComponent],
   exports: [
     Angular2DesktopComponent,
+    ShortCutComponent,
     WindowComponent,
     WindowContainerComponent,]
 })

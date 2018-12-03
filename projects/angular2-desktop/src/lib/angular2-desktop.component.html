@@ -21,9 +21,7 @@
 
   </div>
   <div class="bar-content">
-    <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
-    <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
-    <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+    <ng-content select=".shortcuts" ></ng-content>
   </div>
 
 
@@ -32,5 +30,5 @@
 
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
-  <ng-content ></ng-content>
+  <ng-content select=".windows" ></ng-content>
 </div>

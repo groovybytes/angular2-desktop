@@ -37,7 +37,13 @@
 }
 
 .custom-header{
-  position: absolute;
+  display: inline-block;
+  width: 70%;
+  height:100%;
+}
+.button-header{
+  display: inline-block;
+  width: 30%;
 }
 
 gb-dock-tools {

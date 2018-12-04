@@ -1,4 +1,4 @@
-<div class="bar-top">
+<div class="bar-top" *ngIf="showTopBar">
   <div class="bar">
 
   </div>
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="bar-left">
+<div class="bar-left" *ngIf="showLeftBar">
   <div class="bar">
 
   </div>
@@ -26,7 +26,6 @@
 
 
 </div>
-
 
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>

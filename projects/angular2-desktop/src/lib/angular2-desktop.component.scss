@@ -18,6 +18,14 @@
   background-size: cover;
 }
 
+:host(.no-top-bar){
+  grid-template-rows: 1fr;
+}
+:host(.no-left-bar){
+  grid-template-columns: 1fr;
+  grid-template-rows: $bar-size-top 1fr;
+}
+
 .window-container {
   position: relative;
   overflow: hidden;

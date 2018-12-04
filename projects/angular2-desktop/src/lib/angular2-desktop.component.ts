@@ -26,6 +26,8 @@ import {Angular2DesktopService} from './angular2-desktop.service';
 })
 export class Angular2DesktopComponent implements OnInit, OnDestroy {
 
+  @Input() showTopBar: boolean = true;
+  @Input() showLeftBar: boolean = true;
 
   desktop: Desktop;
   dockPreviewPosition: DockPosition = DockPosition.LEFT;
@@ -36,7 +38,10 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy {
 
   @HostBinding('class')
   get clazz() {
-    return 'angular2-desktop';
+    let clazz='angular2-desktop';
+    if (this.showLeftBar===false) clazz+=" no-left-bar";
+    if (this.showTopBar===false) clazz+=" no-top-bar";
+    return clazz;
   }
 
   private componentClass: string = '';

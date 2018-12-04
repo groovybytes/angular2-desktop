@@ -1,4 +1,4 @@
-<a2d-desktop>
+<a2d-desktop [showLeftBar]="false" >
   <div class="windows">
     <a2d-window
       [id]="'chrome'"
@@ -12,8 +12,7 @@
       [width]="400"
       [height]="400">
       <div class="header">
-
-        xxx
+        Google Chrome
       </div>
       <div class="body">
 
@@ -28,6 +27,8 @@
       [x]="400"
       [y]="400"
       [alwaysOnTop]="true"
+      [showCloseBtnOnly]="true"
+      [showDockingTools]="false"
       [width]="400"
       [height]="400">
       <div class="body">
@@ -39,6 +40,7 @@
       [title]="'google mail'"
       [state]="WindowState.NORMAL"
       [dockPosition]="DockPosition.LEFT"
+      [showWindowBtns]="false"
       [x]="200"
       [y]="200"
       [width]="400"

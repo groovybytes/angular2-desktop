@@ -1,4 +1,4 @@
-<span class="inline no-select center">{{window.title}}</span>
+<!--<span class="inline no-select center">{{window.title}}</span>-->
 
 <div role="group" class="btn-group center">
 
@@ -9,13 +9,13 @@
     <i class="fas fa-unlock fa-xs"></i>
   </button>
   <button type="button" class="window-btn"
-          *ngIf="window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
+          *ngIf="window.showCloseBtnOnly===false && window.state.getValue() != state.MINIMIZED && window.state.getValue() !== state.DOCKED"
           (click)="minimize()">
     <i class="far fa-window-minimize fa-xs"></i>
   </button>
   <button type="button"
           class="window-btn"
-          *ngIf="window.state.getValue() != state.MAXIMIZED && window.state.getValue() !== state.DOCKED"
+          *ngIf="window.showCloseBtnOnly===false &&window.state.getValue() != state.MAXIMIZED && window.state.getValue() !== state.DOCKED"
           (click)="maximize()">
     <i class="far fa-window-maximize fa-xs"></i>
   </button>

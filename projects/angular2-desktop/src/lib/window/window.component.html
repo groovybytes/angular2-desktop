@@ -10,7 +10,10 @@
     <div class="custom-header">
       <ng-content select=".header"></ng-content>
     </div>
-    <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
+    <div class="button-header" *ngIf="window.showWindowBtns">
+      <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
+    </div>
+
   </div>
   <a2d-dock-tools *ngIf="dockToolsVisible"></a2d-dock-tools>
   <div class="window-body">

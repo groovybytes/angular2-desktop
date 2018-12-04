@@ -22,6 +22,8 @@ export class DesktopWindow {
   showDockingTools: boolean;
   hide: boolean = false;
   showHeader:boolean=true;
+  showWindowBtns:boolean=true;
+  showCloseBtnOnly:boolean=false;
 
   constructor(
     id: string,

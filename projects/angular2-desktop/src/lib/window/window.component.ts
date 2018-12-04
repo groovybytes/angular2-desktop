@@ -24,6 +24,8 @@ export class WindowComponent implements OnInit, OnDestroy {
   @Input() width: number;
   @Input() height: number;
   @Input() alwaysOnTop: boolean=false;
+  @Input() showWindowBtns: boolean=true;
+  @Input() showCloseBtnOnly: boolean=false;
   @Input() showDockingTools: boolean=true;
   @Input() showHeader: boolean=true;
 
@@ -54,6 +56,8 @@ export class WindowComponent implements OnInit, OnDestroy {
       this.height);
 
     this.window.showHeader=this.showHeader;
+    this.window.showWindowBtns=this.showWindowBtns;
+    this.window.showCloseBtnOnly=this.showCloseBtnOnly;
     this.subscriptions.push(this.window.state.subscribe(() => this.desktopService.onWindowStateChanged(this.window)));
     this.subscriptions.push(this.window.dockPosition.subscribe(() =>
     {

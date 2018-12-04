@@ -1,5 +1,5 @@
 import {
-  AfterContentInit,
+  AfterContentInit, AfterViewInit,
   Component, ContentChild, ContentChildren,
   ElementRef, HostBinding,
   Inject, Input,
@@ -24,30 +24,36 @@ import {Angular2DesktopService} from './angular2-desktop.service';
   styleUrls: ['./angular2-desktop.component.scss']
 
 })
-export class Angular2DesktopComponent implements OnInit, OnDestroy {
+export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
 
-  @Input() showTopBar: boolean = true;
-  @Input() showLeftBar: boolean = true;
 
   desktop: Desktop;
   dockPreviewPosition: DockPosition = DockPosition.LEFT;
   showDockPreview: boolean = false;
+  topBarVisible: boolean = true;
+  leftBarVisible: boolean = true;
+  rightBarVisible: boolean = true;
+  bottomBarVisible: boolean = true;
+
   @ViewChild('container') container: ElementRef;
+  @ViewChild('topBar') topBar: ElementRef;
+  @ViewChild('rightBar') rightBar: ElementRef;
+  @ViewChild('leftBar') leftBar: ElementRef;
+  @ViewChild('bottomBar') bottomBar: ElementRef;
+
 
   private subscriptions: Array<Subscription> = [];
 
   @HostBinding('class')
   get clazz() {
-    let clazz='angular2-desktop';
-    if (this.showLeftBar===false) clazz+=" no-left-bar";
-    if (this.showTopBar===false) clazz+=" no-top-bar";
+    let clazz = 'angular2-desktop';
     return clazz;
   }
 
   private componentClass: string = '';
 
 
-  constructor(@Inject('desktop') desktop: Desktop, private element: ElementRef, private desktopService: Angular2DesktopService) {
+  constructor(@Inject('desktop') desktop: Desktop, private element: ElementRef) {
     this.desktop = desktop;
   }
 
@@ -69,33 +75,29 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy {
     return this.element.nativeElement.querySelector(query);
   }
 
-  hasFocus(id: string): boolean {
-    return this.desktopService.hasFocus(id);
-  }
-
-  getVisibleWindows(): Array<DesktopWindow> {
-    return this.desktop.windows.filter(window =>
-      window.state.getValue() === WindowState.NORMAL ||
-      window.state.getValue() === WindowState.MAXIMIZED ||
-      window.state.getValue() === WindowState.DOCKED);
-  }
-
-  onTaskBarEntryClicked(window: DesktopWindow): void {
-    this.desktopService.onTaskBarClick(window);
-
-  }
-
-  viewDesktop(): void {
-    this.desktopService.toggleDesktop();
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+
   shortCutClicked(shortCut: ShortCut): void {
     let window = this.desktop.windows.find(window => window.id === shortCut.windowRef);
     window.state.next(WindowState.NORMAL);
+  }
+
+  ngAfterContentInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(()=>{
+
+      this.topBarVisible = this.topBar.nativeElement.children.length > 1;
+      this.leftBarVisible = this.leftBar.nativeElement.children.length > 1;
+      this.rightBarVisible = this.rightBar.nativeElement.children.length > 1;
+      this.bottomBarVisible = this.bottomBar.nativeElement.children.length > 1;
+    });
+
   }
 
 

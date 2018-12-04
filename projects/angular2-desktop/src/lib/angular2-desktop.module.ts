@@ -13,7 +13,9 @@ import { DockToolsComponent } from './dock-tools/dock-tools.component';
 import { MenuComponent } from './menu/menu.component';
 import { WindowContainerComponent } from './window-container/window-container.component';
 import {ShortCutComponent} from './short-cut/short-cut.component';
-import {TaskBarComponent} from './taskbar/taskbar.component';
+import { BarComponent } from './bar/bar.component';
+import { TaskBarComponent } from './task-bar/task-bar.component';
+
 
 
 
@@ -35,12 +37,15 @@ import {TaskBarComponent} from './taskbar/taskbar.component';
     DockToolsComponent,
     MenuComponent,
     WindowContainerComponent,
+    BarComponent,
     TaskBarComponent],
   exports: [
     Angular2DesktopComponent,
     ShortCutComponent,
     WindowComponent,
-    WindowContainerComponent,]
+    BarComponent,
+    TaskBarComponent,
+    WindowContainerComponent]
 })
 export class Angular2DesktopModule {
 }

@@ -1,4 +1,4 @@
-<div class="bar-top" *ngIf="showTopBar">
+<!--<div class="bar-top" *ngIf="showTopBar">
   <div class="bar">
 
   </div>
@@ -25,9 +25,29 @@
   </div>
 
 
-</div>
+</div>-->
+<div class="bar-container bar-top-container" *ngIf="topBarVisible" #topBar>
 
+  <ng-content select=".bar-top" ></ng-content>
+  <div class="bar-dummy"></div>
+
+</div>
+<div class="bar-container bar-left-container" *ngIf="leftBarVisible" #leftBar>
+  <ng-content select=".bar-left" ></ng-content>
+  <div class="bar-dummy"></div>
+</div>
+<div class="bar-container bar-right-container" *ngIf="rightBarVisible" #rightBar>
+  <ng-content select=".bar-right" ></ng-content>
+  <div class="bar-dummy"></div>
+</div>
+<div class="bar-container bar-bottom-container" *ngIf="bottomBarVisible" #bottomBar>
+  <ng-content select=".bar-bottom" ></ng-content>
+  <div class="bar-dummy"></div>
+</div>
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
-  <ng-content select=".windows" ></ng-content>
+  <ng-content select=".windows"></ng-content>
 </div>
+
+
+

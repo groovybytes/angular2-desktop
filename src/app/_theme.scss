@@ -1,28 +1,15 @@
-/*
-
-.window {
-  background-color: red !important;
+.bar-top-container{
+  //background-color: black;
+  //opacity:0.3;
+  color:white;
 }
 
-.window-btn {
-
-  background-image: linear-gradient(#8B8A84, #5F5E59);
-  border-radius: 50%;
-  border: none;
-  color: white;
-  padding: 3px 7px;
-  cursor: pointer;
-
-  &:hover {
-    //background-color: darken($window-header-bg, 5%);
-  }
-
-  &.active {
-    //background-color: darken($window-header-bg, 10%);
-  }
+.bar-entry{
+  height:100%;
+  //background-color: red;
 }
 
-
-
-
-*/
+.bar-dummy{
+  background-color: black;
+  opacity:0.3;
+}

@@ -1,8 +1,8 @@
-<div class="bar-entry" #entry
+<div class="taskbar-entry"
      [id]="'taskbar-entry-'+window.id"
      [ngClass]="{'active':hasFocus(window.id)}"
-     *ngFor="let window of getOpenWindows()"
-     (click)="onEntryClicked(window)">
+     *ngFor="let window of getVisibleWindows()"
+     (click)="onTaskBarEntryClicked(window)">
   <span>{{window.title}}</span>
 </div>
 <div class="view-desktop" (click)="viewDesktop()">

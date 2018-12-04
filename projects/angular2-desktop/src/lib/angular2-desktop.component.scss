@@ -1,15 +1,13 @@
 @import "scss/variables";
 @import "scss/scrollbar";
 
-
-
 :host {
-  height: 100%;
   width: 100%;
+  height: 100%;
   display: grid;
   grid-column-gap: 0;
-  grid-template-columns: $bar-size-left 1fr;
-  grid-template-rows: $bar-size-top 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
 
   background: url($background-image) no-repeat center center fixed;
   -webkit-background-size: cover;
@@ -18,125 +16,56 @@
   background-size: cover;
 }
 
-:host(.no-top-bar){
-  grid-template-rows: 1fr;
+.bar-container {
+  position: relative;
 }
-:host(.no-left-bar){
-  grid-template-columns: 1fr;
-  grid-template-rows: $bar-size-top 1fr;
+
+
+
+.bar-top-container {
+  grid-column: 1/span 3;
+  height: $bar-size-top;
+}
+
+.bar-left-container {
+  grid-row: 2;
+  width: $bar-size-left;
+}
+
+.bar-bottom-container {
+  grid-row: 3;
+  grid-column: 1/span 3;
+  width: 100%;
+  height: $bar-size-top;
+}
+
+.bar-right-container {
+  grid-row: 2;
+  width: $bar-size-left;
+  grid-column: 3;
 }
 
 .window-container {
   position: relative;
-  overflow: hidden;
-
+  grid-column: 2/2;
+  grid-row: 2;
+  width: 100%;
 }
 
-.bar-left {
-
-  position: relative;
-}
-
-.bar-top {
-  grid-column-start: 1;
-  grid-column-end: span 2;
-  grid-row-start: 1;
-  grid-row-end: 1;
-  position: relative;
-
-}
-
-.bar {
-  background-color: black;
-  opacity: 0.2;
+.bar-dummy {
+  z-index:0;
   width: 100%;
   height: 100%;
   position: absolute;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.bar-content {
-  position: absolute;
-  z-index: 1;
-  height:100%;
-  width:100%;
-}
-
-.taskbar-entry{
-  display:inline-block;
-  height: 100%;
-  max-width: 20vw;
-  width:20vw;
-  border-right: 1px solid theme-color("accent");
-  text-align: center;
-  vertical-align: middle;
-  line-height: $bar-size-top;
-  span{
-    color:theme-color("foreground");
-  }
-
-
-  &.active{
-    background-color: theme-color("accent");
-  }
-  &:hover{
-    background-color: theme-color("background");
-  }
-
-}
-
-.view-desktop{
-  float:right;
-  width:30px;
-  height:100%;
-
-  border-left: 3px solid theme-color("accent");
-  background-color: black;
-  opacity: 0.2;
-  &:hover{
-    opacity: 0.3;
-  }
-
 }
 
 
 :host /deep/ {
 
-
-}
-
-/*
-
-.main-container{
-
-}
-
-.desktop-container{
-
-  //grid-template-rows: $window-header-height 1fr;
-}
-
-.window-container {
-  //box-sizing: border-box;
- // height: $desktop-height;
-  //position: absolute;
- !* width: 100%;
-  max-width: 100%;*!
-  overflow: hidden;
-
-  background: url($background-image) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-}
-
-.contains-left-bar{
-  .window-container {
-    //margin-left:$bar-size;
+  .bar-top, .bar-bottom, .bar-right, .bar-left {
+    width: 100%;
+    height: 100%;
+    z-index:1;
+    position: absolute;
   }
 }
-*/
-

@@ -7,9 +7,7 @@
      parent=".window-container">
 
   <div *ngIf="window.showHeader" class="window-header drag-handle">
-    <div class="custom-header">
-      <ng-content select=".header"></ng-content>
-    </div>
+    <ng-content select=".header"></ng-content>
     <div class="button-header" *ngIf="window.showWindowBtns">
       <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
     </div>

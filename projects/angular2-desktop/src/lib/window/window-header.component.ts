@@ -53,6 +53,7 @@ export class WindowHeaderComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log(this.window);
   }
 
 }

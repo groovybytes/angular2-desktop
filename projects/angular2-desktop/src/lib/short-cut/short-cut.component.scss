@@ -22,7 +22,6 @@
   display: inline-block;
   width: 5px;
   height: 5px;
-  background-color: theme-color('accent');
   border-radius: 10px;
   top: $shortcut-height/2-2;
   left: 4px;
@@ -66,10 +65,10 @@ img {
   text-align: center;
   vertical-align: middle;
   span {
-    color: theme-color('foreground');
+    //color: theme-color('foreground');
   }
   &:hover {
-    background-color: theme-color('background');
+    //background-color: theme-color('background');
     cursor: pointer;
   }
 

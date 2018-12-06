@@ -1,7 +1,4 @@
 
-@import "themes/themes";
-
-// window styles
 $window-header-height:40px !default;
 $body-padding:5px  !default;
 $bar-size-top:40px  !default;
@@ -10,29 +7,3 @@ $z-index-dock-preview:100001  !default;
 $shortcut-height:50px  !default;
 $icon-size:40px  !default;
 $background-image:"/assets/images/ubuntu-wallpaper.jpg" !default;
-
-
-/*
-@mixin window-header-bg {
-  background-image: linear-gradient(#59574E, #3D3C37);
-}
-
-@mixin window-btn {
-  background-image: linear-gradient(#8B8A84, #5F5E59);
-  border-radius: 50%;
-  border: none;
-  color: $font-color; !* White text *!
-  padding: 3px 7px; !* Some padding *!
-  cursor: pointer; !* Pointer/hand icon *!
-  // float: left; !* Float the buttons side by side *!
-
-  &:hover {
-    background-color: darken($window-header-bg, 5%);
-  }
-
-  &.active {
-    background-color: darken($window-header-bg, 10%);
-  }
-}
-*/
-

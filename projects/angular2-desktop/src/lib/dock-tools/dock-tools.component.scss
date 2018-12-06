@@ -5,9 +5,9 @@ button {
 
 
   //border: 1px solid theme-color('background','dark');
-  color: theme-color('accent');
+  //color: theme-color('accent');
   cursor: pointer;
-  background-color: theme-color('background');
+  //background-color: theme-color('background');
   border:none;
   //margin-left:2px;
 
@@ -19,16 +19,16 @@ button {
   }
 
   &.danger{
-    background-image: none;
-    background-color: theme-color('accent');
+    //background-image: none;
+    //background-color: theme-color('accent');
   }
 }
 
 :host{
-  border-top: 1px solid theme-color('background',"light");
+  //border-top: 1px solid theme-color('background',"light");
   display: inline-grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  background-color: theme-color('background');
+  //background-color: theme-color('background');
  // color: theme-color('foreground');
   height:35px;
 }

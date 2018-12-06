@@ -5,20 +5,20 @@
   height: 100%;
   max-width: 20vw;
   width:20vw;
-  border-right: 1px solid theme-color("accent");
+ // border-right: 1px solid theme-color("accent");
   text-align: center;
   vertical-align: middle;
   line-height: $bar-size-top;
   span{
-    color:theme-color("foreground");
+    //color:theme-color("foreground");
   }
 
 
   &.active{
-    background-color: theme-color("accent");
+    //background-color: theme-color("accent");
   }
   &:hover{
-    background-color: theme-color("background");
+    //background-color: theme-color("background");
   }
 
 }
@@ -28,11 +28,14 @@
   width:30px;
   height:100%;
 
-  border-left: 3px solid theme-color("accent");
+  //border-left: 3px solid theme-color("accent");
   background-color: black;
   opacity: 0.2;
   &:hover{
     opacity: 0.3;
   }
+
+}
+:host{
 
 }

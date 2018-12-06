@@ -4,26 +4,26 @@
 
 .window {
   position: absolute;
-  background-color: theme-color("primary");
+  background-color: white;
   display: grid;
   grid-column-gap: 0;
   grid-template-columns: auto;
   padding: 0;
-  grid-template-rows: $window-header-height 1fr;
+  grid-template-rows: auto 1fr;
 }
 
 .window-header {
-  background-color: theme-color('background');
-  @include text-color();
+  background-color: black;
   height: $window-header-height;
+  line-height: $window-header-height;
+
 }
 
 .window-body {
   overflow: auto;
-  border-left: 2px solid theme-color('background');
-  border-right: 2px solid theme-color('background');
-  border-bottom: 1px solid theme-color('background');
-
+  .body{
+    padding:0;
+  }
 }
 
 .window-maximized {
@@ -36,14 +36,15 @@
   //opacity: 0;
 }
 
-.custom-header{
-  display: inline-block;
-  width: 70%;
-  height:100%;
+.header{
+  height:$window-header-height;
 }
+
+
 .button-header{
   display: inline-block;
   width: 30%;
+  float:right;
 }
 
 gb-dock-tools {
@@ -52,18 +53,17 @@ gb-dock-tools {
   width: 100%;
 }
 
+:host{
+
+}
 :host /deep/ {
   .body {
-    padding: $body-padding;
+    //padding: $body-padding;
 
   }
 
   .window-btn {
-
-    background-image: linear-gradient(theme-color('background','light'),darken(theme-color('background','light'),10%));
     border-radius: 50%;
-    border: 1px solid theme-color('background','dark');
-    color: theme-color('background');
     height:25px;
     width:25px;
     cursor: pointer;
@@ -71,14 +71,10 @@ gb-dock-tools {
 
     &:hover {
       opacity: 0.8;
-
-
-
     }
 
     &.danger{
       background-image: none;
-      background-color: theme-color('accent');
     }
   }
 

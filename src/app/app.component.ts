@@ -13,8 +13,6 @@ export class AppComponent implements OnInit {
   title = 'app';
 
 
-  DockPosition=DockPosition;
-  WindowState=WindowState;
 
   constructor() {
 

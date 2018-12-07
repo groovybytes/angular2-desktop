@@ -9,18 +9,6 @@ It emulates a desktop environment.
 
 angular6+, jquery, lodash, interactjs,font awesome
 
-### Node
-
-[Node](http://nodejs.org/) is really easy to install & now include [NPM](https://npmjs.org/).
-You should be able to run the following command after the installation procedure
-below.
-
-    $ node --version
-    v0.10.24
-
-    $ npm --version
-    1.3.21
-
 
 ## Install
 
@@ -69,59 +57,71 @@ add libraries to your angular.json
    ```
    in your app.component to work with the provided Enums.
    
+   use <div class="bar-left"> to add a left bar or "bar-right","bar-bottom","bar-top"
+   
  example:
    ```
-   <a2d-desktop>
-     <div class="windows">
-       <a2d-window
-         [id]="'chrome'"
-         [title]="'google chrome'"
-         [state]="WindowState.NORMAL"
-         [dockPosition]="DockPosition.LEFT"
-         [x]="50"
-         [y]="50"
-         [width]="400"
-         [height]="400">
-         <div class="header">header</div>
-         <div class="body">
-   
-           test
-         </div>
-       </a2d-window>
-       <a2d-window
-         [id]="'firefox'"
-         [title]="'firefox'"
-         [state]="WindowState.NORMAL"
-         [dockPosition]="DockPosition.LEFT"
-         [x]="400"
-         [y]="400"
-         [width]="400"
-         [height]="400">
-         <div class="body">
-           <button>Some Btn</button>
-         </div>
-       </a2d-window>
-       <a2d-window
-         [id]="'gmail'"
-         [title]="'google mail'"
-         [state]="WindowState.NORMAL"
-         [dockPosition]="DockPosition.LEFT"
-         [x]="200"
-         [y]="200"
-         [width]="400"
-         [height]="400">
-         <div class="body">
-           <button>Some Btn</button>
-         </div>
-       </a2d-window>
-     </div>
-     <div class="shortcuts">
-       <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
-       <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
-       <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
-     </div>
-   
-   </a2d-desktop>
+  <a2d-desktop>
+    <div class="windows">
+      <a2d-window
+        [id]="'chrome'"
+        [title]="'google chrome'"
+        [state]="WindowState.NORMAL"
+        [x]="50"
+        [y]="50"
+        [width]="400"
+        [height]="400">
+        <div class="header">
+          Google Chrome
+        </div>
+        <div class="body">
+  
+          test
+        </div>
+      </a2d-window>
+      <a2d-window
+        [id]="'firefox'"
+        [title]="'firefox'"
+        [state]="WindowState.NORMAL"
+        [dockPosition]="DockPosition.LEFT"
+        [x]="400"
+        [y]="400"
+        [alwaysOnTop]="true"
+        [showCloseBtnOnly]="false"
+        [showDockingTools]="true"
+        [width]="400"
+        [height]="400">
+        <div class="body">
+          <button>Some Btn</button>
+        </div>
+      </a2d-window>
+      <a2d-window
+        [id]="'gmail'"
+        [title]="'google mail'"
+        [state]="WindowState.NORMAL"
+        [dockPosition]="DockPosition.LEFT"
+        [showWindowBtns]="false"
+        [x]="200"
+        [y]="200"
+        [width]="400"
+        [height]="400">
+        <div class="body">
+          <button>Some Btn</button>
+        </div>
+      </a2d-window>
+    </div>
+    <div class="bar-top">
+      <a2d-task-bar></a2d-task-bar>
+    </div>
+    <div class="bar-left">
+      <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
+      <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+      <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+    </div>
+  
+  
+  </a2d-desktop>
+
    
    ```
    
@@ -180,3 +180,89 @@ add libraries to your angular.json
 ### Styling/Themes
 
 documentation for styling is coming soon. 
+
+example theme:
+
+```
+
+.angular2-desktop {
+  background: url("/assets/images/ubuntu-wallpaper.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.window-header {
+  background-color: theme-color('background');
+  @include text-color();
+}
+
+.window-body {
+  background-color: theme-color('primary');
+  border-left: 2px solid theme-color('background');
+  border-right: 2px solid theme-color('background');
+  border-bottom: 1px solid theme-color('background');
+}
+
+.window-btn {
+  background-image: linear-gradient(theme-color('background', 'light'), darken(theme-color('background', 'light'), 10%));
+  border: 1px solid theme-color('background', 'dark');
+  color: theme-color('background');
+  &.danger {
+    background-color: theme-color('accent');
+  }
+}
+
+.bar-container {
+  background-color: transparent ;
+  color: theme-color('foreground');
+}
+
+.bar-top-container {
+
+}
+
+.bar-left-container {
+
+}
+
+.taskbar-entry {
+  span {
+    color: theme-color("foreground");
+  }
+  &.active {
+    background-color: theme-color("accent");
+  }
+  &:hover {
+    background-color: theme-color("background");
+  }
+
+}
+
+.bar-dummy {
+  background-color: black;
+  opacity: 0.3;
+}
+
+.preview-rect {
+  background-color: theme-color('background');
+  opacity: 0.5;
+}
+
+.shortcut {
+  .circle {
+    background-color: theme-color('accent');
+  }
+
+  &:hover {
+    background-color: theme-color('background');
+    cursor: pointer;
+  }
+
+```
+
+### Next Steps
+
+Resolve conflicts with bootstrap css
+

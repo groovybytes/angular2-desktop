@@ -77,3 +77,18 @@
   }
 
 }
+.desktop-shortcut {
+  .fill {
+    //background-color: black;
+    //opacity: 0.1;
+    //border-radius: 20px;
+    &:hover {
+      background-color: black;
+      opacity: 0.1;
+      cursor: pointer;
+    }
+  }
+
+
+
+}

@@ -7,16 +7,16 @@ import {InteractDirective} from './interact.directive';
 import {WindowHeaderComponent} from './window/window-header.component';
 import {SerializationService} from './serialization.service';
 import {Desktop} from './model/Desktop';
-import {WindowService} from './window/window.service';
 import {DockPreviewComponent} from './dock-preview/dock-preview.component';
-import { DockToolsComponent } from './dock-tools/dock-tools.component';
-import { MenuComponent } from './menu/menu.component';
-import { WindowContainerComponent } from './window-container/window-container.component';
+import {DockToolsComponent} from './dock-tools/dock-tools.component';
+import {MenuComponent} from './menu/menu.component';
+import {WindowContainerComponent} from './window-container/window-container.component';
 import {ShortCutComponent} from './short-cut/short-cut.component';
-import { BarComponent } from './bar/bar.component';
-import { TaskBarComponent } from './task-bar/task-bar.component';
-
-
+import {BarComponent} from './bar/bar.component';
+import {TaskBarComponent} from './task-bar/task-bar.component';
+import {DesktopShortcutComponent} from './desktop-shortcut/desktop-shortcut.component';
+import {A2dClientService} from './a2d-client.service';
+import { ApplicationComponent } from './application/application.component';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { TaskBarComponent } from './task-bar/task-bar.component';
   ],
   providers: [
     Angular2DesktopService,
-    WindowService,
+    A2dClientService,
     {provide: 'desktop', useClass: Desktop},
     SerializationService],
   declarations: [Angular2DesktopComponent,
@@ -38,13 +38,17 @@ import { TaskBarComponent } from './task-bar/task-bar.component';
     MenuComponent,
     WindowContainerComponent,
     BarComponent,
-    TaskBarComponent],
+    TaskBarComponent,
+    DesktopShortcutComponent,
+    ApplicationComponent],
   exports: [
     Angular2DesktopComponent,
     ShortCutComponent,
     WindowComponent,
     BarComponent,
     TaskBarComponent,
+    ApplicationComponent,
+    DesktopShortcutComponent,
     WindowContainerComponent]
 })
 export class Angular2DesktopModule {

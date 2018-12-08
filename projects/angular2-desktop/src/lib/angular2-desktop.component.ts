@@ -1,21 +1,24 @@
 import {
-  AfterContentInit, AfterViewInit,
-  Component, ContentChild, ContentChildren,
-  ElementRef, HostBinding,
-  Inject, Input,
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ContentChildren,
+  ElementRef,
+  HostBinding,
+  Inject,
+  Injector,
   OnDestroy,
   OnInit,
-  QueryList, ViewChild,
-  ViewChildren,
-  ViewEncapsulation
+  QueryList,
+  ViewChild
 } from '@angular/core';
-import {ShortCut} from './model/ShortCut';
 import {Desktop} from './model/Desktop';
-import {WindowState} from './model/WindowState';
 import {DockPosition} from './model/DockPosition';
 import {Subscription} from 'rxjs';
-import {DesktopWindow} from './model/DesktopWindow';
 import {Angular2DesktopService} from './angular2-desktop.service';
+import {ApplicationComponent} from './application/application.component';
+import {AppFactoryService} from './app-factory.service';
 
 
 @Component({
@@ -40,6 +43,7 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   @ViewChild('rightBar') rightBar: ElementRef;
   @ViewChild('leftBar') leftBar: ElementRef;
   @ViewChild('bottomBar') bottomBar: ElementRef;
+  @ContentChildren(ApplicationComponent) applications: QueryList<ApplicationComponent>;
 
 
   private subscriptions: Array<Subscription> = [];
@@ -53,7 +57,12 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   private componentClass: string = '';
 
 
-  constructor(@Inject('desktop') desktop: Desktop, private element: ElementRef) {
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector,
+    @Inject('desktop') desktop: Desktop,
+    private appFactory:AppFactoryService,
+    private element: ElementRef) {
     this.desktop = desktop;
   }
 
@@ -63,35 +72,25 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
       this.showDockPreview = position != null;
       this.dockPreviewPosition = position;
     }));
+    this.subscriptions.push(this.desktop.createApp.subscribe((id: string) =>
+      this.appFactory.createApp(id,this.container,this.applications.toArray(),this.injector,this.resolver)));
+
 
   }
 
-  getHeight(): number {
-
-    return this.container.nativeElement.getBoundingClientRect().height;
-  }
 
   getElement(query: string): Element {
     return this.element.nativeElement.querySelector(query);
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
-  }
-
-
-  shortCutClicked(shortCut: ShortCut): void {
-    let window = this.desktop.windows.find(window => window.id === shortCut.windowRef);
-    window.state.next(WindowState.NORMAL);
-  }
 
   ngAfterContentInit(): void {
+
 
   }
 
   ngAfterViewInit(): void {
-    setTimeout(()=>{
-
+    setTimeout(() => {
       this.topBarVisible = this.topBar.nativeElement.children.length > 1;
       this.leftBarVisible = this.leftBar.nativeElement.children.length > 1;
       this.rightBarVisible = this.rightBar.nativeElement.children.length > 1;
@@ -100,6 +99,9 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
 
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
 
 }
 

@@ -1,21 +1,6 @@
 <a2d-desktop>
   <div class="windows">
-    <a2d-window
-      [id]="'chrome'"
-      [title]="'google chrome'"
-      [state]="WindowState.NORMAL"
-      [x]="50"
-      [y]="50"
-      [width]="400"
-      [height]="400">
-      <div class="header">
-        Google Chrome
-      </div>
-      <div class="body">
 
-        test
-      </div>
-    </a2d-window>
     <a2d-window
       [id]="'firefox'"
       [title]="'firefox'"
@@ -23,11 +8,16 @@
       [dockPosition]="DockPosition.LEFT"
       [x]="400"
       [y]="400"
-      [alwaysOnTop]="true"
+      [showWindowBtns]="true"
+      [alwaysOnTop]="false"
       [showCloseBtnOnly]="false"
       [showDockingTools]="true"
+
       [width]="400"
       [height]="400">
+      <div class="header">
+        test header
+      </div>
       <div class="body">
         <button>Some Btn</button>
       </div>
@@ -37,7 +27,7 @@
       [title]="'google mail'"
       [state]="WindowState.NORMAL"
       [dockPosition]="DockPosition.LEFT"
-      [showWindowBtns]="false"
+      [showWindowBtns]="true"
       [x]="200"
       [y]="200"
       [width]="400"
@@ -47,14 +37,40 @@
       </div>
     </a2d-window>
   </div>
+  <div class="desktop">
+    <a2d-desktop-shortcut
+      [id]="'sc1'"
+      [x]="20"
+      [y]="20"
+      [width]="100"
+      [height]="50"
+      [color]="'transparent'"
+      [title]="'some link'"
+      (shortCutClicked)="shortCutClicked($event)"
+    ></a2d-desktop-shortcut>
+    <a2d-desktop-shortcut
+      [id]="'sc2'"
+      [x]="200"
+      [y]="20"
+      [width]="50"
+      [height]="50"
+      [title]="'firefox'"
+      (shortCutClicked)="shortCutClicked($event)"
+      [icon]="'/assets/images/icons/firefox.png'"></a2d-desktop-shortcut>
+  </div>
   <div class="bar-top">
     <a2d-task-bar></a2d-task-bar>
   </div>
   <div class="bar-left">
-    <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
+
     <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
     <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+
   </div>
 
-
+  <a2d-application [id]="'testapp'" [bodyTemplate]="body"></a2d-application>
 </a2d-desktop>
+
+<ng-template #body>
+  i am the body
+</ng-template>

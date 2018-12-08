@@ -15,6 +15,9 @@
   </div>
   <a2d-dock-tools *ngIf="dockToolsVisible"></a2d-dock-tools>
   <div class="window-body">
-    <ng-content select=".body"></ng-content>
+    <div class="body" *ngIf="bodyTemplate">
+      <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+    </div>
+    <ng-content select=".body" *ngIf="!bodyTemplate"></ng-content>
   </div>
 </div>

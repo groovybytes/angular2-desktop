@@ -36,9 +36,6 @@
   //opacity: 0;
 }
 
-.header{
-  height:$window-header-height;
-}
 
 
 .button-header{
@@ -77,5 +74,12 @@ gb-dock-tools {
       background-image: none;
     }
   }
+
+  .header{
+    height:$window-header-height;
+   // width:50%;
+    display:inline;
+  }
+
 
 }

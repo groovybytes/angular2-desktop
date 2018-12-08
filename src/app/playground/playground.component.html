@@ -1,0 +1,18 @@
+<!--
+<ng-template #hello let-context="data">
+  Hello, World {{context}}
+</ng-template>
+<a2d-application [template]="hello"  [dataContext]="'hallo'">
+
+</a2d-application>
+
+-->
+<button type="button" (click)="open()">open</button>
+<app-test-app [bodyTemplate]="body">
+
+</app-test-app>
+<ng-template #body>
+  i am the body
+</ng-template>
+
+<!--<ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>-->

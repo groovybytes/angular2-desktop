@@ -1,9 +1,8 @@
-import {Component, Inject, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
-import {Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {Desktop} from '../model/Desktop';
-import {WindowService} from './window.service';
 import {WindowState} from '../model/WindowState';
 import {DockPosition} from '../model/DockPosition';
 
@@ -28,6 +27,10 @@ export class WindowComponent implements OnInit, OnDestroy {
   @Input() showCloseBtnOnly: boolean=false;
   @Input() showDockingTools: boolean=true;
   @Input() showHeader: boolean=true;
+  @Input() bodyTemplate: TemplateRef<any>;
+  @Input() headerTemplate: TemplateRef<any>;
+
+  @Output() params:BehaviorSubject<any>=new BehaviorSubject(null);
 
   window: DesktopWindow;
   dockToolsVisible:boolean=false;
@@ -37,13 +40,13 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject('desktop') desktop: Desktop,
-    private desktopService: Angular2DesktopService, private windowService: WindowService) {
+    private desktopService: Angular2DesktopService) {
     this.desktop=desktop;
   }
 
   ngOnInit() {
 
-    this.window = this.windowService.create(
+    this.window = this.desktopService.createWindow(
       this.id,
       this.title,
       this.state,

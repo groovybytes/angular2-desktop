@@ -3,6 +3,7 @@ import {DesktopConfiguration} from './DesktopConfiguration';
 import {DockPosition} from './DockPosition';
 import {Subject} from 'rxjs';
 import {Angular2DesktopComponent} from '../angular2-desktop.component';
+import {EventEmitter} from '@angular/core';
 
 export class Desktop {
   windows:Array<DesktopWindow>=[];
@@ -10,6 +11,7 @@ export class Desktop {
   configuration:DesktopConfiguration=new DesktopConfiguration();
   dockPreview:Subject<DockPosition>=new Subject();
   component:Angular2DesktopComponent;
+  createApp:EventEmitter<string>=new EventEmitter();
 
   getTopWindow():DesktopWindow{
     return this.windows.find(window=>window.id===this.orders[this.orders.length-1]);

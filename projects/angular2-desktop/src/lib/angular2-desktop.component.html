@@ -1,31 +1,3 @@
-<!--<div class="bar-top" *ngIf="showTopBar">
-  <div class="bar">
-
-  </div>
-  <div class="bar-content">
-    <div class="taskbar-entry"
-         [id]="'taskbar-entry-'+window.id"
-         [ngClass]="{'active':hasFocus(window.id)}"
-         *ngFor="let window of getVisibleWindows()"
-         (click)="onTaskBarEntryClicked(window)">
-      <span>{{window.title}}</span>
-    </div>
-    <div class="view-desktop" (click)="viewDesktop()">
-
-    </div>
-  </div>
-</div>
-
-<div class="bar-left" *ngIf="showLeftBar">
-  <div class="bar">
-
-  </div>
-  <div class="bar-content">
-    <ng-content select=".shortcuts" ></ng-content>
-  </div>
-
-
-</div>-->
 <div class="bar-container bar-top-container" *ngIf="topBarVisible" #topBar>
 
   <ng-content select=".bar-top" ></ng-content>
@@ -44,10 +16,15 @@
   <ng-content select=".bar-bottom" ></ng-content>
   <div class="bar-dummy"></div>
 </div>
+<div class="desktop-container">
+  <ng-content select=".desktop"></ng-content>
+</div>
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
   <ng-content select=".windows"></ng-content>
+  <ng-container #dynamicWindowsContainer></ng-container>
 </div>
+
 
 
 

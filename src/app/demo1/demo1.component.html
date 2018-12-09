@@ -67,10 +67,16 @@
     <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
 
   </div>
-
-  <a2d-application [id]="'testapp'" [bodyTemplate]="body"></a2d-application>
 </a2d-desktop>
 
-<ng-template #body>
-  i am the body
+<ng-template #myGreatAppHeader let-data="data">
+  i am the header
+  {{data.msg}}
 </ng-template>
+
+<ng-template #myGreatApp let-data="data">
+  i am the body
+  {{data.msg}}
+</ng-template>
+
+

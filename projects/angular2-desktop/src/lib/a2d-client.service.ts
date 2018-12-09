@@ -1,30 +1,67 @@
-import {Inject, Injectable} from '@angular/core';
+import {ComponentFactoryResolver, Inject, Injectable, Injector, Input, TemplateRef} from '@angular/core';
 import {Desktop} from './model/Desktop';
+import {DesktopApplication} from './model/DesktopApplication';
+import {WindowComponent} from './window/window.component';
+import {WindowState} from './model/WindowState';
+import * as _ from 'lodash';
+import {WindowParams} from './model/WindowParams';
 
 @Injectable({
   providedIn: 'root'
 })
 export class A2dClientService {
 
-  constructor(@Inject('desktop') private desktop: Desktop) {
+  constructor(
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector,
+    @Inject('desktop') private desktop: Desktop) {
   }
 
-  openWindow(id: string): void {
-    this.desktop.getWindow(id).normalize();
-  }
-  closeWindow(id: string): void {
-    this.desktop.getWindow(id).close();
+  addApplication(app: DesktopApplication): void {
+    this.desktop.applications.push(app);
   }
 
-  openApplication(id:string):void{
-    this.desktop.createApp.emit(id);
-  }
+  openApplication(id: string,params:WindowParams): string {
 
-  addWindow(id: string): void {
+    let app = this.desktop.applications.find(app => app.id === id);
+    if (app){
+      const factory = this.resolver.resolveComponentFactory(WindowComponent);
+      const componentRef = this.desktop.windowContainer.createComponent(factory);
+      componentRef.instance.width = params.width;
+      componentRef.instance.height = params.height;
+      componentRef.instance.x = params.x;
+      componentRef.instance.y = params.y;
+      componentRef.instance.id = _.uniqueId(id);
+      componentRef.instance.appId = id;
+      componentRef.instance.title = app.title;
+      if (params.dockPosition){
+        componentRef.instance.state = WindowState.DOCKED;
+        componentRef.instance.dockPosition = params.dockPosition;
+      }
+      else componentRef.instance.state = WindowState.NORMAL;
 
-  }
+      componentRef.instance.bodyTemplate = app.bodyTemplate;
+      componentRef.instance.headerTemplate = app.headerTemplate;
+      if (params.alwaysOnTop != null) componentRef.instance.alwaysOnTop = params.alwaysOnTop;
+      if (params.showWindowBtns != null) componentRef.instance.showWindowBtns = params.showWindowBtns;
+      if (params.showCloseBtnOnly != null) componentRef.instance.showCloseBtnOnly = params.showCloseBtnOnly;
+      if (params.showDockingTools != null) componentRef.instance.showDockingTools = params.showDockingTools;
+      if (params.showHeader != null) componentRef.instance.showHeader = params.showHeader;
+      if (params.alwaysOnTop != null) componentRef.instance.alwaysOnTop = params.alwaysOnTop;
 
-  removeWindow(id:string):void{
+
+      componentRef.instance.bodyTemplateContext={
+        $implicit: null,
+        data: params.bodyContext
+      };
+      componentRef.instance.headerTemplateContext={
+        $implicit: null,
+        data: params.headerContext
+      };
+      componentRef.hostView.detectChanges();
+      return componentRef.instance.id;
+    }
+    else console.warn("app with id "+id+" not found");
 
   }
 

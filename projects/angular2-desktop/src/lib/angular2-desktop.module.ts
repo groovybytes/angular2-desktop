@@ -16,7 +16,7 @@ import {BarComponent} from './bar/bar.component';
 import {TaskBarComponent} from './task-bar/task-bar.component';
 import {DesktopShortcutComponent} from './desktop-shortcut/desktop-shortcut.component';
 import {A2dClientService} from './a2d-client.service';
-import { ApplicationComponent } from './application/application.component';
+import {DynamicWindowAnchorDirective} from './dynamic-window-anchor.directive';
 
 
 @NgModule({
@@ -40,14 +40,13 @@ import { ApplicationComponent } from './application/application.component';
     BarComponent,
     TaskBarComponent,
     DesktopShortcutComponent,
-    ApplicationComponent],
+    DynamicWindowAnchorDirective],
   exports: [
     Angular2DesktopComponent,
     ShortCutComponent,
     WindowComponent,
     BarComponent,
     TaskBarComponent,
-    ApplicationComponent,
     DesktopShortcutComponent,
     WindowContainerComponent]
 })

@@ -1,24 +1,8 @@
-import {
-  AfterContentInit,
-  AfterViewInit,
-  Component,
-  ComponentFactoryResolver,
-  ContentChildren,
-  ElementRef,
-  HostBinding,
-  Inject,
-  Injector,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  ViewChild
-} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, HostBinding, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Desktop} from './model/Desktop';
 import {DockPosition} from './model/DockPosition';
 import {Subscription} from 'rxjs';
-import {Angular2DesktopService} from './angular2-desktop.service';
-import {ApplicationComponent} from './application/application.component';
-import {AppFactoryService} from './app-factory.service';
+import {DynamicWindowAnchorDirective} from './dynamic-window-anchor.directive';
 
 
 @Component({
@@ -43,7 +27,9 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   @ViewChild('rightBar') rightBar: ElementRef;
   @ViewChild('leftBar') leftBar: ElementRef;
   @ViewChild('bottomBar') bottomBar: ElementRef;
-  @ContentChildren(ApplicationComponent) applications: QueryList<ApplicationComponent>;
+  @ViewChild(DynamicWindowAnchorDirective)
+  windowAnchor: DynamicWindowAnchorDirective;
+  //@ContentChildren(ApplicationComponent) applications: QueryList<ApplicationComponent>;
 
 
   private subscriptions: Array<Subscription> = [];
@@ -54,14 +40,10 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
     return clazz;
   }
 
-  private componentClass: string = '';
 
 
   constructor(
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector,
     @Inject('desktop') desktop: Desktop,
-    private appFactory:AppFactoryService,
     private element: ElementRef) {
     this.desktop = desktop;
   }
@@ -72,8 +54,6 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
       this.showDockPreview = position != null;
       this.dockPreviewPosition = position;
     }));
-    this.subscriptions.push(this.desktop.createApp.subscribe((id: string) =>
-      this.appFactory.createApp(id,this.container,this.applications.toArray(),this.injector,this.resolver)));
 
 
   }
@@ -86,10 +66,10 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
 
   ngAfterContentInit(): void {
 
-
   }
 
   ngAfterViewInit(): void {
+    this.desktop.windowContainer=this.windowAnchor.viewContainer;
     setTimeout(() => {
       this.topBarVisible = this.topBar.nativeElement.children.length > 1;
       this.leftBarVisible = this.leftBar.nativeElement.children.length > 1;

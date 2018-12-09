@@ -8,18 +8,12 @@ import {Demo1Component} from './demo1/demo1.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import { Demo2Component } from './demo2/demo2.component';
-import { PlaygroundComponent } from './playground/playground.component';
-import { TestAppComponent } from './test-app/test-app.component';
-import { SomeothercomponentComponent } from './someothercomponent/someothercomponent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Demo1Component,
-    Demo2Component,
-    PlaygroundComponent,
-    TestAppComponent,
-    SomeothercomponentComponent
+    Demo2Component
   ],
   imports: [
     RouterModule ,

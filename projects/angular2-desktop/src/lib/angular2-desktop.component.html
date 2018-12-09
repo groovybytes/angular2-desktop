@@ -22,7 +22,7 @@
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
   <ng-content select=".windows"></ng-content>
-  <ng-container #dynamicWindowsContainer></ng-container>
+  <ng-template a2d-window-anchor></ng-template>
 </div>
 
 

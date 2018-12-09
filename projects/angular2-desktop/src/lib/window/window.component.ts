@@ -30,6 +30,11 @@ export class WindowComponent implements OnInit, OnDestroy {
   @Input() bodyTemplate: TemplateRef<any>;
   @Input() headerTemplate: TemplateRef<any>;
 
+
+  appId:string;
+  bodyTemplateContext:any;
+  headerTemplateContext:any;
+
   @Output() params:BehaviorSubject<any>=new BehaviorSubject(null);
 
   window: DesktopWindow;

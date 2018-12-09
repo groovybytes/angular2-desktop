@@ -7,7 +7,10 @@
      parent=".window-container">
 
   <div *ngIf="window.showHeader" class="window-header drag-handle">
-    <ng-content select=".header"></ng-content>
+    <div class="header" *ngIf="headerTemplate">
+      <ng-container *ngTemplateOutlet="headerTemplate; context:headerTemplateContext"></ng-container>
+    </div>
+    <ng-content *ngIf="!headerTemplate" select=".header"></ng-content>
     <div class="button-header" *ngIf="window.showWindowBtns">
       <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
     </div>
@@ -16,7 +19,7 @@
   <a2d-dock-tools *ngIf="dockToolsVisible"></a2d-dock-tools>
   <div class="window-body">
     <div class="body" *ngIf="bodyTemplate">
-      <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
+      <ng-container *ngTemplateOutlet="bodyTemplate; context:bodyTemplateContext"></ng-container>
     </div>
     <ng-content select=".body" *ngIf="!bodyTemplate"></ng-content>
   </div>

@@ -36,7 +36,8 @@ export class Demo1Component implements OnInit, AfterViewInit {
       );
 
 
-      this.desktopService.openApplication('mygreatapp', params);
+      let windowId = this.desktopService.createWindow('mygreatapp', params);
+      this.desktopService.openWindow(windowId);
     }, 1000);
   }
 

@@ -1,9 +1,7 @@
-import {ComponentFactoryResolver, ElementRef, Inject, Injectable, Injector} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
 import {WindowState} from './model/WindowState';
 import {Desktop} from './model/Desktop';
-import {WindowComponent} from './window/window.component';
-import {ApplicationComponent} from './application/application.component';
 import {DockPosition} from './model/DockPosition';
 
 

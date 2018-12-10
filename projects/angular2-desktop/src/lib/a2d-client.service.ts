@@ -21,9 +21,9 @@ export class A2dClientService {
     this.desktop.applications.push(app);
   }
 
-  openApplication(id: string,params:WindowParams): string {
+  createWindow(appId: string,params:WindowParams): string {
 
-    let app = this.desktop.applications.find(app => app.id === id);
+    let app = this.desktop.applications.find(app => app.id === appId);
     if (app){
       const factory = this.resolver.resolveComponentFactory(WindowComponent);
       const componentRef = this.desktop.windowContainer.createComponent(factory);
@@ -31,14 +31,14 @@ export class A2dClientService {
       componentRef.instance.height = params.height;
       componentRef.instance.x = params.x;
       componentRef.instance.y = params.y;
-      componentRef.instance.id = _.uniqueId(id);
-      componentRef.instance.appId = id;
+      componentRef.instance.id = _.uniqueId("window_");
+      componentRef.instance.appId = appId;
       componentRef.instance.title = app.title;
       if (params.dockPosition){
         componentRef.instance.state = WindowState.DOCKED;
         componentRef.instance.dockPosition = params.dockPosition;
       }
-      else componentRef.instance.state = WindowState.NORMAL;
+      else componentRef.instance.state = WindowState.CLOSED;
 
       componentRef.instance.bodyTemplate = app.bodyTemplate;
       componentRef.instance.headerTemplate = app.headerTemplate;
@@ -61,8 +61,15 @@ export class A2dClientService {
       componentRef.hostView.detectChanges();
       return componentRef.instance.id;
     }
-    else console.warn("app with id "+id+" not found");
+    else console.warn("app with id "+appId+" not found");
 
+  }
+
+  openWindow(id:string):void{
+    let window = this.desktop.windows.find(window=>window.id===id);
+    if (window){
+      window.normalize();
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 import {TemplateRef} from '@angular/core';
 
-export class DesktopApplication{
+export class DesktopApplication<T>{
 
   id:string;
   path:string;
@@ -8,4 +8,5 @@ export class DesktopApplication{
   title:string;
   bodyTemplate: TemplateRef<any>;
   headerTemplate: TemplateRef<any>;
+  component:T;
 }

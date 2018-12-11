@@ -4,6 +4,7 @@ import {WindowState} from '../../../projects/angular2-desktop/src/lib/model/Wind
 import {A2dClientService} from '../../../projects/angular2-desktop/src/lib/a2d-client.service';
 import {DesktopApplication} from '../../../projects/angular2-desktop/src/lib/model/DesktopApplication';
 import {WindowParams} from '../../../projects/angular2-desktop/src/lib/model/WindowParams';
+import {TestapplicationComponent} from '../testapplication/testapplication.component';
 
 @Component({
   selector: 'app-demo1',
@@ -35,9 +36,11 @@ export class Demo1Component implements OnInit, AfterViewInit {
         {msg: 'hello header world'}
       );
 
+      this.desktopService.openApplication<TestapplicationComponent>('mygreatapp', params)
+        .then(result=>{
+          this.desktopService.openWindow(result.windowId);
+        });
 
-      let windowId = this.desktopService.createWindow('mygreatapp', params);
-      this.desktopService.openWindow(windowId);
     }, 1000);
   }
 
@@ -49,6 +52,7 @@ export class Demo1Component implements OnInit, AfterViewInit {
     let myGreatApp = new DesktopApplication();
     myGreatApp.bodyTemplate = this.myGreatApp;
     myGreatApp.headerTemplate = this.myGreatAppHeader;
+    myGreatApp.component=TestapplicationComponent;
     myGreatApp.id = 'mygreatapp';
     myGreatApp.title = 'mygreatapp';
 

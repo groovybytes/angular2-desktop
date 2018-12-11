@@ -8,7 +8,7 @@ import {DesktopApplication} from './DesktopApplication';
 
 export class Desktop {
   windows:Array<DesktopWindow>=[];
-  applications:Array<DesktopApplication>=[];
+  applications:Array<DesktopApplication<any> >=[];
   orders:Array<string>=[];
   configuration:DesktopConfiguration=new DesktopConfiguration();
   dockPreview:Subject<DockPosition>=new Subject();

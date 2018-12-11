@@ -71,11 +71,12 @@
 
 <ng-template #myGreatAppHeader let-data="data">
   i am the header
+
   {{data.msg}}
 </ng-template>
 
 <ng-template #myGreatApp let-data="data">
-  i am the body
+  <app-testapplication></app-testapplication>
   {{data.msg}}
 </ng-template>
 

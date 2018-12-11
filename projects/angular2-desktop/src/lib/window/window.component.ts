@@ -1,17 +1,18 @@
-import {Component, Inject, Input, OnDestroy, OnInit, Output, TemplateRef} from '@angular/core';
+import {AfterViewInit, Component, Inject, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {BehaviorSubject, Subscription} from 'rxjs';
 import {Desktop} from '../model/Desktop';
 import {WindowState} from '../model/WindowState';
 import {DockPosition} from '../model/DockPosition';
+import {DynamicWindowAnchorDirective} from '../dynamic-window-anchor.directive';
 
 @Component({
   selector: 'a2d-window',
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
-export class WindowComponent implements OnInit, OnDestroy {
+export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
 
 
   @Input() id:string;
@@ -29,6 +30,9 @@ export class WindowComponent implements OnInit, OnDestroy {
   @Input() showHeader: boolean=true;
   @Input() bodyTemplate: TemplateRef<any>;
   @Input() headerTemplate: TemplateRef<any>;
+
+  @ViewChild(DynamicWindowAnchorDirective)
+  appAnchor: DynamicWindowAnchorDirective;
 
 
   appId:string;
@@ -100,5 +104,9 @@ export class WindowComponent implements OnInit, OnDestroy {
     this.dockToolsVisible=!this.dockToolsVisible;
   }
 
+  ngAfterViewInit(): void {
+    console.log(this.appAnchor);
+
+  }
 
 }

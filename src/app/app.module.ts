@@ -8,12 +8,14 @@ import {Demo1Component} from './demo1/demo1.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import { Demo2Component } from './demo2/demo2.component';
+import { TestapplicationComponent } from './testapplication/testapplication.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Demo1Component,
-    Demo2Component
+    Demo2Component,
+    TestapplicationComponent
   ],
   imports: [
     RouterModule ,
@@ -21,7 +23,7 @@ import { Demo2Component } from './demo2/demo2.component';
     Angular2DesktopModule,
     AppRoutingModule
   ],
-  entryComponents:[WindowComponent],
+  entryComponents:[WindowComponent,TestapplicationComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

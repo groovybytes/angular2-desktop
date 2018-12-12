@@ -9,6 +9,7 @@ export class WindowParams {
   height: number;
   bodyContext: any;
   headerContext: any;
+  title:string;
 
   alwaysOnTop: boolean = false;
   showWindowBtns: boolean = true;
@@ -22,8 +23,7 @@ export class WindowParams {
     y: number,
     width: number,
     height: number,
-    bodyContext: any,
-    headerContext: any,
+    title?:string,
     showHeader?: boolean,
     alwaysOnTop?: boolean,
     showWindowBtns?: boolean,
@@ -35,8 +35,7 @@ export class WindowParams {
     this.y = y;
     this.width = width;
     this.height = height;
-    this.bodyContext=bodyContext;
-    this.headerContext=headerContext;
+    this.title = title;
     this.alwaysOnTop = alwaysOnTop;
     this.showWindowBtns = showWindowBtns;
     this.showCloseBtnOnly = showCloseBtnOnly;

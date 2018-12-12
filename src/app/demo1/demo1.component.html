@@ -3,6 +3,7 @@
 
     <a2d-window
       [id]="'firefox'"
+      [appId]="'firefox'"
       [title]="'firefox'"
       [state]="WindowState.NORMAL"
       [dockPosition]="DockPosition.LEFT"
@@ -24,6 +25,7 @@
     </a2d-window>
     <a2d-window
       [id]="'gmail'"
+      [appId]="'gmail'"
       [title]="'google mail'"
       [state]="WindowState.NORMAL"
       [dockPosition]="DockPosition.LEFT"
@@ -39,7 +41,7 @@
   </div>
   <div class="desktop">
     <a2d-desktop-shortcut
-      [id]="'sc1'"
+      [appId]="'firefox'"
       [x]="20"
       [y]="20"
       [width]="100"
@@ -49,7 +51,7 @@
       (shortCutClicked)="shortCutClicked($event)"
     ></a2d-desktop-shortcut>
     <a2d-desktop-shortcut
-      [id]="'sc2'"
+      [appId]="'gmail'"
       [x]="200"
       [y]="20"
       [width]="50"
@@ -63,21 +65,11 @@
   </div>
   <div class="bar-left">
 
-    <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
-    <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+    <a2d-shortcut [appId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+    <a2d-shortcut [appId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
 
   </div>
 </a2d-desktop>
 
-<ng-template #myGreatAppHeader let-data="data">
-  i am the header
-
-  {{data.msg}}
-</ng-template>
-
-<ng-template #myGreatApp let-data="data">
-  <app-testapplication></app-testapplication>
-  {{data.msg}}
-</ng-template>
 
 

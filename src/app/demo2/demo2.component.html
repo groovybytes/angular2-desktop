@@ -1,52 +1,11 @@
-<a2d-desktop >
-  <div class="windows">
-    <a2d-window
-      [id]="'firefox'"
-      [title]="'firefox'"
-      [state]="4"
-      [dockPosition]="2"
-      [x]="400"
-      [y]="400"
-      [showHeader]="false"
-      [showCloseBtnOnly]="false"
-      [width]="400"
-      [height]="400">
-      <div class="body">
-        <table style="width:100%;height:100%">
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Age</th>
-          </tr>
-          <tr>
-            <td>Jill</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>Eve</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-        </table>
-      </div>
-    </a2d-window>
-    <a2d-window
-      [id]="'sequencer'"
-      [title]="'sequencer'"
-      [state]="4"
-      [showHeader]="true"
-      [dockPosition]="5"
-      [x]="400"
-      [y]="400"
-      [showDockingTools]="true"
-      [width]="400"
-      [height]="400">
-      <div class="body">
-        xxx
-
-      </div>
-    </a2d-window>
+<a2d-desktop>
+  <div class="bar-top">
+    <a2d-task-bar></a2d-task-bar>
   </div>
+  <div class="bar-left">
 
+    <a2d-shortcut [appId]="'mygreatapp'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+    <a2d-shortcut [appId]="'myotherapp'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+
+  </div>
 </a2d-desktop>

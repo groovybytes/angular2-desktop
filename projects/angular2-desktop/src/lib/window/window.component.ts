@@ -1,4 +1,16 @@
-import {AfterViewInit, Component, Inject, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component, ComponentFactoryResolver,
+  Inject, Injector,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {DesktopWindow} from '../model/DesktopWindow';
 import {Angular2DesktopService} from '../angular2-desktop.service';
 import {BehaviorSubject, Subscription} from 'rxjs';
@@ -12,7 +24,7 @@ import {DynamicWindowAnchorDirective} from '../dynamic-window-anchor.directive';
   templateUrl: './window.component.html',
   styleUrls: ['./window.component.scss']
 })
-export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
+export class WindowComponent implements OnInit, OnDestroy {
 
 
   @Input() id:string;
@@ -28,16 +40,10 @@ export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
   @Input() showCloseBtnOnly: boolean=false;
   @Input() showDockingTools: boolean=true;
   @Input() showHeader: boolean=true;
-  @Input() bodyTemplate: TemplateRef<any>;
-  @Input() headerTemplate: TemplateRef<any>;
+  @Input() appId:string;
 
   @ViewChild(DynamicWindowAnchorDirective)
   appAnchor: DynamicWindowAnchorDirective;
-
-
-  appId:string;
-  bodyTemplateContext:any;
-  headerTemplateContext:any;
 
   @Output() params:BehaviorSubject<any>=new BehaviorSubject(null);
 
@@ -49,6 +55,8 @@ export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
 
   constructor(
     @Inject('desktop') desktop: Desktop,
+    private resolver: ComponentFactoryResolver,
+    private injector: Injector,
     private desktopService: Angular2DesktopService) {
     this.desktop=desktop;
   }
@@ -57,6 +65,7 @@ export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
 
     this.window = this.desktopService.createWindow(
       this.id,
+      this.appId,
       this.title,
       this.state,
       this.dockPosition,
@@ -82,6 +91,7 @@ export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
   getStyle(){
 
     return {
+      'display':this.window.isVisible()?'':'none',
       'z-index':this.alwaysOnTop?this.desktop.orders.length+1: this.desktop.orders.indexOf(this.window.id)+1,
       'transform':
         'translate(' + (this.window.animatedX!=null?this.window.animatedX:this.window.x+'px')+',' +
@@ -104,9 +114,5 @@ export class WindowComponent implements OnInit, OnDestroy,AfterViewInit {
     this.dockToolsVisible=!this.dockToolsVisible;
   }
 
-  ngAfterViewInit(): void {
-    console.log(this.appAnchor);
-
-  }
 
 }

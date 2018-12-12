@@ -7,7 +7,7 @@ import {Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Outpu
 })
 export class DesktopShortcutComponent implements OnInit {
 
-  @Input() id: string;
+  @Input() appId: string;
   @Input() title: string;
   @Input() icon: string;
   @Input() x: number;

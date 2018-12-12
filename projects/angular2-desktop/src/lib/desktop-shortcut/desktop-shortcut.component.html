@@ -1,4 +1,4 @@
-<div class="fill" (dblclick)="shortCutClicked.emit(id)"></div>
+<div class="fill" (dblclick)="shortCutClicked.emit(appId)"></div>
 <img *ngIf="icon" class="no-select" [src]="icon">
 <span *ngIf="title" [ngClass]="{'image-text':icon}" class="no-select">{{title}}</span>
 

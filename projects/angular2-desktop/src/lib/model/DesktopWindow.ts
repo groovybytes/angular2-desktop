@@ -6,6 +6,7 @@ import {DockPosition} from './DockPosition';
 export class DesktopWindow {
 
   private readonly animationTimeout = 500;
+  appId:string;
   title: string;
   clazz: string;
   animatedY: string;
@@ -27,6 +28,7 @@ export class DesktopWindow {
 
   constructor(
     id: string,
+    appId:string,
     title: string,
     state: WindowState,
     dockPosition: DockPosition,
@@ -35,6 +37,7 @@ export class DesktopWindow {
     width: number,
     height: number) {
     this.id = id;
+    this.appId=appId;
     this.x = x;
     this.y = y;
     this.width = width;

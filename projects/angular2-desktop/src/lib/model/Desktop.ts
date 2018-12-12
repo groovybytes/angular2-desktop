@@ -12,7 +12,6 @@ export class Desktop {
   orders:Array<string>=[];
   configuration:DesktopConfiguration=new DesktopConfiguration();
   dockPreview:Subject<DockPosition>=new Subject();
-  component:Angular2DesktopComponent;
   windowContainer:ViewContainerRef;
 
   getTopWindow():DesktopWindow{
@@ -23,7 +22,11 @@ export class Desktop {
     return this.windows.find(window=>window.id===id);
   }
 
-  getTargetPosition(query:string):ClientRect{
-    return this.component.getElement(query).getBoundingClientRect();
+  getWindowsForApp(appId:string):Array<DesktopWindow>{
+    return this.windows.filter(window=>window.appId===appId);
   }
+  getOpenWindowsForApp(appId:string):Array<DesktopWindow>{
+    return this.getWindowsForApp(appId).filter(window=>window.isOpen());
+  }
+
 }

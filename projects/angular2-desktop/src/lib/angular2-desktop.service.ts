@@ -9,7 +9,8 @@ import {DockPosition} from './model/DockPosition';
 export class Angular2DesktopService {
 
 
-  constructor(@Inject('desktop') private desktop: Desktop) {
+  constructor(
+    @Inject('desktop') private desktop: Desktop) {
     this.desktop = desktop;
 
   }
@@ -61,6 +62,7 @@ export class Angular2DesktopService {
   }
 
   createWindow(id: string,
+         appId:string,
          title: string,
          windowState: WindowState,
          position: DockPosition,
@@ -72,7 +74,7 @@ export class Angular2DesktopService {
          height: number): DesktopWindow {
 
 
-    let window = new DesktopWindow(id, title, windowState, position, x, y, width, height);
+    let window = new DesktopWindow(id,appId, title, windowState, position, x, y, width, height);
     window.alwaysOnTop=alwaysOnTop;
     window.showDockingTools=showDockingTools;
     if (window.width < this.desktop.configuration.windowConfig.minWidth)

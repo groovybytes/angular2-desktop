@@ -49,7 +49,6 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   }
 
   ngOnInit() {
-    this.desktop.component = this;
     this.subscriptions.push(this.desktop.dockPreview.subscribe((position: DockPosition) => {
       this.showDockPreview = position != null;
       this.dockPreviewPosition = position;

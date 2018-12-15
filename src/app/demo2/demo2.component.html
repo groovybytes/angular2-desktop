@@ -34,8 +34,9 @@
       type="button"
       style="position:absolute;top:200px"
       a2dShortCut
-      (initialize)="initializeWithAttachedWindow($event)"
-      [windowId]="attachedWindow"
+      (initialize)="initializeComponent($event)"
+      [linkId]="'some_link'"
+      [windowTitle]="'testTitle'"
       [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
     <button
       type="button"

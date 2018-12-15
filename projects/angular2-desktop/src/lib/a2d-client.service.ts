@@ -27,10 +27,11 @@ export class A2dClientService {
   createWindow<T>(
     appId: string,
     callback:(component:T)=>void,
+    windowTitle?:string,
     params?: WindowParams): Promise<string> {
 
     return new Promise((resolve,reject)=>{
-      this.windowFactory.createWindow(appId,callback,params)
+      this.windowFactory.createWindow(appId,callback,windowTitle,params)
         .then(result=>resolve(result.windowId))
         .catch(error=>reject(error));
     });

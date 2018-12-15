@@ -13,7 +13,6 @@ import {DynamicWindowAnchorDirective} from './dynamic-window-anchor.directive';
 })
 export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
 
-
   desktop: Desktop;
   dockPreviewPosition: DockPosition = DockPosition.LEFT;
   showDockPreview: boolean = false;

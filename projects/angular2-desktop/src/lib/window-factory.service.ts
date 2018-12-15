@@ -27,12 +27,15 @@ export class WindowFactoryService {
   createWindow<T>(
     appId: string,
     callback: (component: T,windowId:string) => void,
+    title?:string,
     params?: WindowParams): Promise<{ windowId: string, component: T }> {
 
     return new Promise((resolve, reject) => {
       let app = this.desktop.applications.find(app => app.id === appId);
       if (app) {
         let windowComponent = this.instantiateWindow(appId, params ? params : app.defaultWindowParams);
+        if (title) windowComponent.instance.updateTitle(title);
+
         //let the window render first
         setTimeout(() => {
           let appComponent: ComponentRef<T> = this.instantiateApp<ComponentRef<T>>(app.component, windowComponent);
@@ -54,7 +57,10 @@ export class WindowFactoryService {
     this.desktop.getWindow(id).normalize();
   }
 
-  onShortCutTriggered(appId: string, callback?: (component: any,windowId:string) => void): Promise<void> {
+  onShortCutTriggered(appId: string,
+                      windowTitle?:string,
+                      linkId?:string,
+                      callback?: (component: any,windowId:string) => void): Promise<void> {
 
     return new Promise((resolve,reject)=>{
       let app = this.desktop.applications.find(app => app.id === appId);
@@ -65,8 +71,19 @@ export class WindowFactoryService {
           resolve();
         }
         else {
-          this.createWindow(appId, callback, app.defaultWindowParams).then(result => {
+          let createWindow:boolean=true;
+
+          if (linkId){
+            let window = this.desktop.windows.find(window=>window.linkId===linkId);
+            if (window) {
+              window.normalize();
+              createWindow=false;
+              resolve();
+            }
+          }
+          if (createWindow) this.createWindow(appId, callback, windowTitle,app.defaultWindowParams).then(result => {
             this.openWindow(result.windowId);
+            if (linkId) this.desktop.getWindow(result.windowId).linkId=linkId;
             resolve();
           })
             .catch(error => console.warn(error));

@@ -11,7 +11,6 @@ import {WindowParams} from '../../../projects/angular2-desktop/src/lib/model/Win
 })
 export class Demo2Component implements OnInit {
 
-  attachedWindow:string;
 
   constructor(private desktopService: A2dClientService) {
   }
@@ -80,10 +79,6 @@ export class Demo2Component implements OnInit {
 
   initializeComponent(event:{component:TestapplicationComponent,windowId:string}):void{
     event.component.param1="initialized by directive";
-  }
-  initializeWithAttachedWindow(event:{component:TestapplicationComponent,windowId:string}):void{
-    event.component.param1="initialized by directive";
-    this.attachedWindow=event.windowId;
   }
 
 

@@ -22,6 +22,7 @@ export class DesktopWindow {
   alwaysOnTop: boolean;
   showDockingTools: boolean;
   hide: boolean = false;
+  linkId:string;
   showHeader: boolean = true;
   showWindowBtns: boolean = true;
   showCloseBtnOnly: boolean = false;

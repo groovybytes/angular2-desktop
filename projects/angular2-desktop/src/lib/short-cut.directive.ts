@@ -8,19 +8,20 @@ export class ShortCutDirective {
 
 
   @Input() appId: string;
-  @Input() windowId: string;
+  @Input() linkId: string;
+  @Input() windowTitle: string;
   @Output() initialize: EventEmitter<{ component: any, windowId: string }> = new EventEmitter();
 
   //private windowId: string;
 
   @HostListener('click', ['$event'])
   clickEvent() {
-    this.trigger();
+    this.trigger(this.windowTitle);
   }
 
   @HostListener('dblClick', ['$event'])
   dblClickEvent() {
-    this.trigger();
+    this.trigger(this.windowTitle);
   }
 
 
@@ -28,15 +29,12 @@ export class ShortCutDirective {
 
   }
 
-  private trigger(): void {
-    if (this.windowId) {
-      this.windowFactory.openWindow(this.windowId);
-    } else {
-      this.windowFactory
-        .onShortCutTriggered(this.appId, (component, windowId) =>
-          this.initialize.emit({component: component, windowId: windowId}))
-        .catch(error => console.warn(error));
-    }
+  private trigger(windowTitle?: string): void {
+
+    this.windowFactory
+      .onShortCutTriggered(this.appId, windowTitle, this.linkId, (component, windowId) =>
+        this.initialize.emit({component: component, windowId: windowId}))
+      .catch(error => console.warn(error));
 
   }
 

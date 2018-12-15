@@ -88,6 +88,11 @@ export class WindowComponent implements OnInit, OnDestroy {
 
   }
 
+  updateTitle(title:string):void{
+    this.title=title;
+    this.window.title=title;
+  }
+
   getStyle(){
 
     return {

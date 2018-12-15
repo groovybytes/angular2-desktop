@@ -92,7 +92,7 @@ export class WindowComponent implements OnInit, OnDestroy {
 
     return {
       'display':this.window.isVisible()?'':'none',
-      'z-index':this.alwaysOnTop?this.desktop.orders.length+1: this.desktop.orders.indexOf(this.window.id)+1,
+      'z-index':this.alwaysOnTop?this.desktop.orders.length+2: this.desktop.orders.indexOf(this.window.id)+2,
       'transform':
         'translate(' + (this.window.animatedX!=null?this.window.animatedX:this.window.x+'px')+',' +
         (this.window.animatedY!=null?this.window.animatedY:(this.window.y+'px')) + ')',

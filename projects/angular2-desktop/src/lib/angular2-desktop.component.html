@@ -16,13 +16,14 @@
   <ng-content select=".bar-bottom" ></ng-content>
   <div class="bar-dummy"></div>
 </div>
-<div class="desktop-container">
-  <ng-content select=".desktop"></ng-content>
-</div>
+
 <div class="window-container" #container>
   <a2d-dock-preview *ngIf="showDockPreview" [position]="dockPreviewPosition"></a2d-dock-preview>
   <ng-content select=".windows"></ng-content>
   <ng-template a2d-window-anchor></ng-template>
+</div>
+<div class="desktop-container">
+  <ng-content select=".desktop"></ng-content>
 </div>
 
 

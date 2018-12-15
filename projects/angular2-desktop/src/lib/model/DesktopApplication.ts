@@ -1,4 +1,5 @@
 import {WindowParams} from './WindowParams';
+import {EventEmitter} from '@angular/core';
 
 export class DesktopApplication<T>{
   id:string;
@@ -7,5 +8,7 @@ export class DesktopApplication<T>{
   title:string;
   component:T;
   defaultWindowParams:WindowParams;
-  //singleInstanceMode:boolean=true;
+  //initializer:(component:T)=>void;
+  singleInstanceMode:boolean=true;
+  //readonly initialize:EventEmitter<T>=new EventEmitter();
 }

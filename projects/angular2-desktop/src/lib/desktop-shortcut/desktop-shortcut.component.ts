@@ -1,4 +1,5 @@
-import {Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
+import {WindowFactoryService} from '../window-factory.service';
 
 @Component({
   selector: 'a2d-desktop-shortcut',
@@ -15,7 +16,7 @@ export class DesktopShortcutComponent implements OnInit {
   @Input() @HostBinding('style.background-color') color: string;
   @Input() @HostBinding('style.width.px') width: number = 50;
   @Input() @HostBinding('style.height.px') height: number = 50;
-  @Output() shortCutClicked: EventEmitter<string> = new EventEmitter();
+
 
 
   @HostBinding('class')
@@ -36,10 +37,16 @@ export class DesktopShortcutComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(
+    private windowFactory: WindowFactoryService) {
   }
 
+
   ngOnInit() {
+  }
+
+  triggerShortCut():void{
+    this.windowFactory.onShortCutTriggered(this.appId);
   }
 
 }

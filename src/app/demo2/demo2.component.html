@@ -1,4 +1,49 @@
 <a2d-desktop>
+  <div class="desktop">
+    <a2d-desktop-shortcut
+      [appId]="'myotherapp'"
+      [x]="20"
+      [y]="20"
+      [width]="100"
+      [height]="50"
+      [color]="'transparent'"
+      [title]="'some link'"></a2d-desktop-shortcut>
+    <a2d-desktop-shortcut
+      [appId]="'mygreatapp'"
+      [x]="200"
+      [y]="20"
+      [width]="50"
+      [height]="50"
+      [title]="'firefox'"
+      [icon]="'/assets/images/icons/firefox.png'"></a2d-desktop-shortcut>
+    <a2d-desktop-shortcut
+      [appId]="'justAnotherApp'"
+      [x]="400"
+      [y]="20"
+      [width]="50"
+      [height]="50"
+      [title]="'justAnotherApp'"></a2d-desktop-shortcut>
+    <button
+      type="button"
+      style="position:absolute;top:100px"
+      a2dShortCut
+      (initialize)="initializeComponent($event)"
+      [appId]="'mygreatapp'">i am a custom button</button>
+
+    <button
+      type="button"
+      style="position:absolute;top:200px"
+      a2dShortCut
+      (initialize)="initializeWithAttachedWindow($event)"
+      [windowId]="attachedWindow"
+      [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
+    <button
+      type="button"
+      style="position:absolute;top:250px"
+      a2dShortCut
+      (initialize)="initializeComponent($event)"
+      [appId]="'justAnotherApp'">multiple instance app</button>
+  </div>
   <div class="bar-top">
     <a2d-task-bar></a2d-task-bar>
   </div>

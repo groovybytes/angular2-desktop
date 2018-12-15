@@ -1,4 +1,4 @@
-<div class="fill" (dblclick)="shortCutClicked.emit(appId)"></div>
+<div class="fill" (dblclick)="triggerShortCut()"></div>
 <img *ngIf="icon" class="no-select" [src]="icon">
 <span *ngIf="title" [ngClass]="{'image-text':icon}" class="no-select">{{title}}</span>
 

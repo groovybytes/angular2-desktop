@@ -1,8 +1,9 @@
-import {Inject, Injectable} from '@angular/core';
+import {ComponentFactoryResolver, Inject, Injectable, Injector} from '@angular/core';
 import {DesktopWindow} from './model/DesktopWindow';
 import {WindowState} from './model/WindowState';
 import {Desktop} from './model/Desktop';
 import {DockPosition} from './model/DockPosition';
+import {WindowFactoryService} from './window-factory.service';
 
 
 @Injectable()
@@ -15,16 +16,17 @@ export class Angular2DesktopService {
 
   }
 
-
   onWindowStateChanged(window: DesktopWindow): void {
 
     if (window.state.getValue() === WindowState.NORMAL) {
       this.moveUp(window);
       window.updateClass();
     }
-    else if (window.state.getValue() === WindowState.CLOSED) {
+    else if (window.state.getValue() === WindowState.CLOSING) {
       this.removeFromOrders(window.id);
       window.updateClass();
+      this.desktop.removeWindow(window.id);
+
     }
     else if (window.state.getValue() === WindowState.MINIMIZED) {
       this.removeFromOrders(window.id);
@@ -104,6 +106,11 @@ export class Angular2DesktopService {
     }
 
   }
+
+  closeWindow(window:DesktopWindow):void{
+
+  }
+
 
 }
 

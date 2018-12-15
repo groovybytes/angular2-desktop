@@ -6,7 +6,7 @@ import {DockPosition} from './DockPosition';
 export class DesktopWindow {
 
   private readonly animationTimeout = 500;
-  appId:string;
+  appId: string;
   title: string;
   clazz: string;
   animatedY: string;
@@ -22,13 +22,13 @@ export class DesktopWindow {
   alwaysOnTop: boolean;
   showDockingTools: boolean;
   hide: boolean = false;
-  showHeader:boolean=true;
-  showWindowBtns:boolean=true;
-  showCloseBtnOnly:boolean=false;
+  showHeader: boolean = true;
+  showWindowBtns: boolean = true;
+  showCloseBtnOnly: boolean = false;
 
   constructor(
     id: string,
-    appId:string,
+    appId: string,
     title: string,
     state: WindowState,
     dockPosition: DockPosition,
@@ -37,7 +37,7 @@ export class DesktopWindow {
     width: number,
     height: number) {
     this.id = id;
-    this.appId=appId;
+    this.appId = appId;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -57,8 +57,7 @@ export class DesktopWindow {
     else if (this.position.getValue() === WindowPosition.FIXED_TOP) this.clazz += " fixed-top";
     else if (this.position.getValue() === WindowPosition.FIXED_BOTTOM) this.clazz += " fixed-bottom";*/
 
-    if (this.state.getValue() === WindowState.CLOSED) this.clazz += ' window-closed';
-    else if (this.state.getValue() === WindowState.MAXIMIZED) this.clazz += ' window-maximized';
+    if (this.state.getValue() === WindowState.MAXIMIZED) this.clazz += ' window-maximized';
     else if (this.state.getValue() === WindowState.MINIMIZED) this.clazz += ' window-minimized';
     else if (this.state.getValue() === WindowState.DOCKED) {
       this.clazz += ' window-docked';
@@ -78,12 +77,12 @@ export class DesktopWindow {
   }
 
   isVisible(): boolean {
-    return !this.hide && this.state.getValue() !== WindowState.CLOSED && this.state.getValue() !== WindowState.MINIMIZED;
+    return !this.hide && this.state.getValue() !== WindowState.CLOSING && this.state.getValue() !== WindowState.MINIMIZED;
   }
 
 
   isOpen(): boolean {
-    return this.state.getValue() !== WindowState.CLOSED;
+    return this.state.getValue() !== WindowState.CLOSING;
   }
 
   minimize(): void {
@@ -99,7 +98,7 @@ export class DesktopWindow {
     this.clazz += ' animation close';
 
     setTimeout(() => {
-      this.state.next(WindowState.CLOSED);
+      this.state.next(WindowState.CLOSING);
     }, this.animationTimeout);
   }
 

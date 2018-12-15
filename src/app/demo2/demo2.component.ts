@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {A2dClientService} from '../../../projects/angular2-desktop/src/lib/a2d-client.service';
 import {DesktopApplication} from '../../../projects/angular2-desktop/src/lib/model/DesktopApplication';
 import {TestapplicationComponent} from '../testapplication/testapplication.component';
@@ -11,14 +11,17 @@ import {WindowParams} from '../../../projects/angular2-desktop/src/lib/model/Win
 })
 export class Demo2Component implements OnInit {
 
-  constructor(private desktopService: A2dClientService) { }
+  attachedWindow:string;
+
+  constructor(private desktopService: A2dClientService) {
+  }
 
   ngOnInit() {
     let myGreatApp = new DesktopApplication();
-    myGreatApp.component=TestapplicationComponent;
+    myGreatApp.component = TestapplicationComponent;
     myGreatApp.id = 'mygreatapp';
     myGreatApp.title = 'mygreatapp';
-    myGreatApp.defaultWindowParams=new WindowParams(
+    myGreatApp.defaultWindowParams = new WindowParams(
       null,
       100,
       100,
@@ -26,13 +29,31 @@ export class Demo2Component implements OnInit {
       200,
       'mygreatapp'
     );
+
     this.desktopService.addApplication(myGreatApp);
 
+    let justAnotherApp = new DesktopApplication();
+    justAnotherApp.component = TestapplicationComponent;
+    justAnotherApp.id = 'justAnotherApp';
+    justAnotherApp.title = 'justAnotherApp';
+    justAnotherApp.singleInstanceMode=false;
+    justAnotherApp.defaultWindowParams = new WindowParams(
+      null,
+      100,
+      100,
+      200,
+      200,
+      'justAnotherApp'
+    );
+
+    this.desktopService.addApplication(justAnotherApp);
+
     let myOtherApp = new DesktopApplication();
-    myOtherApp.component=TestapplicationComponent;
+    myOtherApp.component = TestapplicationComponent;
     myOtherApp.id = 'myotherapp';
     myOtherApp.title = 'myotherapp';
-    myOtherApp.defaultWindowParams=new WindowParams(
+    myOtherApp.singleInstanceMode=false;
+    myOtherApp.defaultWindowParams = new WindowParams(
       null,
       400,
       100,
@@ -41,17 +62,30 @@ export class Demo2Component implements OnInit {
       'myotherapp'
     );
 
+
     this.desktopService.addApplication(myOtherApp);
 
     //now lets open the application from the beginning
     //we use settimeout here to ensure the democomponent is rendered before we add our app
     setTimeout(() => {
-      this.desktopService.createApplication<TestapplicationComponent>('mygreatapp')
-        .then(result=>{
-          result.component.param1="i am window 1";
-          this.desktopService.openApplication("mygreatapp");
+      this.desktopService
+        .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
+          component.param1 = '2';
+        })
+        .then(windowId => {
+          this.desktopService.openWindow(windowId);
         });
     });
   }
+
+  initializeComponent(event:{component:TestapplicationComponent,windowId:string}):void{
+    event.component.param1="initialized by directive";
+  }
+  initializeWithAttachedWindow(event:{component:TestapplicationComponent,windowId:string}):void{
+    event.component.param1="initialized by directive";
+    this.attachedWindow=event.windowId;
+  }
+
+
 
 }

@@ -6,7 +6,7 @@
      parent=".window-container">
 
   <div *ngIf="window.showHeader" class="window-header drag-handle">
-    {{window.title}}
+    <span>{{window.title}}</span>
     <ng-content select=".header"></ng-content>
     <div class="button-header" *ngIf="window.showWindowBtns">
       <a2d-window-header [window]="window" (dockBtnClicked)="dockBtnClicked()"></a2d-window-header>
@@ -18,7 +18,6 @@
   <div class="window-body">
     <ng-content select=".body"></ng-content>
     <div class="body">
-      {{window.showHeader}}
       <ng-template a2d-window-anchor></ng-template>
     </div>
   </div>

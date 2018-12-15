@@ -25,8 +25,15 @@ export class Desktop {
   getWindowsForApp(appId:string):Array<DesktopWindow>{
     return this.windows.filter(window=>window.appId===appId);
   }
-  getOpenWindowsForApp(appId:string):Array<DesktopWindow>{
-    return this.getWindowsForApp(appId).filter(window=>window.isOpen());
-  }
 
+
+  removeWindow(id:string):void{
+
+    let index = this.windows.findIndex(window=>window.id===id);
+    if (index >=0){
+      this.windows[index].close();
+      this.windows.splice(index,1);
+    }
+
+  }
 }

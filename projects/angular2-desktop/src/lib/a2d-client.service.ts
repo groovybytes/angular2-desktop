@@ -1,10 +1,9 @@
-import {ComponentFactoryResolver, ComponentRef, Inject, Injectable, Injector, Input, TemplateRef} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {Desktop} from './model/Desktop';
 import {DesktopApplication} from './model/DesktopApplication';
-import {WindowComponent} from './window/window.component';
-import {WindowState} from './model/WindowState';
-import * as _ from 'lodash';
 import {WindowParams} from './model/WindowParams';
+import {Angular2DesktopService} from './angular2-desktop.service';
+import {WindowFactoryService} from './window-factory.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,102 +11,35 @@ import {WindowParams} from './model/WindowParams';
 export class A2dClientService {
 
   constructor(
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector,
+    private windowFactory:WindowFactoryService,
     @Inject('desktop') private desktop: Desktop) {
   }
 
 
+  getApplication<T>(id:string):DesktopApplication<T>{
+    return this.desktop.applications.find(app=>app.id===id);
+  }
 
-  addApplication(app: DesktopApplication<any>): void {
+  addApplication<T>(app: DesktopApplication<T>): void {
     this.desktop.applications.push(app);
   }
 
-  createApplication<T>(appId: string, params?: WindowParams): Promise<{windowId:string,component:T}> {
-    return new Promise((resolve,reject)=>{
-      let app = this.desktop.applications.find(app => app.id === appId);
-      if (app) {
-        let openWindows = this.desktop.getOpenWindowsForApp(app.id);
-        if (openWindows.length>0){
-          reject("app already open");
-        }
-        else{
-          let windowComponent = this.instantiateWindow(appId, params?params:app.defaultWindowParams);
-          //let the window render first
-          setTimeout(()=>{
-            let appComponent:ComponentRef<T> = this.instantiateApp<ComponentRef<T>>(app.component, windowComponent);
-            resolve({
-              windowId:windowComponent.instance.id,
-              component:appComponent.instance
-            });
-          });
-        }
+  createWindow<T>(
+    appId: string,
+    callback:(component:T)=>void,
+    params?: WindowParams): Promise<string> {
 
-      }
-      else reject('app with id ' + appId + ' not found');
-    });
-  }
-
-  openApplication<T>(appId:string):Promise<void>{
     return new Promise((resolve,reject)=>{
-      let app = this.desktop.applications.find(app=>app.id===appId);
-      if (app){
-        let openWindows = this.desktop.getOpenWindowsForApp(appId);
-        if (openWindows.length===1) {
-          openWindows[0].normalize();
-          resolve();
-        }
-        else {
-          this.createApplication<T>(app.id)
-            .then(result=>{
-              let window = this.desktop.windows.find(window => window.id === result.windowId);
-              if (window) {
-                window.normalize();
-              }
-              resolve();
-            })
-            .catch(error=>reject(error));
-        }
-      }
-      else reject("app not found");
+      this.windowFactory.createWindow(appId,callback,params)
+        .then(result=>resolve(result.windowId))
+        .catch(error=>reject(error));
     });
 
   }
 
-
-
-  private instantiateApp<T>(componentType, windowComponent):T {
-    const factory = this.resolver.resolveComponentFactory(componentType);
-    const componentRef = windowComponent.instance.appAnchor.viewContainer.createComponent(factory);
-    return componentRef;
+  openWindow(id: string): void {
+    return this.windowFactory.openWindow(id);
   }
 
-  private instantiateWindow(appId: string, params: WindowParams) {
-    const factory = this.resolver.resolveComponentFactory(WindowComponent);
-    const componentRef = this.desktop.windowContainer.createComponent(factory);
-    componentRef.instance.width = params.width;
-    componentRef.instance.height = params.height;
-    componentRef.instance.x = params.x;
-    componentRef.instance.y = params.y;
-    componentRef.instance.id = _.uniqueId('window_');
-    componentRef.instance.appId = appId;
-    componentRef.instance.title = params.title;
-    //componentRef.instance.appComponentClass=componentClass;
-    if (params.dockPosition) {
-      componentRef.instance.state = WindowState.DOCKED;
-      componentRef.instance.dockPosition = params.dockPosition;
-    }
-    else componentRef.instance.state = WindowState.CLOSED;
-    if (params.alwaysOnTop != null) componentRef.instance.alwaysOnTop = params.alwaysOnTop;
-    if (params.showWindowBtns != null) componentRef.instance.showWindowBtns = params.showWindowBtns;
-    if (params.showCloseBtnOnly != null) componentRef.instance.showCloseBtnOnly = params.showCloseBtnOnly;
-    if (params.showDockingTools != null) componentRef.instance.showDockingTools = params.showDockingTools;
-    if (params.showHeader != null) componentRef.instance.showHeader = params.showHeader;
-    if (params.alwaysOnTop != null) componentRef.instance.alwaysOnTop = params.alwaysOnTop;
-
-    componentRef.hostView.detectChanges();
-
-    return componentRef;
-  }
 
 }

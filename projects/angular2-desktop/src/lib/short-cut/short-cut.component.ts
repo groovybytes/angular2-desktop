@@ -1,7 +1,7 @@
 import {Component, HostListener, Inject, Input, OnInit} from '@angular/core';
 import {Desktop} from '../model/Desktop';
-import {DesktopWindow} from '../model/DesktopWindow';
-import {A2dClientService} from '../a2d-client.service';
+import {Angular2DesktopService} from '../angular2-desktop.service';
+import {WindowFactoryService} from '../window-factory.service';
 
 
 @Component({
@@ -12,27 +12,27 @@ import {A2dClientService} from '../a2d-client.service';
 export class ShortCutComponent implements OnInit {
 
   @Input() appId: string;
-  @Input() title: string="";
+  @Input() title: string = '';
   @Input() icon: string;
   @Input() color: string;
 
 
   @HostListener('click') onClick() {
-   this.clientService.openApplication(this.appId);
+    this.windowFactory.onShortCutTriggered(this.appId);
   }
 
 
   constructor(
     @Inject('desktop') private desktop: Desktop,
-    private clientService: A2dClientService) {
+    private windowFactory: WindowFactoryService) {
   }
 
   ngOnInit() {
 
   }
 
-  isOpen():boolean{
-    return this.desktop.getOpenWindowsForApp(this.appId).length>0;
+  isOpen(): boolean {
+    return false;//this.desktop.getOpenWindowsForApp(this.appId).length>0;
   }
 
 

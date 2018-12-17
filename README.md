@@ -3,7 +3,7 @@
 The library is built on angular 6, tested with latest chrome and firefox versions.
 It emulates a desktop environment.
 
-[demo](http://groovybytes.at:9000/)
+[demo](http://groovybytes.at:9000/demo2)
 
 ## Requirements
 
@@ -49,103 +49,183 @@ add libraries to your angular.json
 
 ## Usage
 
+### Defining applications / specifying entry components
 
- Optionally you can add 
+ In your app.component define applications :
+ 
+ 
   ```
-  public DockPosition=DockPosition;
-  public WindowState=WindowState;
+   let myGreatApp = new DesktopApplication();
+     myGreatApp.component = TestapplicationComponent;
+     myGreatApp.id = 'mygreatapp';
+     myGreatApp.title = 'mygreatapp';
+     myGreatApp.defaultWindowParams = new WindowParams(
+       null,
+       100,
+       100,
+       200,
+       200,
+       'mygreatapp'
+     );
    ```
-   in your app.component to work with the provided Enums.
-   
-   use <div class="bar-left"> to add a left bar or "bar-right","bar-bottom","bar-top"
-   
+ 
+ make sure to provide WindowComponent and your application's entry 
+ component in the entry components of your app module.
+    ```
+ entryComponents:[WindowComponent,TestapplicationComponent]
+    ```
+    
+    
+ ### Opening Applications
+ 
+ 
+ #### Using "a2d-shortcut" directive
+ 
  example:
+  ```
+  <button
+         type="button"
+         style="position:absolute;top:100px"
+         a2dShortCut
+         (initialize)="initializeComponent($event)"
+         [appId]="'mygreatapp'">i am a custom button</button>
+  ```
+  
+  #### using "a2d-desktop-shortcut" component
+  
+  example:
+  
+  ```
+   <a2d-desktop-shortcut
+        [appId]="'myotherapp'"
+        [x]="20"
+        [y]="20"
+        [width]="100"
+        [height]="50"
+        [color]="'transparent'"
+        [title]="'some link'"></a2d-desktop-shortcut>
+ ```
+       
+        
+#### Via "A2dClientService" 
+
+example:
+  
+      ```
+     this.desktopService
+             .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
+               component.param1 = '2';
+             })
+             .then(windowId => {
+               this.desktopService.openWindow(windowId);
+             });
+             
+      ```
+      
+        
+### Defining windows
+ You might also want to specify windows directly in the markup.(see examples)
+ 
+   ```
+ <a2d-window
+       [id]="'firefox'"
+       [appId]="'firefox'"
+       [title]="'firefox'"
+       [state]="WindowState.NORMAL"
+       [dockPosition]="DockPosition.LEFT"
+       [x]="400"
+       [y]="400"
+       [showWindowBtns]="true"
+       [alwaysOnTop]="false"
+       [showCloseBtnOnly]="false"
+       [showDockingTools]="true"
+       [width]="400"
+       [height]="400">
+       <div class="body">
+         <button>Some Btn</button>
+       </div>
+     </a2d-window>
+   ```
+ ### Desktop Areas
+  
+ Angular Desktop lets you specify areas in the desktop 
+ as placeholders for your html code
+ 
+ - Desktop area
+  -- provide a div inside a2d-desktop with class "desktop"
+ - bars
+  -- provide a div inside a2d-desktop with class 
+  "bar-left","bar-top","bar-right" or "bar-bottom"
+  
+  
+  
+ ##Full example:
    ```
   <a2d-desktop>
-    <div class="windows">
-      <a2d-window
-        [id]="'chrome'"
-        [title]="'google chrome'"
-        [state]="WindowState.NORMAL"
-        [x]="50"
-        [y]="50"
-        [width]="400"
-        [height]="400">
-        <div class="header">
-          Google Chrome
-        </div>
-        <div class="body">
-  
-          test
-        </div>
-      </a2d-window>
-      <a2d-window
-        [id]="'firefox'"
-        [title]="'firefox'"
-        [state]="WindowState.NORMAL"
-        [dockPosition]="DockPosition.LEFT"
-        [x]="400"
-        [y]="400"
-        [alwaysOnTop]="true"
-        [showCloseBtnOnly]="false"
-        [showDockingTools]="true"
-        [width]="400"
-        [height]="400">
-        <div class="body">
-          <button>Some Btn</button>
-        </div>
-      </a2d-window>
-      <a2d-window
-        [id]="'gmail'"
-        [title]="'google mail'"
-        [state]="WindowState.NORMAL"
-        [dockPosition]="DockPosition.LEFT"
-        [showWindowBtns]="false"
+    <div class="desktop">
+      <a2d-desktop-shortcut
+        [appId]="'myotherapp'"
+        [x]="20"
+        [y]="20"
+        [width]="100"
+        [height]="50"
+        [color]="'transparent'"
+        [title]="'some link'"></a2d-desktop-shortcut>
+      <a2d-desktop-shortcut
+        [appId]="'mygreatapp'"
         [x]="200"
-        [y]="200"
-        [width]="400"
-        [height]="400">
-        <div class="body">
-          <button>Some Btn</button>
-        </div>
-      </a2d-window>
+        [y]="20"
+        [width]="50"
+        [height]="50"
+        [title]="'firefox'"
+        [icon]="'/assets/images/icons/firefox.png'"></a2d-desktop-shortcut>
+      <a2d-desktop-shortcut
+        [appId]="'justAnotherApp'"
+        [x]="400"
+        [y]="20"
+        [width]="50"
+        [height]="50"
+        [title]="'justAnotherApp'"></a2d-desktop-shortcut>
+      <button
+        type="button"
+        style="position:absolute;top:100px"
+        a2dShortCut
+        (initialize)="initializeComponent($event)"
+        [appId]="'mygreatapp'">i am a custom button</button>
+  
+      <button
+        type="button"
+        style="position:absolute;top:200px"
+        a2dShortCut
+        (initialize)="initializeComponent($event)"
+        [linkId]="'some_link'"
+        [windowTitle]="'testTitle'"
+        [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
+      <button
+        type="button"
+        style="position:absolute;top:250px"
+        a2dShortCut
+        (initialize)="initializeComponent($event)"
+        [appId]="'justAnotherApp'">multiple instance app</button>
     </div>
     <div class="bar-top">
       <a2d-task-bar></a2d-task-bar>
     </div>
     <div class="bar-left">
-      <a2d-shortcut [windowId]="'chrome'" [icon]="'/assets/images/icons/chrome.png'"></a2d-shortcut>
-      <a2d-shortcut [windowId]="'firefox'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
-      <a2d-shortcut [windowId]="'gmail'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+  
+      <a2d-shortcut [appId]="'mygreatapp'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+      <a2d-shortcut [appId]="'myotherapp'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+  
     </div>
-  
-  
   </a2d-desktop>
 
    
    ```
    
-   inside the window tag you can define the header by using
-    ```<div class="header">some header</div> ```
 
 ### Options
 
   - a2d-desktop
-    - showTopBar: hide/show top bar
-    - showLeftBar: hide/show left bar
-
-  - a2d-window
-    - id: identifier, must match shortcut id(if provided)
-    - state: the state of the window
-    ```
-    export enum WindowState {
-      CLOSED = 0,
-      NORMAL = 1,
-      MINIMIZED = 2,
-      MAXIMIZED = 3,
-      DOCKED=4
-    }
-    ```
     
     - dockPosition: dock position of the window(when the window in docked state)
  
@@ -179,11 +259,11 @@ add libraries to your angular.json
 
 ### Styling/Themes
 
-documentation for styling is coming soon. 
-
 example theme:
 
 ```
+@import "variables";
+@import "utils";
 
 .angular2-desktop {
   background: url("/assets/images/ubuntu-wallpaper.jpg") no-repeat center center fixed;
@@ -219,14 +299,6 @@ example theme:
   color: theme-color('foreground');
 }
 
-.bar-top-container {
-
-}
-
-.bar-left-container {
-
-}
-
 .taskbar-entry {
   span {
     color: theme-color("foreground");
@@ -260,9 +332,26 @@ example theme:
     cursor: pointer;
   }
 
+}
+.desktop-shortcut {
+  .fill {
+  
+    &:hover {
+      background-color: black;
+      opacity: 0.1;
+      cursor: pointer;
+    }
+  }
+
+
+
+}
+
 ```
 
 ### Next Steps
 
 Resolve conflicts with bootstrap css
+Define applications in markup instead of using the service
+css style tweaks
 

@@ -20,7 +20,7 @@ export class DockToolsComponent implements OnInit {
 
   dock(position:DockPosition):void{
     this.desktop.getTopWindow().dockPosition.next(position);
-    this.desktop.getTopWindow().state.next(WindowState.DOCKED);
+    this.desktop.getTopWindow().dock();
     this.desktop.dockPreview.next(null);
   }
 

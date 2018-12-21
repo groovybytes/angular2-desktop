@@ -28,7 +28,7 @@
       style="position:absolute;top:100px"
       a2dShortCut
       (initialize)="initializeComponent($event)"
-      [appId]="'mygreatapp'">i am a custom button</button>
+      [appId]="'mygreatapp'">open single instance pp</button>
 
     <button
       type="button"
@@ -54,4 +54,18 @@
     <a2d-shortcut [appId]="'myotherapp'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
 
   </div>
+  <a2d-desktop-application
+    id="'new_application'"
+    title="'new_application'"
+    [singleInstanceMode]="false"
+    [open]="true"
+    [x]="300"
+    [y]="300"
+    [width]="300"
+    [height]="300"
+    (initialize)="initialize($event)"
+    [component]="TestapplicationComponent">
+
+  </a2d-desktop-application>
 </a2d-desktop>
+

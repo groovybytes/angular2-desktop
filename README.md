@@ -51,6 +51,30 @@ add libraries to your angular.json
 
 ### Defining applications / specifying entry components
 
+
+#### Using a2d-desktop-application
+
+(initialize event sends the app component as parameter)
+
+   ```
+ <a2d-desktop-application
+     id="'new_application'"
+     title="'new_application'"
+     [singleInstanceMode]="false"
+     [open]="true"
+     [x]="300"
+     [y]="300"
+     [width]="300"
+     [height]="300"
+     (initialize)="initialize($event)"
+     [component]="TestapplicationComponent">
+ 
+   </a2d-desktop-application>
+ 
+   ```
+   
+
+#### Manually using ClientService
  In your app.component define applications :
  
  
@@ -77,8 +101,9 @@ add libraries to your angular.json
     
     
  ### Opening Applications
- 
- 
+
+   
+   
  #### Using "a2d-shortcut" directive
  
  example:
@@ -111,7 +136,15 @@ add libraries to your angular.json
 
 example:
   
-      ```
+  ```
+    this.desktopService
+        .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
+          component.param1 = '2';
+       },true)
+  ```
+        
+or   
+  ```
      this.desktopService
              .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
                component.param1 = '2';
@@ -120,7 +153,9 @@ example:
                this.desktopService.openWindow(windowId);
              });
              
-      ```
+   ```
+
+
       
         
 ### Defining windows
@@ -161,65 +196,76 @@ example:
   
  ##Full example:
    ```
-  <a2d-desktop>
-    <div class="desktop">
-      <a2d-desktop-shortcut
-        [appId]="'myotherapp'"
-        [x]="20"
-        [y]="20"
-        [width]="100"
-        [height]="50"
-        [color]="'transparent'"
-        [title]="'some link'"></a2d-desktop-shortcut>
-      <a2d-desktop-shortcut
-        [appId]="'mygreatapp'"
-        [x]="200"
-        [y]="20"
-        [width]="50"
-        [height]="50"
-        [title]="'firefox'"
-        [icon]="'/assets/images/icons/firefox.png'"></a2d-desktop-shortcut>
-      <a2d-desktop-shortcut
-        [appId]="'justAnotherApp'"
-        [x]="400"
-        [y]="20"
-        [width]="50"
-        [height]="50"
-        [title]="'justAnotherApp'"></a2d-desktop-shortcut>
-      <button
-        type="button"
-        style="position:absolute;top:100px"
-        a2dShortCut
-        (initialize)="initializeComponent($event)"
-        [appId]="'mygreatapp'">i am a custom button</button>
-  
-      <button
-        type="button"
-        style="position:absolute;top:200px"
-        a2dShortCut
-        (initialize)="initializeComponent($event)"
-        [linkId]="'some_link'"
-        [windowTitle]="'testTitle'"
-        [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
-      <button
-        type="button"
-        style="position:absolute;top:250px"
-        a2dShortCut
-        (initialize)="initializeComponent($event)"
-        [appId]="'justAnotherApp'">multiple instance app</button>
-    </div>
-    <div class="bar-top">
-      <a2d-task-bar></a2d-task-bar>
-    </div>
-    <div class="bar-left">
-  
-      <a2d-shortcut [appId]="'mygreatapp'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
-      <a2d-shortcut [appId]="'myotherapp'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
-  
-    </div>
-  </a2d-desktop>
-
-   
+ <a2d-desktop>
+   <div class="desktop">
+     <a2d-desktop-shortcut
+       [appId]="'myotherapp'"
+       [x]="20"
+       [y]="20"
+       [width]="100"
+       [height]="50"
+       [color]="'transparent'"
+       [title]="'some link'"></a2d-desktop-shortcut>
+     <a2d-desktop-shortcut
+       [appId]="'mygreatapp'"
+       [x]="200"
+       [y]="20"
+       [width]="50"
+       [height]="50"
+       [title]="'firefox'"
+       [icon]="'/assets/images/icons/firefox.png'"></a2d-desktop-shortcut>
+     <a2d-desktop-shortcut
+       [appId]="'justAnotherApp'"
+       [x]="400"
+       [y]="20"
+       [width]="50"
+       [height]="50"
+       [title]="'justAnotherApp'"></a2d-desktop-shortcut>
+     <button
+       type="button"
+       style="position:absolute;top:100px"
+       a2dShortCut
+       (initialize)="initializeComponent($event)"
+       [appId]="'mygreatapp'">open single instance pp</button>
+ 
+     <button
+       type="button"
+       style="position:absolute;top:200px"
+       a2dShortCut
+       (initialize)="initializeComponent($event)"
+       [linkId]="'some_link'"
+       [windowTitle]="'testTitle'"
+       [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
+     <button
+       type="button"
+       style="position:absolute;top:250px"
+       a2dShortCut
+       (initialize)="initializeComponent($event)"
+       [appId]="'justAnotherApp'">multiple instance app</button>
+   </div>
+   <div class="bar-top">
+     <a2d-task-bar></a2d-task-bar>
+   </div>
+   <div class="bar-left">
+ 
+     <a2d-shortcut [appId]="'mygreatapp'" [icon]="'/assets/images/icons/firefox.png'"></a2d-shortcut>
+     <a2d-shortcut [appId]="'myotherapp'" [icon]="'/assets/images/icons/gmail.png'"></a2d-shortcut>
+ 
+   </div>
+   <a2d-desktop-application
+     id="'new_application'"
+     title="'new_application'"
+     [singleInstanceMode]="false"
+     [open]="true"
+     [x]="300"
+     [y]="300"
+     [width]="300"
+     [height]="300"
+     (initialize)="initialize($event)"
+     [component]="TestapplicationComponent">
+ 
+   </a2d-desktop-application>
+ </a2d-desktop>
    ```
    
 

@@ -1,8 +1,20 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, HostBinding, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ContentChildren,
+  ElementRef,
+  HostBinding,
+  Inject,
+  OnDestroy,
+  OnInit, QueryList,
+  ViewChild
+} from '@angular/core';
 import {Desktop} from './model/Desktop';
 import {DockPosition} from './model/DockPosition';
 import {Subscription} from 'rxjs';
 import {DynamicWindowAnchorDirective} from './dynamic-window-anchor.directive';
+import {DesktopApplicationComponent} from './desktop-application/desktop-application.component';
 
 
 @Component({
@@ -28,7 +40,7 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
   @ViewChild('bottomBar') bottomBar: ElementRef;
   @ViewChild(DynamicWindowAnchorDirective)
   windowAnchor: DynamicWindowAnchorDirective;
-  //@ContentChildren(ApplicationComponent) applications: QueryList<ApplicationComponent>;
+  @ContentChildren(DesktopApplicationComponent) applications: QueryList<DesktopApplicationComponent>;
 
 
   private subscriptions: Array<Subscription> = [];
@@ -64,9 +76,11 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
 
   ngAfterContentInit(): void {
 
+
   }
 
   ngAfterViewInit(): void {
+
     this.desktop.windowContainer=this.windowAnchor.viewContainer;
     setTimeout(() => {
       this.topBarVisible = this.topBar.nativeElement.children.length > 1;
@@ -74,6 +88,12 @@ export class Angular2DesktopComponent implements OnInit, OnDestroy, AfterContent
       this.rightBarVisible = this.rightBar.nativeElement.children.length > 1;
       this.bottomBarVisible = this.bottomBar.nativeElement.children.length > 1;
     });
+
+    setTimeout(()=>{
+      this.desktop.ready.next(true);
+      this.desktop.ready.complete();
+    },500);
+
 
   }
 

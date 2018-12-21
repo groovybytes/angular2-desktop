@@ -3,6 +3,7 @@ import {A2dClientService} from '../../../projects/angular2-desktop/src/lib/a2d-c
 import {DesktopApplication} from '../../../projects/angular2-desktop/src/lib/model/DesktopApplication';
 import {TestapplicationComponent} from '../testapplication/testapplication.component';
 import {WindowParams} from '../../../projects/angular2-desktop/src/lib/model/WindowParams';
+import {DockPosition} from '../../../projects/angular2-desktop/src/lib/model/DockPosition';
 
 @Component({
   selector: 'app-demo2',
@@ -11,6 +12,8 @@ import {WindowParams} from '../../../projects/angular2-desktop/src/lib/model/Win
 })
 export class Demo2Component implements OnInit {
 
+
+  TestapplicationComponent=TestapplicationComponent;
 
   constructor(private desktopService: A2dClientService) {
   }
@@ -21,7 +24,7 @@ export class Demo2Component implements OnInit {
     myGreatApp.id = 'mygreatapp';
     myGreatApp.title = 'mygreatapp';
     myGreatApp.defaultWindowParams = new WindowParams(
-      null,
+      DockPosition.BOTTOM,
       100,
       100,
       200,
@@ -64,22 +67,23 @@ export class Demo2Component implements OnInit {
 
     this.desktopService.addApplication(myOtherApp);
 
-    //now lets open the application from the beginning
-    //we use settimeout here to ensure the democomponent is rendered before we add our app
-    setTimeout(() => {
-      this.desktopService
-        .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
-          component.param1 = '2';
-        })
-        .then(windowId => {
-          this.desktopService.openWindow(windowId);
-        });
-    });
+    this.desktopService
+      .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
+        component.param1 = '2';
+      },true)
+      .then(windowId => {
+
+      });
+  }
+
+  initialize(component:TestapplicationComponent):void{
+    component.param1="initialized with 'a2d-desktop-application'";
   }
 
   initializeComponent(event:{component:TestapplicationComponent,windowId:string}):void{
     event.component.param1="initialized by directive";
   }
+
 
 
 

@@ -81,7 +81,6 @@ export class DesktopWindow {
     return !this.hide && this.state.getValue() !== WindowState.CLOSING && this.state.getValue() !== WindowState.MINIMIZED;
   }
 
-
   isOpen(): boolean {
     return this.state.getValue() !== WindowState.CLOSING;
   }
@@ -112,6 +111,19 @@ export class DesktopWindow {
       this.updateClass();
     }, this.animationTimeout);
   }
+
+  dock(): void {
+    this.state.next(WindowState.DOCKED);
+    this.hide = false;
+    this.updateClass();
+
+  }
+
+  open():void {
+    if (this.state.getValue() === WindowState.DOCKED) this.dock();
+    else this.normalize();
+  }
+
 
   maximize(): void {
     this.clazz += ' animation maximize';

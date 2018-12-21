@@ -7,6 +7,7 @@ export * from './lib/a2d-client.service';
 export * from './lib/window/window.component';
 export * from './lib/short-cut/short-cut.component';
 export * from './lib/short-cut.directive';
+export * from './lib/desktop-application/desktop-application.component';
 export * from './lib/desktop-shortcut/desktop-shortcut.component';
 export * from './lib/task-bar/task-bar.component';
 export * from './lib/bar/bar.component';

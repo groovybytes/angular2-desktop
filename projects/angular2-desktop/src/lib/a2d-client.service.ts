@@ -11,13 +11,13 @@ import {WindowFactoryService} from './window-factory.service';
 export class A2dClientService {
 
   constructor(
-    private windowFactory:WindowFactoryService,
+    private windowFactory: WindowFactoryService,
     @Inject('desktop') private desktop: Desktop) {
   }
 
 
-  getApplication<T>(id:string):DesktopApplication<T>{
-    return this.desktop.applications.find(app=>app.id===id);
+  getApplication<T>(id: string): DesktopApplication<T> {
+    return this.desktop.applications.find(app => app.id === id);
   }
 
   addApplication<T>(app: DesktopApplication<T>): void {
@@ -26,20 +26,30 @@ export class A2dClientService {
 
   createWindow<T>(
     appId: string,
-    callback:(component:T)=>void,
-    windowTitle?:string,
+    callback: (component: T) => void,
+    open?: boolean,
+    windowTitle?: string,
     params?: WindowParams): Promise<string> {
 
-    return new Promise((resolve,reject)=>{
-      this.windowFactory.createWindow(appId,callback,windowTitle,params)
-        .then(result=>resolve(result.windowId))
-        .catch(error=>reject(error));
+
+    return new Promise((resolve, reject) => {
+
+      this.windowFactory.createWindow(appId, callback, windowTitle, params)
+        .then(result => {
+          if (open) {
+            this.openWindow(result.windowId);
+          }
+          resolve(result.windowId);
+        })
+        .catch(error => reject(error));
+
+
     });
 
   }
 
-  openWindow(id: string): void {
-    return this.windowFactory.openWindow(id);
+  openWindow(id: string, docked?: boolean): void {
+    return this.windowFactory.openWindow(id, docked);
   }
 
 

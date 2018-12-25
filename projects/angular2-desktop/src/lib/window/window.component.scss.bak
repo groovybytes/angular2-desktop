@@ -1,0 +1,75 @@
+@import "../scss/variables";
+@import "../scss/docking";
+@import "../scss/animations";
+
+.window {
+  position: absolute;
+  background-color: white;
+  display: grid;
+  grid-column-gap: 0;
+  grid-template-columns: auto;
+  padding: 0;
+  grid-template-rows: auto 1fr;
+}
+
+.window-header {
+  background-color: black;
+  height: $window-header-height;
+}
+
+.window-body {
+  overflow: auto;
+}
+
+.window-maximized {
+  transform: translate(0, 0) !important;
+  height: 100% !important;
+  width: 100% !important;
+
+}
+.window-minimized{
+  //opacity: 0;
+}
+
+.custom-header{
+  display: inline-block;
+  width: 70%;
+  height:100%;
+}
+.button-header{
+  display: inline-block;
+  width: 30%;
+}
+
+gb-dock-tools {
+  margin-top: $window-header-height;
+  position: absolute;
+  width: 100%;
+}
+
+:host{
+
+}
+:host /deep/ {
+  .body {
+    padding: $body-padding;
+
+  }
+
+  .window-btn {
+    border-radius: 50%;
+    height:25px;
+    width:25px;
+    cursor: pointer;
+    margin-left:2px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.danger{
+      background-image: none;
+    }
+  }
+
+}

@@ -69,19 +69,32 @@ export class Demo2Component implements OnInit {
 
     this.desktopService
       .createWindow<TestapplicationComponent>('mygreatapp',(component: TestapplicationComponent)=>{
-        component.param1 = '2';
+        return new Promise<void>((resolve => {
+          component.param1 = '2';
+        }));
+
       },true)
       .then(windowId => {
 
       });
+
   }
 
-  initialize(component:TestapplicationComponent):void{
-    component.param1="initialized with 'a2d-desktop-application'";
+  initialize(component:TestapplicationComponent):Promise<void>{
+    return new Promise<void>(((resolve, reject) => {
+      component.param1="initialized with 'a2d-desktop-application'";
+      resolve();
+    }));
+
+
   }
 
-  initializeComponent(event:{component:TestapplicationComponent,windowId:string}):void{
-    event.component.param1="initialized by directive";
+  initializeComponent(event:{component:TestapplicationComponent,windowId:string}):Promise<void>{
+    return new Promise<void>(((resolve, reject) => {
+      event.component.param1="initialized by directive";
+      resolve();
+    }));
+
   }
 
 

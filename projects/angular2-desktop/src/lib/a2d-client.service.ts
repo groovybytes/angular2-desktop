@@ -20,13 +20,23 @@ export class A2dClientService {
     return this.desktop.applications.find(app => app.id === id);
   }
 
+
+  trigger(appId: string,
+                      windowTitle?: string,
+                      linkId?: string,
+                      callback?: (component: any, windowId: string) => void): Promise<void> {
+   return null;
+   //return this.windowFactory.onShortCutTriggered(appId,windowTitle,linkId,callback);
+
+  }
+
   addApplication<T>(app: DesktopApplication<T>): void {
     this.desktop.applications.push(app);
   }
 
   createWindow<T>(
     appId: string,
-    callback: (component: T) => void,
+    callback: (component: T) => Promise<void>,
     open?: boolean,
     windowTitle?: string,
     params?: WindowParams): Promise<string> {

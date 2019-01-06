@@ -27,14 +27,14 @@
       type="button"
       style="position:absolute;top:100px"
       a2dShortCut
-      (initialize)="initializeComponent($event)"
+      (initialize)="initializeComponent"
       [appId]="'mygreatapp'">open single instance pp</button>
 
     <button
       type="button"
       style="position:absolute;top:200px"
       a2dShortCut
-      (initialize)="initializeComponent($event)"
+      (initialize)="initializeComponent"
       [linkId]="'some_link'"
       [windowTitle]="'testTitle'"
       [appId]="'justAnotherApp'">multiple instance app but shortcut attached to one window</button>
@@ -42,7 +42,7 @@
       type="button"
       style="position:absolute;top:250px"
       a2dShortCut
-      (initialize)="initializeComponent($event)"
+      (initialize)="initializeComponent"
       [appId]="'justAnotherApp'">multiple instance app</button>
   </div>
   <div class="bar-top">
@@ -63,7 +63,7 @@
     [y]="300"
     [width]="300"
     [height]="300"
-    (initialize)="initialize($event)"
+    (initialize)="initialize"
     [component]="TestapplicationComponent">
 
   </a2d-desktop-application>

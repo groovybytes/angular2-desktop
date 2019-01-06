@@ -10,7 +10,7 @@ export class ShortCutDirective {
   @Input() appId: string;
   @Input() linkId: string;
   @Input() windowTitle: string;
-  @Output() initialize: EventEmitter<{ component: any, windowId: string }> = new EventEmitter();
+  @Input() initialize:(event)=>Promise<void>;
 
   //private windowId: string;
 
@@ -32,8 +32,7 @@ export class ShortCutDirective {
   private trigger(windowTitle?: string): void {
 
     this.windowFactory
-      .onShortCutTriggered(this.appId, windowTitle, this.linkId, (component, windowId) =>
-        this.initialize.emit({component: component, windowId: windowId}))
+      .onShortCutTriggered(this.appId, windowTitle, this.linkId, this.initialize?(component)=>this.initialize(component):null)
       .catch(error => console.warn(error));
 
   }

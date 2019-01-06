@@ -21,7 +21,7 @@ export class DesktopApplicationComponent implements OnInit {
   @Input() y: number;
   @Input() width: number;
   @Input() height: number;
-  @Output() initialize:EventEmitter<any>=new EventEmitter();
+  @Input() initialize:(event)=>Promise<void>;
 
 
   constructor(private windowFactory: WindowFactoryService,
@@ -49,8 +49,8 @@ export class DesktopApplicationComponent implements OnInit {
       if (this.open){
         this.windowFactory.createWindow(
           this.id,
-          (component)=>this.initialize.emit(component)
-          ,this.title,app.defaultWindowParams)
+          this.initialize?(component)=>this.initialize(component):null,
+          this.title,app.defaultWindowParams)
           .then(result=>{
             this.windowFactory.openWindow(result.windowId,this.dockPosition!=null);
           })

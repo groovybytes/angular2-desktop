@@ -26,7 +26,7 @@ export class WindowFactoryService {
 
   createWindow<T>(
     appId: string,
-    callback: (component: T, windowId: string) => void,
+    callback: (component: T, windowId: string) => Promise<void>,
     title?: string,
     params?: WindowParams): Promise<{ windowId: string, component: T }> {
 
@@ -39,14 +39,26 @@ export class WindowFactoryService {
             .then((windowComponent) => {
               if (title) windowComponent.instance.updateTitle(title);
               let appComponent: ComponentRef<T> = this.instantiateApp<ComponentRef<T>>(app.component, windowComponent);
-              if (callback) callback(appComponent.instance, windowComponent.instance.id);
-              appComponent.hostView.detectChanges();
-              resolve({
-                windowId: windowComponent.instance.id,
-                component: appComponent.instance
-              });
+              let finish=()=>{
+                appComponent.hostView.detectChanges();
+                resolve({
+                  windowId: windowComponent.instance.id,
+                  component: appComponent.instance
+                });
+              };
+
+              if (callback) {
+                callback(appComponent.instance, windowComponent.instance.id)
+                  .then(() => {
+                    finish();
+                  })
+                  .catch(error=>reject(error));
+              }
+              else{
+                finish();
+              }
             })
-            .catch(error=>console.error(error));
+            .catch(error=>reject(error));
 
         } else reject('app with id ' + appId + ' not found');
       });
@@ -73,7 +85,7 @@ export class WindowFactoryService {
   onShortCutTriggered(appId: string,
                       windowTitle?: string,
                       linkId?: string,
-                      callback?: (component: any, windowId: string) => void): Promise<void> {
+                      callback?: (component: any, windowId: string) => Promise<void>): Promise<void> {
 
     return new Promise((resolve, reject) => {
       let app = this.desktop.applications.find(app => app.id === appId);
